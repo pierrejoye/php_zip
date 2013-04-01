@@ -13,19 +13,18 @@
   <date>2013-04-01</date>
   <time>19:25:04</time>
   <version>
-    <release>1.11.0</release>
-    <api>2.0.0</api>
+    <release>1.12.0</release>
+    <api>2.1.0</api>
   </version>
   <stability>
     <release>beta</release>
     <api>stable</api>
   </stability>
   <license uri="http://www.php.net/license">PHP License</license>
-  <notes>- Added Zip64 support (large file support)
-- Added UTF-8 support for file names, file comments, and archive comments
-- Added zip_discard()
-- Added ZIP_TRUNCATE for zip_open()
-- Added zip_set_file_compression()</notes>
+  <notes>- Added setPassword method, support for crypted archives
+   . uncompress only
+   . AES and ZipCrypto
+</notes>
   <contents>
     <dir name="/">
       <file name="lib/zip_add.c" role="src"/>
@@ -115,7 +114,7 @@
       <file name="lib/zipconf.h" role="src"/>
       <file name="lib/zip.h" role="src"/>
       <file name="lib/zipint.h" role="src"/>
-	  <file name="lib/config..w32.h" role="src"/>
+      <file name="lib/php_zip_config.w32.h" role="src"/>
       <file name="examples/odt.php" role="doc"/>
       <file name="examples/test_with_comment.zip" role="doc"/>
       <file name="examples/test.zip" role="doc"/>
@@ -205,6 +204,24 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2013-04-01</date>
+      <time>19:25:04</time>
+      <version>
+        <release>1.11.0</release>
+        <api>2.1.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>- Added Zip64 support (large file support)
+- Added UTF-8 support for file names, file comments, and archive comments
+- Added zip_discard()
+- Added ZIP_TRUNCATE for zip_open()
+- Added zip_set_file_compression()</notes>
+    </release>
     <release>
       <version>
         <release>1.10.2</release>
