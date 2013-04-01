@@ -1523,6 +1523,38 @@ static ZIPARCHIVE_METHOD(open)
 }
 /* }}} */
 
+/* {{{ proto resource ZipArchive::setPassword(string password)
+Set the password for the active archive */
+static ZIPARCHIVE_METHOD(setPassword)
+{
+	struct zip *intern;
+	zval *this = getThis();
+	char *password;
+	int	password_len;
+
+	if (!this) {
+		RETURN_FALSE;
+	}
+
+	ZIP_FROM_OBJECT(intern, this);
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &password, &password_len) == FAILURE) {
+		return;
+	}
+
+	if (password_len < 1) {
+		RETURN_FALSE;
+	} else {
+		int res = zip_set_default_password(intern, (const char *)password);
+		if (res == 0) {
+			RETURN_TRUE;
+		} else {
+			RETURN_FALSE;
+		}
+	}
+}
+/* }}} */
+
 /* {{{ proto bool ZipArchive::close()
 close the zip archive */
 static ZIPARCHIVE_METHOD(close)
@@ -2602,6 +2634,10 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_open, 0, 0, 1)
 	ZEND_ARG_INFO(0, flags)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setpassword, 0, 0, 1)
+	ZEND_ARG_INFO(0, password)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO(arginfo_ziparchive__void, 0)
 ZEND_END_ARG_INFO()
 
@@ -2714,6 +2750,7 @@ ZEND_END_ARG_INFO()
 /* {{{ ze_zip_object_class_functions */
 static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(open,					arginfo_ziparchive_open, ZEND_ACC_PUBLIC)
+	ZIPARCHIVE_ME(setPassword,			arginfo_ziparchive_setpassword, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(close,				arginfo_ziparchive__void, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getStatusString,		arginfo_ziparchive__void, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(addEmptyDir,			arginfo_ziparchive_addemptydir, ZEND_ACC_PUBLIC)
