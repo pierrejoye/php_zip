@@ -115,6 +115,7 @@
       <file name="lib/zipconf.h" role="src"/>
       <file name="lib/zip.h" role="src"/>
       <file name="lib/zipint.h" role="src"/>
+	  <file name="lib/config..w32.h" role="src"/>
       <file name="examples/odt.php" role="doc"/>
       <file name="examples/test_with_comment.zip" role="doc"/>
       <file name="examples/test.zip" role="doc"/>
