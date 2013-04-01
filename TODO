@@ -1,0 +1,2 @@
+- crypt support for zip (read and write)
+- Iterators
