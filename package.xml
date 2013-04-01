@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.8.0" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+  <name>zip</name>
+  <channel>pecl.php.net</channel>
+  <summary>A zip management extension</summary>
+  <description>Zip is an extension to create, modify and read zip files.</description>
+  <lead>
+    <name>Pierre-Alain Joye</name>
+    <user>pajoye</user>
+    <email>pajoye@php.net</email>
+    <active>yes</active>
+  </lead>
+  <date>2013-04-01</date>
+  <time>19:25:04</time>
+  <version>
+    <release>1.11.0</release>
+    <api>2.0.0</api>
+  </version>
+  <stability>
+    <release>beta</release>
+    <api>stable</api>
+  </stability>
+  <license uri="http://www.php.net/license">PHP License</license>
+  <notes>- Added Zip64 support (large file support)
+- Added UTF-8 support for file names, file comments, and archive comments
+- Added zip_discard()
+- Added ZIP_TRUNCATE for zip_open()
+- Added zip_set_file_compression()</notes>
+  <contents>
+    <dir name="/">
+      <file name="lib/zip_add.c" role="src"/>
+      <file name="lib/zip_add_dir.c" role="src"/>
+      <file name="lib/zip_add_entry.c" role="src"/>
+      <file name="lib/zip_close.c" role="src"/>
+      <file name="lib/zip_delete.c" role="src"/>
+      <file name="lib/zip_dir_add.c" role="src"/>
+      <file name="lib/zip_dirent.c" role="src"/>
+      <file name="lib/zip_discard.c" role="src"/>
+      <file name="lib/zip_entry.c" role="src"/>
+      <file name="lib/zip_err_str.c" role="src"/>
+      <file name="lib/zip_error.c" role="src"/>
+      <file name="lib/zip_error_clear.c" role="src"/>
+      <file name="lib/zip_error_get.c" role="src"/>
+      <file name="lib/zip_error_get_sys_type.c" role="src"/>
+      <file name="lib/zip_error_strerror.c" role="src"/>
+      <file name="lib/zip_error_to_str.c" role="src"/>
+      <file name="lib/zip_extra_field.c" role="src"/>
+      <file name="lib/zip_extra_field_api.c" role="src"/>
+      <file name="lib/zip_fclose.c" role="src"/>
+      <file name="lib/zip_fdopen.c" role="src"/>
+      <file name="lib/zip_file_add.c" role="src"/>
+      <file name="lib/zip_file_error_clear.c" role="src"/>
+      <file name="lib/zip_file_error_get.c" role="src"/>
+      <file name="lib/zip_file_get_comment.c" role="src"/>
+      <file name="lib/zip_file_get_offset.c" role="src"/>
+      <file name="lib/zip_file_rename.c" role="src"/>
+      <file name="lib/zip_file_replace.c" role="src"/>
+      <file name="lib/zip_file_set_comment.c" role="src"/>
+      <file name="lib/zip_file_strerror.c" role="src"/>
+      <file name="lib/zip_filerange_crc.c" role="src"/>
+      <file name="lib/zip_fopen.c" role="src"/>
+      <file name="lib/zip_fopen_encrypted.c" role="src"/>
+      <file name="lib/zip_fopen_index.c" role="src"/>
+      <file name="lib/zip_fopen_index_encrypted.c" role="src"/>
+      <file name="lib/zip_fread.c" role="src"/>
+      <file name="lib/zip_get_archive_comment.c" role="src"/>
+      <file name="lib/zip_get_archive_flag.c" role="src"/>
+      <file name="lib/zip_get_compression_implementation.c" role="src"/>
+      <file name="lib/zip_get_encryption_implementation.c" role="src"/>
+      <file name="lib/zip_get_file_comment.c" role="src"/>
+      <file name="lib/zip_get_name.c" role="src"/>
+      <file name="lib/zip_get_num_entries.c" role="src"/>
+      <file name="lib/zip_get_num_files.c" role="src"/>
+      <file name="lib/zip_memdup.c" role="src"/>
+      <file name="lib/zip_name_locate.c" role="src"/>
+      <file name="lib/zip_new.c" role="src"/>
+      <file name="lib/zip_open.c" role="src"/>
+      <file name="lib/zip_rename.c" role="src"/>
+      <file name="lib/zip_replace.c" role="src"/>
+      <file name="lib/zip_set_archive_comment.c" role="src"/>
+      <file name="lib/zip_set_archive_flag.c" role="src"/>
+      <file name="lib/zip_set_default_password.c" role="src"/>
+      <file name="lib/zip_set_file_comment.c" role="src"/>
+      <file name="lib/zip_set_file_compression.c" role="src"/>
+      <file name="lib/zip_set_name.c" role="src"/>
+      <file name="lib/zip_source_buffer.c" role="src"/>
+      <file name="lib/zip_source_close.c" role="src"/>
+      <file name="lib/zip_source_crc.c" role="src"/>
+      <file name="lib/zip_source_deflate.c" role="src"/>
+      <file name="lib/zip_source_error.c" role="src"/>
+      <file name="lib/zip_source_file.c" role="src"/>
+      <file name="lib/zip_source_filep.c" role="src"/>
+      <file name="lib/zip_source_free.c" role="src"/>
+      <file name="lib/zip_source_function.c" role="src"/>
+      <file name="lib/zip_source_layered.c" role="src"/>
+      <file name="lib/zip_source_open.c" role="src"/>
+      <file name="lib/zip_source_pkware.c" role="src"/>
+      <file name="lib/zip_source_pop.c" role="src"/>
+      <file name="lib/zip_source_read.c" role="src"/>
+      <file name="lib/zip_source_stat.c" role="src"/>
+      <file name="lib/zip_source_window.c" role="src"/>
+      <file name="lib/zip_source_zip.c" role="src"/>
+      <file name="lib/zip_source_zip_new.c" role="src"/>
+      <file name="lib/zip_stat.c" role="src"/>
+      <file name="lib/zip_stat_index.c" role="src"/>
+      <file name="lib/zip_stat_init.c" role="src"/>
+      <file name="lib/zip_strerror.c" role="src"/>
+      <file name="lib/zip_string.c" role="src"/>
+      <file name="lib/zip_unchange.c" role="src"/>
+      <file name="lib/zip_unchange_all.c" role="src"/>
+      <file name="lib/zip_unchange_archive.c" role="src"/>
+      <file name="lib/zip_unchange_data.c" role="src"/>
+      <file name="lib/zip_utf-8.c" role="src"/>
+      <file name="lib/mkstemp.c" role="src"/>
+      <file name="lib/zipconf.h" role="src"/>
+      <file name="lib/zip.h" role="src"/>
+      <file name="lib/zipint.h" role="src"/>
+      <file name="examples/odt.php" role="doc"/>
+      <file name="examples/test_with_comment.zip" role="doc"/>
+      <file name="examples/test.zip" role="doc"/>
+      <file name="examples/test1.zip" role="doc"/>
+      <file name="examples/oldapi.php" role="doc"/>
+      <file name="examples/create.php" role="doc"/>
+      <file name="examples/dir.php" role="doc"/>
+      <file name="examples/extract.php" role="doc"/>
+      <file name="examples/extractAll.php" role="doc"/>
+      <file name="examples/fopen.php" role="doc"/>
+      <file name="examples/too.php" role="doc"/>
+      <file name="examples/comment.php" role="doc"/>
+      <file name="examples/get_set_comments.php" role="doc"/>
+      <file name="examples/addglob.php" role="doc"/>
+      <file name="examples/addpattern.php" role="doc"/>
+      <file name="tests/utils.inc" role="test"/>
+      <file name="tests/001.phpt" role="test"/>
+      <file name="tests/oo_ext_zip.phpt" role="test"/>
+      <file name="tests/oo_open.phpt" role="test"/>
+      <file name="tests/oo_close.phpt" role="test"/>
+      <file name="tests/oo_addfile.phpt" role="test"/>
+      <file name="tests/oo_delete.phpt" role="test"/>
+      <file name="tests/oo_rename.phpt" role="test"/>
+      <file name="tests/oo_namelocate.phpt" role="test"/>
+      <file name="tests/test_procedural.zip" role="test"/>
+      <file name="tests/zip_close.phpt" role="test"/>
+      <file name="tests/zip_entry_compressedsize.phpt" role="test"/>
+      <file name="tests/zip_entry_compressionmethod.phpt" role="test"/>
+      <file name="tests/zip_entry_filesize.phpt" role="test"/>
+      <file name="tests/zip_entry_name.phpt" role="test"/>
+      <file name="tests/zip_entry_open.phpt" role="test"/>
+      <file name="tests/zip_entry_read.phpt" role="test"/>
+      <file name="tests/zip_open.phpt" role="test"/>
+      <file name="tests/zip_read.phpt" role="test"/>
+      <file name="tests/bug7214.phpt" role="test"/>
+      <file name="tests/bug7658.phpt" role="test"/>
+      <file name="tests/bug7658.odt" role="test"/>
+      <file name="tests/bug8009.phpt" role="test"/>
+      <file name="tests/bug8009.zip" role="test"/>
+      <file name="tests/bug8700.phpt" role="test"/>
+      <file name="tests/binarynull.zip" role="test"/>
+      <file name="tests/test.zip" role="test"/>
+      <file name="tests/bug38943.phpt" role="test"/>
+      <file name="tests/bug38943_2.phpt" role="test"/>
+      <file name="tests/bug38943.inc" role="test"/>
+      <file name="tests/bug38944.phpt" role="test"/>
+      <file name="tests/oo_addemptydir.phpt" role="test"/>
+      <file name="tests/oo_extract.phpt" role="test"/>
+      <file name="tests/oo_getcomment.phpt" role="test"/>
+      <file name="tests/oo_getnameindex.phpt" role="test"/>
+      <file name="tests/oo_setcomment.phpt" role="test"/>
+      <file name="tests/oo_stream.phpt" role="test"/>
+      <file name="tests/test_with_comment.zip" role="test"/>
+      <file name="tests/pecl12414.phpt" role="test"/>
+      <file name="tests/pecl12414.zip" role="test"/>
+      <file name="tests/bug49072.phpt" role="test"/>
+      <file name="tests/bug49072.zip" role="test"/>
+      <file name="tests/bug14962.phpt" role="test"/>
+      <file name="tests/bug53854.phpt" role="test"/>
+      <file name="tests/bug53579.phpt" role="test"/>
+      <file name="tests/stream_meta_data.phpt" role="test"/>
+      <file name="tests/bug47667.phpt" role="test"/>
+      <file name="tests/zip_open_error.phpt" role="test"/>
+      <file name="tests/oo_getstatusstring.phpt" role="test"/>
+      <file name="tests/bug53603.phpt" role="test"/>
+      <file name="tests/bug53885.phpt" role="test"/>
+      <file name="config.m4" role="src"/>
+      <file name="config.w32" role="src"/>
+      <file name="CREDITS" role="doc"/>
+      <file name="php_zip.c" role="src">
+        <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info"/>
+      </file>
+      <file name="zip_stream.c" role="src"/>
+      <file name="php_zip.h" role="src"/>
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>4.3.0</min>
+      </php>
+      <pearinstaller>
+        <min>1.7.0</min>
+      </pearinstaller>
+    </required>
+  </dependencies>
+  <providesextension>zip</providesextension>
+  <extsrcrelease/>
+  <changelog>
+    <release>
+      <version>
+        <release>1.10.2</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2009-08-11</date>
+      <time>19:25:04</time>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- #49072, feof never returns true for damaged file in zip 
+- Fix possible crash when zip stream are used, the file entry stream was desroyed after the archive.
+ </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.10.1</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2009-07-20</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- #48763, ZipArchive produces corrupted archive (dani dot church at gmail dot com)
+- Fixed regression in the overwrite mode
+- Fixed binary mode with FCGI on Windows
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.10.0</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2008-12-24</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- #12965, archive files with many root entries cannot be opened
+- #12414, extracting files from damaged archives
+- fix test for OOo stream test
+- Sync Code with 0.8.x  (and port our php zip fixes)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.9.1</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2007-01-18</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- #40228, extractTo does not create recursive empty path (empty1/empty2/)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.9.0</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2007-01-18</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- fix some memleaks and double-free()s on error conditions (Nuno Lopes)
+- Add experimental support for addGlob and addPattern. They use respectively
+glob or regexp patterns to add entries. They also accept options like remove_path
+, add_path or remove_all_path. See the examples addglob and addpattern.php
+- requires pcre
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.8.4</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-12-17</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Use phplibdir in config.m4 (for lib64 or other custom location)
+- Add path length sanity checks (Ilia, Tony)
+- Update year, happy new year
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.8.3</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-12-17</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Fixed threadsafe issue with localtime function, it uses now the
+ php php_localtime_r (Ron Korving, Ilia)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.8.2</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-12-02</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- restore compatibility with php 5.1.0 to 5.1.2 (other versions are not affected)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.8.1</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-11-28</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- PECL #9278, Binary access issues on Windows in any SAPI but CGI, CLI and embed
+(windows API does not respect "b" mode given to fopen)
+- Fixed a possible leak in the entries managements (Nuno Lopes)
+- createEmptyDir returns true one success
+- Use static for each internal functions when possible (Nuno Lopes)
+- Update protos in the sources
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.8.0</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-11-01</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Fixed a possible leak in statName and statIndex
+- Added zipArchive::adEmptyDir() method, creates an empty directory
+- Fixed setComment when used with a freshly added entry
+- setComment now returns the expected value (boolean) (Hannes)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.7.5</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-10-25</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- PECL Bug #9082, wrong entry name like "a/b//file.txt" cannot be extracted on windows
+  A "bug" in php mkdir was the cause, a work around has been introduced for php versions before 5.2.0
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.7.4</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-09-27</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- PHP Bug #38943, properties in extended class cannot be set
+- PHP Bug #38944, freshly created archive has no comment or cdir
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.7.3</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-09-16</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- PECL Bug #8700, zipArchive::getFromIndex fails
+- PECL Bug #8676, zipArchive::addFile was not updated and still used VCWD_REALPATH, it now uses expand_filename
+- Fixed wrong internal types for comment lenghts, does not affect userland script (Nuno Lopes)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>2.0.0</release>
+        <api>2.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <date>2006-09-06</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Fix wrong internal types for comment lenghts, does not affect userland script (Nuno Lopes)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.7.2</release>
+        <api>1.7.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2006-08-24</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Previous release was broken in non threaded environment.
+This release works smoothly in threaded and non threaded.
+Thanks to "FamilleCollet dot com" (Fedora-Extra maintainer for the
+head up)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.7.1</release>
+        <api>1.7.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2006-08-24</date>
+      <notes>
+- Fix issues with relative path in threaded environment,
+VCWD_REALPATH is used in ZipArchive::open() and ::addFile
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.7.0</release>
+        <api>1.7.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2006-07-14</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Add ZIPARCHIVE::OVERWRITE mode for ::open(), creates a new
+archive and write over an existing file
+- locateName do not change anymore the state, it can now be used to test an entry
+- fix possilbe crashes when two entries with the same name have been added
+- Enhanced safemode support
+- fix builds against php 6.0 (HEAD)
+- fix compiler warning (Ilia, Tony)
+- cleanup phpinfo() output (Ilia)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.6.0</release>
+        <api>1.6.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-07-14</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Rename Class Zip to ZipArchive, required to be bundled
+in php 5.2.0 (Zip being a ZipCode in US), making the role of
+this class more obvious *Gah*
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.5.0</release>
+        <api>1.5.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-07-14</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- bring consistency to the method names:
+ - rename zip::delete() to deleteIndex()
+ - add zip::deleteName()
+ - rename zip::statPath to zip::statName()
+ - rename zip::rename to zip::renameIndex()
+ - add zip::renameName();
+- add zip::locateName(), returns the index of an entry, allows case insensitive
+  or directory free lookup (ZIP::FL_NOCASE, ZIP::FL_NODIR)
+- add zip::unchangeName(), ::unchangeIndex(), unchangeAll() and unchangeArchive()
+  revert changes to an entry, to all entries or the archive
+- add zip::getNameIndex(), get the name of the entry at the given position
+- Bug #7658, Modify zip archives causes corruption if the data descriptor is used
+  (bit 3 of the general flags)
+- fix a bug when in the delete and rename methods when the index is lower than 1
+- zip::addFile() must return true on success
+- zip::open() returns now the error code on error and true on success
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.4.1</release>
+        <api>1.4.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-06-28</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Add missing files in the package release
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.4.0</release>
+        <api>1.4.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-06-28</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Add write mode to the archive comment (zip::comment property)
+- Add zip::setCommentName and ::setCommentIndex, add or remove entrie comment
+- Add zip::getCommentName and ::getCommentIndex, get an entrie comment
+- Add zip::setArchiveComment
+- Full sync with zip-0.7.1
+- #8009, modify archives on windows cannot be closed
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.3.1</release>
+        <api>1.3.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-04-26</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>- #7500, Fix build with php 5.1.0, 5.1.1 and 5.1.2</notes>
+    </release>
+    <release>
+      <version>
+        <release>1.3.0</release>
+        <api>1.3.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-04-26</date>
+      <notes>
+- Fix possible leak with __set/__get in classes extending the Zip
+intern object (tony2001[at]php.net)
+- Added getFromName(), return the contents of an entry using its name
+- Added getFromIndex(), return the contents of an entry using its index
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.2.3</release>
+        <api>1.2.1</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-03-30</date>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- #7214, use binary safe string as return value, 0x00 was considered as
+the end of the content, affected only the procedural API
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.2.2</release>
+        <api>1.2.1</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-03-22</date>
+      <time>21:15:00</time>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- fix a bug in internal zip_close, new archives were not written
+- ::open returns now false on error
+- update the "create.php" example, status and returned codes are now checked
+- fix a leak when the ::open method is called twice or more with the same
+object
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.2.1</release>
+        <api>1.2.1</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-03-19</date>
+      <time>00:23:32</time>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- fixed a possible build problem (mkstemp missing)
+- fix a bug where extending the Zip class does allow
+to write to a property, see php bugs #36743 (array)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.2.0</release>
+        <api>1.2.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-03-12</date>
+      <time>00:23:32</time>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- enable stream by default,
+  * use uri like zip:///path/to/my.zip#entryname.dat
+  (the URI format may change in future version)
+- add support for print_r/var_dump (Zip object)
+- add tests for the OO (still need more)
+- add more example, like using xmlreader and zip
+   stream to parse OpenDocument meta info
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.1.2</release>
+        <api>1.1.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-03-05</date>
+      <time>00:14:59</time>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- do not create empty file when a zip entry is only
+a directory (empty or not)
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.1.1</release>
+        <api>1.1.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-03-02</date>
+      <time>00:14:59</time>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- Fix PHP 5.1 detection at compiletie
+- fix possible build errors with gcc other than 4.0.x
+- add better zlib detection
+- "--with-zlib-dir=[DIR]" added
+   </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.1.0</release>
+        <api>1.1.0</api>
+      </version>
+      <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+      </stability>
+      <date>2006-03-01</date>
+      <time>00:14:59</time>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- replace the old zip extensions
+ * 100% compatible with the old API
+ * added zip creation support (write mode)
+ * added OO interface
+ * Stream support, getStream method
+   returns a file handler
+- bundled libzip and drop zzlib usage
+	(see http://www.nih.at/libzip/)
+   </notes>
+    </release>
+  </changelog>
+</package>
