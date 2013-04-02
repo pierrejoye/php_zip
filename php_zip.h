@@ -67,8 +67,9 @@ typedef struct _ze_zip_read_rsrc {
 } zip_read_rsrc;
 
 #ifdef PHP_ZIP_USE_OO 
-#define ZIPARCHIVE_ME(name, arg_info, flags)	ZEND_FENTRY(name, c_ziparchive_ ##name, arg_info, flags)
-#define ZIPARCHIVE_METHOD(name)	ZEND_NAMED_FUNCTION(c_ziparchive_##name)
+#define ZIPARCHIVE_ME(name, arg_info, flags) {#name, c_ziparchive_ ##name, arg_info,(zend_uint) (sizeof(arg_info)/sizeof(struct _zend_arg_info)-1), flags },
+#define ZIPARCHIVE_METHOD(name)	ZEND_NAMED_FUNCTION(c_ziparchive_ ##name)
+
 
 /* Extends zend object */
 typedef struct _ze_zip_object {
