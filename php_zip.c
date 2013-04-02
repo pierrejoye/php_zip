@@ -1572,7 +1572,13 @@ static ZIPARCHIVE_METHOD(close)
 	ze_obj = (ze_zip_object*) zend_object_store_get_object(this TSRMLS_CC);
 
 	if (zip_close(intern)) {
-		RETURN_FALSE;
+		/* archive already closed*/
+		if (intern->zp != NULL) {
+			zip_discard(intern);
+			RETVAL_TRUE;
+		} else {
+			RETURN_FALSE;
+		}
 	}
 
 	efree(ze_obj->filename);
