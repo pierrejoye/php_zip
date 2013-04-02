@@ -50,7 +50,11 @@
 #endif
 
 #include "zip.h"
-#include "config.h"
+#ifdef PHP_WIN32
+# include "php_zip_config.w32.h"
+#else
+# include "config.h"
+#endif
 
 #if defined(HAVE_MOVEFILEEXA) && defined(_WIN32)
 #include <windows.h>
