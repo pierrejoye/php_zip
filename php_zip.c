@@ -298,7 +298,6 @@ static int php_zip_add_file(struct zip *za, const char *filename, size_t filenam
 	char *entry_name, size_t entry_name_len, long offset_start, long offset_len TSRMLS_DC) /* {{{ */
 {
 	struct zip_source *zs;
-	int cur_idx;
 	char resolved_path[MAXPATHLEN];
 
 
