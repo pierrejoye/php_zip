@@ -24,6 +24,9 @@
   <notes>- Added setPassword method, support for crypted archives
    . uncompress only
    . AES and ZipCrypto
+- fix VC9 builds (using bundled stdint)
+- fix preprocessor bug for ZipArchive::close method being renamed to
+_close on Windows
 </notes>
   <contents>
     <dir name="/">
