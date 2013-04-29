@@ -10,10 +10,14 @@
 #define LIBZIP_VERSION "0.11.1"
 /* #undef HAVE_INTTYPES_H_LIBZIP */
 
-#if defined(_WIN32) && _MSC_VER > 1500
-# define HAVE_STDINT_H_LIBZIP
+#if defined(_WIN32)
+# if _MSC_VER > 1500
+#  define HAVE_STDINT_H_LIBZIP
+# else
+#  include "win32/php_stdint.h"
+# endif
 #else
-# include "win32/php_stdint.h"
+# include <inttypes.h>
 #endif
 #define HAVE_SYS_TYPES_H_LIBZIP
 #define HAVE___INT8_LIBZIP
