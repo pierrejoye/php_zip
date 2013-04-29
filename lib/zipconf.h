@@ -7,7 +7,7 @@
    This file was generated automatically by CMake
    based on ../cmake-zipconf.h.in.
  */
-#define LIBZIP_VERSION "0.11.0"
+#define LIBZIP_VERSION "0.11.1"
 /* #undef HAVE_INTTYPES_H_LIBZIP */
 
 #if defined(_WIN32) && _MSC_VER > 1500
