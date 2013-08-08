@@ -322,7 +322,7 @@ static int php_zip_add_file(struct zip *za, const char *filename, size_t filenam
 	if (zip_file_add(za, entry_name, zs, ZIP_FL_OVERWRITE) < 0) { 
 		return -1;
 	} else {
-		_zip_error_clear(&za->error);
+		zip_error_clear(za);
 		return 1;
 	}
 }
@@ -1660,7 +1660,7 @@ static ZIPARCHIVE_METHOD(addEmptyDir)
 		if (zip_add_dir(intern, (const char *)s) == -1) {
 			RETVAL_FALSE;
 		}
-		_zip_error_clear(&intern->error);
+		zip_error_clear(intern);
 		RETVAL_TRUE;
 	}
 
@@ -1886,7 +1886,7 @@ static ZIPARCHIVE_METHOD(addFromString)
 	if (zip_add(intern, name, zs) == -1) {
 		RETURN_FALSE;
 	} else {
-		_zip_error_clear(&intern->error);
+		zip_error_clear(intern);
 		RETURN_TRUE;
 	}
 }
