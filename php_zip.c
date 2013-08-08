@@ -30,7 +30,6 @@
 #include "ext/pcre/php_pcre.h"
 #include "ext/standard/php_filestat.h"
 #include "php_zip.h"
-#include "lib/zip.h"
 #include "lib/zipint.h"
 
 /* zip_open is a macro for renaming libzip zipopen, so we need to use PHP_NAMED_FUNCTION */
@@ -323,7 +322,7 @@ static int php_zip_add_file(struct zip *za, const char *filename, size_t filenam
 	if (zip_file_add(za, entry_name, zs, ZIP_FL_OVERWRITE) < 0) { 
 		return -1;
 	} else {
-		_zip_error_clear(&za->error);
+		zip_error_clear(za);
 		return 1;
 	}
 }
@@ -1661,7 +1660,7 @@ static ZIPARCHIVE_METHOD(addEmptyDir)
 		if (zip_add_dir(intern, (const char *)s) == -1) {
 			RETVAL_FALSE;
 		}
-		_zip_error_clear(&intern->error);
+		zip_error_clear(intern);
 		RETVAL_TRUE;
 	}
 
@@ -1679,7 +1678,7 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 	char *path = NULL;
 	char *remove_path = NULL;
 	char *add_path = NULL;
-	int pattern_len, add_path_len, remove_path_len, path_len = 0;
+	int pattern_len, add_path_len, remove_path_len = 0, path_len = 0;
 	long remove_all_path = 0;
 	long flags = 0;
 	zval *options = NULL;
@@ -1728,13 +1727,12 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 		zval **zval_file = NULL;
 
 		for (i = 0; i < found; i++) {
-			char *file, *file_stripped, *entry_name;
+			char *file_stripped, *entry_name;
 			size_t entry_name_len, file_stripped_len;
 			char entry_name_buf[MAXPATHLEN];
 			char *basename = NULL;
 
 			if (zend_hash_index_find(Z_ARRVAL_P(return_value), i, (void **) &zval_file) == SUCCESS) {
-				file = Z_STRVAL_PP(zval_file);
 				if (remove_all_path) {
 					php_basename(Z_STRVAL_PP(zval_file), Z_STRLEN_PP(zval_file), NULL, 0,
 									&basename, (size_t *)&file_stripped_len TSRMLS_CC);
@@ -1888,7 +1886,7 @@ static ZIPARCHIVE_METHOD(addFromString)
 	if (zip_add(intern, name, zs) == -1) {
 		RETURN_FALSE;
 	} else {
-		_zip_error_clear(&intern->error);
+		zip_error_clear(intern);
 		RETURN_TRUE;
 	}
 }
