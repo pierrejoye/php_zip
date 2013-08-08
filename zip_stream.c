@@ -6,8 +6,6 @@
 #if HAVE_ZIP
 #ifdef ZEND_ENGINE_2
 
-#include "lib/zip.h"
-
 #include "php_streams.h"
 #include "ext/standard/file.h"
 #include "ext/standard/php_string.h"
