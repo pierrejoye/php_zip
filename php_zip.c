@@ -30,7 +30,6 @@
 #include "ext/pcre/php_pcre.h"
 #include "ext/standard/php_filestat.h"
 #include "php_zip.h"
-#include "lib/zip.h"
 #include "lib/zipint.h"
 
 /* zip_open is a macro for renaming libzip zipopen, so we need to use PHP_NAMED_FUNCTION */
