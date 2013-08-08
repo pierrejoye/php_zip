@@ -47,30 +47,6 @@ if test "$PHP_ZIP" != "no"; then
     PHP_ADD_INCLUDE($PHP_ZLIB_INCDIR)
   fi
 
-  dnl This is PECL build, check if bundled PCRE library is used
-  old_CPPFLAGS=$CPPFLAGS
-  CPPFLAGS=$INCLUDES
-  AC_EGREP_CPP(yes,[
-#include <main/php_config.h>
-#if defined(HAVE_BUNDLED_PCRE) && !defined(COMPILE_DL_PCRE)
-yes
-#endif
-  ],[
-    PHP_PCRE_REGEX=yes
-  ],[
-    AC_EGREP_CPP(yes,[
-#include <main/php_config.h>
-#if defined(HAVE_PCRE) && !defined(COMPILE_DL_PCRE)
-yes
-#endif
-    ],[
-      PHP_PCRE_REGEX=pecl
-    ],[
-      PHP_PCRE_REGEX=no
-    ])
-  ])
-  CPPFLAGS=$old_CPPFLAGS
-
   PHP_ZIP_SOURCES="$PHP_ZIP_SOURCES lib/zip_add.c lib/zip_add_dir.c lib/zip_add_entry.c\
 			lib/zip_close.c lib/zip_delete.c lib/zip_dir_add.c lib/zip_dirent.c lib/zip_discard.c lib/zip_entry.c\
 			lib/zip_err_str.c lib/zip_error.c lib/zip_error_clear.c lib/zip_error_get.c lib/zip_error_get_sys_type.c\
