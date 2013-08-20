@@ -28,7 +28,11 @@ extern zend_module_entry zip_module_entry;
 #include "TSRM.h"
 #endif
 
+#if defined(HAVE_LIBZIP)
+#include <zip.h>
+#else
 #include "lib/zip.h"
+#endif
 
 #define PHP_ZIP_VERSION_STRING "1.12.1"
 

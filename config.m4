@@ -13,8 +13,60 @@ fi
 PHP_ARG_WITH(pcre-dir, pcre install prefix,
 [  --with-pcre-dir           ZIP: pcre install prefix], no, no)
 
+PHP_ARG_WITH(libzip, libzip,
+[ --with-libzip[=DIR]        ZIP: use libzip], no, no)
+
 if test "$PHP_ZIP" != "no"; then
 
+  if test "$PHP_LIBZIP" != "no"; then
+
+    AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+
+    dnl system libzip, depends on libzip
+    AC_MSG_CHECKING(for libzip)
+    if test -r $PHP_LIBZIP/include/zip.h; then
+      LIBZIP_CFLAGS="-I$PHP_LIBZIP/include"
+      LIBZIP_LIBDIR="$PHP_LIBZIP/$PHP_LIBDIR"
+      AC_MSG_RESULT(from option: found in $PHP_LIBZIP)
+
+    elif test -x "$PKG_CONFIG" && $PKG_CONFIG --exists libzip; then
+      LIBZIP_CFLAGS=`$PKG_CONFIG libzip --cflags`
+      LIBZIP_LIBDIR=`$PKG_CONFIG libzip --variable=libdir`
+      AC_MSG_RESULT(from pkgconfig: found in $LIBZIP_LIBDIR)
+
+    else
+      for i in /usr/local /usr; do
+        if test -r $i/include/zip.h; then
+          LIBZIP_CFLAGS="-I$i/include"
+          LIBZIP_LIBDIR="$i/$PHP_LIBDIR"
+          AC_MSG_RESULT(in default path: found in $i)
+          break
+        fi
+      done
+    fi
+
+    if test -z "$LIBZIP_LIBDIR"; then
+      AC_MSG_RESULT(not found)
+      AC_MSG_ERROR(Please reinstall the libzip distribution)
+    fi
+
+    dnl Could not think of a simple way to check libzip for overwrite support
+    PHP_CHECK_LIBRARY(zip, zip_open,
+    [
+      PHP_ADD_LIBRARY_WITH_PATH(zip, $LIBZIP_LIBDIR, ZIP_SHARED_LIBADD)
+      AC_DEFINE(HAVE_LIBZIP,1,[ ])
+    ], [
+      AC_MSG_ERROR(could not find usable libzip)
+    ], [
+      -L$LIBZIP_LIBDIR
+    ])
+
+    AC_DEFINE(HAVE_ZIP,1,[ ])
+    PHP_NEW_EXTENSION(zip, php_zip.c zip_stream.c, $ext_shared,, $LIBZIP_CFLAGS)
+    PHP_SUBST(ZIP_SHARED_LIBADD)
+  else
+
+  dnl bundled libzip, depends on zlib
   if test "$PHP_ZLIB_DIR" != "no" && test "$PHP_ZLIB_DIR" != "yes"; then
     if test -f "$PHP_ZLIB_DIR/include/zlib/zlib.h"; then
       PHP_ZLIB_DIR="$PHP_ZLIB_DIR"
@@ -70,6 +122,7 @@ if test "$PHP_ZIP" != "no"; then
   PHP_NEW_EXTENSION(zip, php_zip.c zip_stream.c $PHP_ZIP_SOURCES, $ext_shared)
   PHP_ADD_BUILD_DIR($ext_builddir/lib, 1)
   PHP_SUBST(ZIP_SHARED_LIBADD)
+fi
 
 
 AC_CHECK_TYPES([int8_t])
