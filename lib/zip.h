@@ -75,8 +75,7 @@ BEGIN_EXTERN_C()
 #define ZIP_CREATE           1
 #define ZIP_EXCL             2
 #define ZIP_CHECKCONS        4
-#define ZIP_OVERWRITE        8
-#define ZIP_TRUNCATE         ZIP_OVERWRITE
+#define ZIP_TRUNCATE         8
 
 /* flags for zip_name_locate, zip_fopen, zip_stat, ... */
 
