@@ -18,6 +18,39 @@ PHP_ARG_WITH(libzip, libzip,
 
 if test "$PHP_ZIP" != "no"; then
 
+  dnl libzip, depends on zlib
+  if test "$PHP_ZLIB_DIR" != "no" && test "$PHP_ZLIB_DIR" != "yes"; then
+    if test -f "$PHP_ZLIB_DIR/include/zlib/zlib.h"; then
+      PHP_ZLIB_DIR="$PHP_ZLIB_DIR"
+      PHP_ZLIB_INCDIR="$PHP_ZLIB_DIR/include/zlib"
+    elif test -f "$PHP_ZLIB_DIR/include/zlib.h"; then
+      PHP_ZLIB_DIR="$PHP_ZLIB_DIR"
+      PHP_ZLIB_INCDIR="$PHP_ZLIB_DIR/include"
+    else
+      AC_MSG_ERROR([Can not find zlib headers under "$PHP_ZLIB_DIR"])
+    fi
+  else
+    for i in /usr/local /usr; do
+      if test -f "$i/include/zlib/zlib.h"; then
+        PHP_ZLIB_DIR="$i"
+        PHP_ZLIB_INCDIR="$i/include/zlib"
+      elif test -f "$i/include/zlib.h"; then
+        PHP_ZLIB_DIR="$i"
+        PHP_ZLIB_INCDIR="$i/include"
+      fi
+    done
+  fi
+
+  dnl # zlib
+  AC_MSG_CHECKING([for the location of zlib])
+  if test "$PHP_ZLIB_DIR" = "no"; then
+    AC_MSG_ERROR([zip support requires ZLIB. Use --with-zlib-dir=<DIR> to specify prefix where ZLIB include and library are located])
+  else
+    AC_MSG_RESULT([$PHP_ZLIB_DIR])
+    PHP_ADD_LIBRARY_WITH_PATH(z, $PHP_ZLIB_DIR/$PHP_LIBDIR, ZIP_SHARED_LIBADD)
+    PHP_ADD_INCLUDE($PHP_ZLIB_INCDIR)
+  fi
+
   if test "$PHP_LIBZIP" != "no"; then
 
     AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
@@ -66,38 +99,6 @@ if test "$PHP_ZIP" != "no"; then
     PHP_SUBST(ZIP_SHARED_LIBADD)
   else
 
-  dnl bundled libzip, depends on zlib
-  if test "$PHP_ZLIB_DIR" != "no" && test "$PHP_ZLIB_DIR" != "yes"; then
-    if test -f "$PHP_ZLIB_DIR/include/zlib/zlib.h"; then
-      PHP_ZLIB_DIR="$PHP_ZLIB_DIR"
-      PHP_ZLIB_INCDIR="$PHP_ZLIB_DIR/include/zlib"
-    elif test -f "$PHP_ZLIB_DIR/include/zlib.h"; then
-      PHP_ZLIB_DIR="$PHP_ZLIB_DIR"
-      PHP_ZLIB_INCDIR="$PHP_ZLIB_DIR/include"
-    else
-      AC_MSG_ERROR([Can not find zlib headers under "$PHP_ZLIB_DIR"])
-    fi
-  else
-    for i in /usr/local /usr; do
-      if test -f "$i/include/zlib/zlib.h"; then
-        PHP_ZLIB_DIR="$i"
-        PHP_ZLIB_INCDIR="$i/include/zlib"
-      elif test -f "$i/include/zlib.h"; then
-        PHP_ZLIB_DIR="$i"
-        PHP_ZLIB_INCDIR="$i/include"
-      fi
-    done
-  fi
-
-  dnl # zlib
-  AC_MSG_CHECKING([for the location of zlib])
-  if test "$PHP_ZLIB_DIR" = "no"; then
-    AC_MSG_ERROR([zip support requires ZLIB. Use --with-zlib-dir=<DIR> to specify prefix where ZLIB include and library are located])
-  else
-    AC_MSG_RESULT([$PHP_ZLIB_DIR])
-    PHP_ADD_LIBRARY_WITH_PATH(z, $PHP_ZLIB_DIR/$PHP_LIBDIR, ZIP_SHARED_LIBADD)
-    PHP_ADD_INCLUDE($PHP_ZLIB_INCDIR)
-  fi
 
   PHP_ZIP_SOURCES="$PHP_ZIP_SOURCES lib/zip_add.c lib/zip_add_dir.c lib/zip_add_entry.c\
 			lib/zip_close.c lib/zip_delete.c lib/zip_dir_add.c lib/zip_dirent.c lib/zip_discard.c lib/zip_entry.c\
