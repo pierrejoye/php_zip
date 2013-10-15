@@ -1180,7 +1180,7 @@ zend_module_entry zip_module_entry = {
 	NULL,
 	NULL,
 	PHP_MINFO(zip),
-	PHP_ZIP_VERSION_STRING,
+	PHP_ZIP_VERSION,
 	STANDARD_MODULE_PROPERTIES
 };
 /* }}} */
@@ -2904,7 +2904,7 @@ static PHP_MINFO_FUNCTION(zip)
 
 	php_info_print_table_row(2, "Zip", "enabled");
 	php_info_print_table_row(2, "Extension Version","$Id: 872affeb4da56999accae9cdc682d3f3bb3f3458 $");
-	php_info_print_table_row(2, "Zip version", PHP_ZIP_VERSION_STRING);
+	php_info_print_table_row(2, "Zip version", PHP_ZIP_VERSION);
 	php_info_print_table_row(2, "Libzip version", LIBZIP_VERSION);
 
 	php_info_print_table_end();
