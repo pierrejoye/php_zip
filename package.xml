@@ -10,10 +10,16 @@
     <email>pajoye@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2013-04-29</date>
+  <lead>
+    <name>Remi Collet</name>
+    <user>remi</user>
+    <email>remi@php.net</email>
+    <active>yes</active>
+  </lead>
+  <date>2013-10-22</date>
   <time>19:25:04</time>
   <version>
-    <release>1.12.1</release>
+    <release>1.12.2</release>
     <api>2.1.0</api>
   </version>
   <stability>
@@ -21,8 +27,10 @@
     <api>stable</api>
   </stability>
   <license uri="http://www.php.net/license">PHP License</license>
-  <notes>- fix build on some linux
-- fix zip_set_file_compression  
+  <notes>- fix build with PHP 5.3
+- add --with-libzip configure option to use system libzip
+- move check before dereferencing ptr (Felipe)
+- add LICENSE and LICENSE_libzip
 </notes>
   <contents>
     <dir name="/">
@@ -213,6 +221,22 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2013-04-29</date>
+      <time>19:25:04</time>
+      <version>
+        <release>1.12.1</release>
+        <api>2.1.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>- fix build on some linux
+- fix zip_set_file_compression
+      </notes>
+    </release>
     <release>
       <date>2013-04-01</date>
       <time>19:25:04</time>
