@@ -151,6 +151,7 @@
       <file name="tests/bug7214.phpt" role="test"/>
       <file name="tests/bug7658.phpt" role="test"/>
       <file name="tests/bug7658.odt" role="test"/>
+      <file name="tests/bug7658.xml" role="test"/>
       <file name="tests/bug8009.phpt" role="test"/>
       <file name="tests/bug8009.zip" role="test"/>
       <file name="tests/bug8700.phpt" role="test"/>
@@ -178,8 +179,15 @@
       <file name="tests/bug47667.phpt" role="test"/>
       <file name="tests/zip_open_error.phpt" role="test"/>
       <file name="tests/oo_getstatusstring.phpt" role="test"/>
+      <file name="tests/bug11216.phpt" role="test"/>
+      <file name="tests/bug40228.phpt" role="test"/>
+      <file name="tests/bug40228.zip" role="test"/>
+      <file name="tests/bug51353.phpt" role="test"/>
       <file name="tests/bug53603.phpt" role="test"/>
       <file name="tests/bug53885.phpt" role="test"/>
+      <file name="tests/bug64342_0.phpt" role="test"/>
+      <file name="tests/bug64342_1.phpt" role="test"/>
+      <file name="tests/oo_properties.phpt" role="test"/>
       <file name="config.m4" role="src"/>
       <file name="config.w32" role="src"/>
       <file name="CREDITS" role="doc"/>
