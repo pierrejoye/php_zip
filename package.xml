@@ -19,7 +19,7 @@
   <date>2013-10-23</date>
   <time>07:10:00</time>
   <version>
-    <release>1.12.2</release>
+    <release>1.12.3dev</release>
     <api>2.1.0</api>
   </version>
   <stability>
@@ -27,12 +27,9 @@
     <api>stable</api>
   </stability>
   <license uri="http://www.php.net/license">PHP License</license>
-  <notes>- fix build with PHP 5.3
-- add --with-libzip configure option to use system libzip
-- move check before dereferencing ptr (Felipe)
-- add LICENSE and LICENSE_libzip
-- fix bug #64342 ZipArchive::addFile() has to check file existance
-</notes>
+  <notes>
+-
+  </notes>
   <contents>
     <dir name="/">
       <file name="lib/zip_add.c" role="src"/>
@@ -222,6 +219,26 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2013-10-23</date>
+      <time>07:10:00</time>
+      <version>
+        <release>1.12.2</release>
+        <api>2.1.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- fix build with PHP 5.3
+- add --with-libzip configure option to use system libzip
+- move check before dereferencing ptr (Felipe)
+- add LICENSE and LICENSE_libzip
+- fix bug #64342 ZipArchive::addFile() has to check file existance
+      </notes>
+    </release>
     <release>
       <date>2013-04-29</date>
       <time>19:25:04</time>
