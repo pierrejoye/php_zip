@@ -28,7 +28,7 @@
   </stability>
   <license uri="http://www.php.net/license">PHP License</license>
   <notes>
--
+- clean 1 use of private lilbzip structure (stay 1)
   </notes>
   <contents>
     <dir name="/">
@@ -194,6 +194,7 @@
       <file name="tests/bug64342_0.phpt" role="test"/>
       <file name="tests/bug64342_1.phpt" role="test"/>
       <file name="tests/oo_properties.phpt" role="test"/>
+      <file name="tests/doubleclose.phpt" role="test"/>
       <file name="config.m4" role="src"/>
       <file name="config.w32" role="src"/>
       <file name="CREDITS" role="doc"/>
