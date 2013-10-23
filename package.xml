@@ -31,6 +31,7 @@
 - add --with-libzip configure option to use system libzip
 - move check before dereferencing ptr (Felipe)
 - add LICENSE and LICENSE_libzip
+- fix bug #64342 ZipArchive::addFile() has to check file existance
 </notes>
   <contents>
     <dir name="/">
