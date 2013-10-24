@@ -30,8 +30,6 @@
 #include "ext/pcre/php_pcre.h"
 #include "ext/standard/php_filestat.h"
 #include "php_zip.h"
-/* Private struct definition, always use bundled copy */
-#include "lib/zipint.h"
 
 /* zip_open is a macro for renaming libzip zipopen, so we need to use PHP_NAMED_FUNCTION */
 static PHP_NAMED_FUNCTION(zif_zip_open);
@@ -1183,13 +1181,7 @@ static void php_zip_free_entry(zend_rsrc_list_entry *rsrc TSRMLS_DC)
 
 	if (zr_rsrc) {
 		if (zr_rsrc->zf) {
-			if (zr_rsrc->zf->za) {
-				zip_fclose(zr_rsrc->zf);
-			} else {
-				if (zr_rsrc->zf->src)
-					zip_source_free(zr_rsrc->zf->src);
-				free(zr_rsrc->zf);
-			}
+			zip_fclose(zr_rsrc->zf);
 			zr_rsrc->zf = NULL;
 		}
 		efree(zr_rsrc);
