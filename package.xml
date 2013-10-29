@@ -29,10 +29,12 @@
   <license uri="http://www.php.net/license">PHP License</license>
   <notes>
 - clean all uses of private libzip structure
+- allow to build in php tree
   </notes>
   <contents>
     <dir name="/">
       <dir name="lib"> <!-- bundled libzip -->
+        <file name="config.h" role="src"/>
         <file name="zip_add.c" role="src"/>
         <file name="zip_add_dir.c" role="src"/>
         <file name="zip_add_entry.c" role="src"/>
