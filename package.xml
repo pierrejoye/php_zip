@@ -16,14 +16,14 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2013-10-23</date>
+  <date>2013-10-29</date>
   <time>07:10:00</time>
   <version>
-    <release>1.12.3dev</release>
+    <release>1.12.3</release>
     <api>2.1.0</api>
   </version>
   <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api>
   </stability>
   <license uri="http://www.php.net/license">PHP License</license>
