@@ -337,6 +337,7 @@ static int php_zip_add_file(struct zip *za, const char *filename, size_t filenam
 		return -1;
 	}
 	if (zip_file_add(za, entry_name, zs, ZIP_FL_OVERWRITE) < 0) { 
+		zip_source_free(zs);
 		return -1;
 	} else {
 		zip_error_clear(za);
@@ -1905,11 +1906,13 @@ static ZIPARCHIVE_METHOD(addFromString)
 	/* TODO: fix  _zip_replace */
 	if (cur_idx >= 0) {
 		if (zip_delete(intern, cur_idx) == -1) {
+			zip_source_free(zs);
 			RETURN_FALSE;
 		}
 	}
 
 	if (zip_add(intern, name, zs) == -1) {
+		zip_source_free(zs);
 		RETURN_FALSE;
 	} else {
 		zip_error_clear(intern);
