@@ -123,6 +123,7 @@ if test "$PHP_ZIP" != "no"; then
   AC_DEFINE(HAVE_ZIP,1,[ ])
   PHP_NEW_EXTENSION(zip, php_zip.c zip_stream.c $PHP_ZIP_SOURCES, $ext_shared)
   PHP_ADD_BUILD_DIR($ext_builddir/lib, 1)
+  PHP_ADD_INCLUDE([$ext_srcdir/lib])
   PHP_SUBST(ZIP_SHARED_LIBADD)
 fi
 
