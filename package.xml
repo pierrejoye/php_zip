@@ -16,10 +16,10 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2013-12-12</date>
+  <date>2013-12-19</date>
   <time>09:29:00</time>
   <version>
-    <release>1.12.3</release>
+    <release>1.12.4dev</release>
     <api>2.1.0</api>
   </version>
   <stability>
@@ -28,8 +28,7 @@
   </stability>
   <license uri="http://www.php.net/license">PHP License</license>
   <notes>
-- clean all uses of private libzip structure
-- allow to build in php tree
+-
   </notes>
   <contents>
     <dir name="/">
@@ -229,6 +228,23 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2013-12-12</date>
+      <time>09:29:00</time>
+      <version>
+        <release>1.12.3</release>
+        <api>2.1.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.php.net/license">PHP License</license>
+      <notes>
+- clean all uses of private libzip structure
+- allow to build in php tree
+      </notes>
+    </release>
     <release>
       <date>2013-10-23</date>
       <time>07:10:00</time>
