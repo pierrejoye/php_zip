@@ -28,7 +28,7 @@
   </stability>
   <license uri="http://www.php.net/license">PHP License</license>
   <notes>
--
+- bundled libzip version 0.11.2
   </notes>
   <contents>
     <dir name="/">
@@ -58,10 +58,12 @@
         <file name="zip_file_error_clear.c" role="src"/>
         <file name="zip_file_error_get.c" role="src"/>
         <file name="zip_file_get_comment.c" role="src"/>
+        <file name="zip_file_get_external_attributes.c" role="src"/>
         <file name="zip_file_get_offset.c" role="src"/>
         <file name="zip_file_rename.c" role="src"/>
         <file name="zip_file_replace.c" role="src"/>
         <file name="zip_file_set_comment.c" role="src"/>
+        <file name="zip_file_set_external_attributes.c" role="src"/>
         <file name="zip_file_strerror.c" role="src"/>
         <file name="zip_filerange_crc.c" role="src"/>
         <file name="zip_fopen.c" role="src"/>
