@@ -29,6 +29,9 @@
   <license uri="http://www.php.net/license">PHP License</license>
   <notes>
 - bundled libzip version 0.11.2
+- new methods for ZipArchive:
+  setExternalAttributesName, setExternalAttributesIndex,
+  getExternalAttributesName, getExternalAttributesIndex
   </notes>
   <contents>
     <dir name="/">
