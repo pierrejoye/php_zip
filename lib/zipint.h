@@ -52,8 +52,6 @@
 #include "zip.h"
 #ifdef PHP_WIN32
 # include "php_zip_config.w32.h"
-# undef strcasecmp
-# define strcasecmp _strcmpi
 #else
 # include "config.h"
 #endif
