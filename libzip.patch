@@ -31,7 +31,7 @@ diff -u lib.orig/zip.h lib/zip.h
  extern "C" {
 diff -u lib.orig/zipint.h lib/zipint.h
 --- lib.orig/zipint.h	Thu Nov 28 11:27:17 2013
-+++ lib/zipint.h	Mon Dec 23 10:53:23 2013
++++ lib/zipint.h	Mon Dec 23 10:59:40 2013
 @@ -39,10 +39,10 @@
  
  #include <zlib.h>
@@ -58,3 +58,12 @@ diff -u lib.orig/zipint.h lib/zipint.h
  
  #ifdef HAVE_MOVEFILEEXA
  #include <windows.h>
+@@ -77,7 +81,7 @@
+ #if defined(HAVE__OPEN)
+ #define open(a, b, c)	_open((a), (b))
+ #endif
+-#if defined(HAVE__SNPRINTF)
++#if defined(HAVE__SNPRINTF) && !defined(PHP_WIN32)
+ #define snprintf	_snprintf
+ #endif
+ #if defined(HAVE__STRDUP) && !defined(HAVE_STRDUP)

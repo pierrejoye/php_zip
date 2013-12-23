@@ -81,7 +81,7 @@
 #if defined(HAVE__OPEN)
 #define open(a, b, c)	_open((a), (b))
 #endif
-#if defined(HAVE__SNPRINTF)
+#if defined(HAVE__SNPRINTF) && !defined(PHP_WIN32)
 #define snprintf	_snprintf
 #endif
 #if defined(HAVE__STRDUP) && !defined(HAVE_STRDUP)
