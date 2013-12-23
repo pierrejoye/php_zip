@@ -48,18 +48,21 @@ zip_fclose(struct zip_file *zf)
     if (zf->src)
 	zip_source_free(zf->src);
 
-    for (i=0; i<zf->za->nfile; i++) {
-	if (zf->za->file[i] == zf) {
-	    zf->za->file[i] = zf->za->file[zf->za->nfile-1];
-	    zf->za->nfile--;
-	    break;
-	}
+    if (zf->za) {
+        for (i=0; i<zf->za->nfile; i++) {
+            if (zf->za->file[i] == zf) {
+                zf->za->file[i] = zf->za->file[zf->za->nfile-1];
+                zf->za->nfile--;
+                break;
+            }
+        }
     }
 
     ret = 0;
     if (zf->error.zip_err)
 	ret = zf->error.zip_err;
 
+    _zip_error_fini(&zf->error);
     free(zf);
     return ret;
 }

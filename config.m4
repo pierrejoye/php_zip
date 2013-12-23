@@ -11,10 +11,10 @@ if test -z "$PHP_ZLIB_DIR"; then
 fi
 
 PHP_ARG_WITH(pcre-dir, pcre install prefix,
-[  --with-pcre-dir           ZIP: pcre install prefix], no, no)
+[  --with-pcre-dir         ZIP: pcre install prefix], no, no)
 
 PHP_ARG_WITH(libzip, libzip,
-[ --with-libzip[=DIR]        ZIP: use libzip], no, no)
+[  --with-libzip[=DIR]       ZIP: use libzip], no, no)
 
 if test "$PHP_ZIP" != "no"; then
 
@@ -107,6 +107,7 @@ if test "$PHP_ZIP" != "no"; then
 			lib/zip_fclose.c lib/zip_fdopen.c lib/zip_file_add.c lib/zip_file_error_clear.c lib/zip_file_error_get.c\
 			lib/zip_file_get_comment.c lib/zip_file_get_offset.c lib/zip_file_rename.c lib/zip_file_replace.c\
 			lib/zip_file_set_comment.c lib/zip_file_strerror.c lib/zip_filerange_crc.c lib/zip_fopen.c\
+			lib/zip_file_get_external_attributes.c lib/zip_file_set_external_attributes.c \
 			lib/zip_fopen_encrypted.c lib/zip_fopen_index.c lib/zip_fopen_index_encrypted.c lib/zip_fread.c\
 			lib/zip_get_archive_comment.c lib/zip_get_archive_flag.c lib/zip_get_compression_implementation.c\
 			lib/zip_get_encryption_implementation.c lib/zip_get_file_comment.c lib/zip_get_name.c lib/zip_get_num_entries.c \
@@ -122,6 +123,7 @@ if test "$PHP_ZIP" != "no"; then
   AC_DEFINE(HAVE_ZIP,1,[ ])
   PHP_NEW_EXTENSION(zip, php_zip.c zip_stream.c $PHP_ZIP_SOURCES, $ext_shared)
   PHP_ADD_BUILD_DIR($ext_builddir/lib, 1)
+  PHP_ADD_INCLUDE([$ext_srcdir/lib])
   PHP_SUBST(ZIP_SHARED_LIBADD)
 fi
 
