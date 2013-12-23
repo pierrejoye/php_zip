@@ -1,0 +1,60 @@
+diff -u lib.orig/zip.h lib/zip.h
+--- lib.orig/zip.h	Sun Sep 22 11:35:53 2013
++++ lib/zip.h	Mon Dec 23 10:36:14 2013
+@@ -36,15 +36,21 @@
+ 
+ 
+ 
+-#ifndef ZIP_EXTERN
+-#ifdef _WIN32
+-#define ZIP_EXTERN __declspec(dllimport)
++#include "main/php.h"
++ 
++#ifdef PHP_WIN32
++#ifdef PHP_ZIP_EXPORTS
++#  define ZIP_EXTERN __declspec(dllexport) _stdcall
++# else
++#  define ZIP_EXTERN
++# endif
+ #elif defined(__GNUC__) && __GNUC__ >= 4
+-#define ZIP_EXTERN __attribute__ ((visibility ("default")))
++# define ZIP_EXTERN __attribute__ ((visibility("default")))
+ #else
+-#define ZIP_EXTERN
+-#endif
++# define ZIP_EXTERN
+ #endif
++ 
++
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -u lib.orig/zipint.h lib/zipint.h
+--- lib.orig/zipint.h	Thu Nov 28 11:27:17 2013
++++ lib/zipint.h	Mon Dec 23 10:53:23 2013
+@@ -39,10 +39,10 @@
+ 
+ #include <zlib.h>
+ 
+-#ifdef _WIN32
+-#define ZIP_EXTERN __declspec(dllexport)
++#ifdef PHP_WIN32
+ /* for dup(), close(), etc. */
+ #include <io.h>
++#include "config.w32.h"
+ #endif
+ 
+ #ifndef _ZIP_COMPILING_DEPRECATED
+@@ -50,7 +50,11 @@
+ #endif
+ 
+ #include "zip.h"
+-#include "config.h"
++#ifdef PHP_WIN32
++# include "php_zip_config.w32.h"
++#else
++# include "config.h"
++#endif
+ 
+ #ifdef HAVE_MOVEFILEEXA
+ #include <windows.h>
