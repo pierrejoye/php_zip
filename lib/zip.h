@@ -36,15 +36,21 @@
 
 
 
-#ifndef ZIP_EXTERN
-#ifdef _WIN32
-#define ZIP_EXTERN __declspec(dllimport)
+#include "main/php.h"
+ 
+#ifdef PHP_WIN32
+#ifdef PHP_ZIP_EXPORTS
+#  define ZIP_EXTERN __declspec(dllexport) _stdcall
+# else
+#  define ZIP_EXTERN
+# endif
 #elif defined(__GNUC__) && __GNUC__ >= 4
-#define ZIP_EXTERN __attribute__ ((visibility ("default")))
+# define ZIP_EXTERN __attribute__ ((visibility("default")))
 #else
-#define ZIP_EXTERN
+# define ZIP_EXTERN
 #endif
-#endif
+ 
+
 
 #ifdef __cplusplus
 extern "C" {
