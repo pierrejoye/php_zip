@@ -336,7 +336,7 @@ static int php_zip_add_file(struct zip *za, const char *filename, size_t filenam
 	if (!zs) {
 		return -1;
 	}
-	if (zip_file_add(za, entry_name, zs, ZIP_FL_OVERWRITE) < 0) { 
+	if (zip_file_add(za, entry_name, zs, ZIP_FL_OVERWRITE) < 0) {
 		zip_source_free(zs);
 		return -1;
 	} else {
@@ -1541,6 +1541,7 @@ static ZIPARCHIVE_METHOD(open)
 		/* we already have an opened zip, free it */
 		if (zip_close(ze_obj->za) != 0) {
 			php_error_docref(NULL TSRMLS_CC, E_WARNING, "Empty string as source");
+			efree(resolved_path);
 			RETURN_FALSE;
 		}
 		ze_obj->za = NULL;
@@ -1552,6 +1553,7 @@ static ZIPARCHIVE_METHOD(open)
 
 	intern = zip_open(resolved_path, flags, &err);
 	if (!intern || err) {
+		efree(resolved_path);
 		RETURN_LONG((long)err);
 	}
 	ze_obj->filename = resolved_path;
