@@ -16,10 +16,10 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2013-12-19</date>
-  <time>09:29:00</time>
+  <date>2014-01-29</date>
+  <time>13:42:00</time>
   <version>
-    <release>1.12.4dev</release>
+    <release>1.12.4</release>
     <api>2.1.0</api>
   </version>
   <stability>
@@ -163,6 +163,7 @@
         <file name="oo_delete.phpt" role="test"/>
         <file name="oo_extract.phpt" role="test"/>
         <file name="oo_ext_zip.phpt" role="test"/>
+        <file name="oo_externalattributes.phpt" role="test"/>
         <file name="oo_getcomment.phpt" role="test"/>
         <file name="oo_getnameindex.phpt" role="test"/>
         <file name="oo_getstatusstring.phpt" role="test"/>
