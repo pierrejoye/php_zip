@@ -28,7 +28,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- add OPSYS_Z_CPM missing constant
   </notes>
   <contents>
     <dir name="/">
