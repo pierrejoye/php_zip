@@ -29,6 +29,8 @@
   <license>PHP 3.01</license>
   <notes>
 - add OPSYS_Z_CPM missing constant
+- new methods for ZipArchive:
+  setCompressionMethodName, setCompressionMethodIndex
   </notes>
   <contents>
     <dir name="/">
