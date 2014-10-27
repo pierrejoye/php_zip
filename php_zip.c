@@ -2415,9 +2415,9 @@ static ZIPARCHIVE_METHOD(getCommentIndex)
 }
 /* }}} */
 
-/* {{{ proto bool ZipArchive::setCompressionMethodName(string name, int comp_method[, int comp_flags])
-Set the compression method of an entry using its Name */
-static ZIPARCHIVE_METHOD(setCompressionMethodName)
+/* {{{ proto bool ZipArchive::setCompressionName(string name, int comp_method[, int comp_flags])
+Set the compression of a file in zip, using its name */
+static ZIPARCHIVE_METHOD(setCompressionName)
 {
 	struct zip *intern;
 	zval *this = getThis();
@@ -2454,9 +2454,9 @@ static ZIPARCHIVE_METHOD(setCompressionMethodName)
 }
 /* }}} */
 
-/* {{{ proto bool ZipArchive::setCompressionMethodIndex(int index, int comp_method[, int comp_flags])
-Set the compression method of an entry using its index */
-static ZIPARCHIVE_METHOD(setCompressionMethodIndex)
+/* {{{ proto bool ZipArchive::setCompressionIndex(int index, int comp_method[, int comp_flags])
+Set the compression of a file in zip, using its index */
+static ZIPARCHIVE_METHOD(setCompressionIndex)
 {
 	struct zip *intern;
 	zval *this = getThis();
@@ -3076,13 +3076,13 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_getextattrindex, 0, 0, 3)
 ZEND_END_ARG_INFO()
 #endif /* ifdef ZIP_OPSYS_DEFAULT */
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setcompmethodname, 0, 0, 2)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setcompname, 0, 0, 2)
 	ZEND_ARG_INFO(0, name)
 	ZEND_ARG_INFO(0, method)
 	ZEND_ARG_INFO(0, compflags)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setcompmethodindex, 0, 0, 2)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setcompindex, 0, 0, 2)
 	ZEND_ARG_INFO(0, index)
 	ZEND_ARG_INFO(0, method)
 	ZEND_ARG_INFO(0, compflags)
@@ -3126,8 +3126,8 @@ static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(setExternalAttributesIndex,	arginfo_ziparchive_setextattrindex, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getExternalAttributesName,	arginfo_ziparchive_getextattrname, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getExternalAttributesIndex,	arginfo_ziparchive_getextattrindex, ZEND_ACC_PUBLIC)
-	ZIPARCHIVE_ME(setCompressionMethodName,		arginfo_ziparchive_setcompmethodname, ZEND_ACC_PUBLIC)
-	ZIPARCHIVE_ME(setCompressionMethodIndex,	arginfo_ziparchive_setcompmethodindex, ZEND_ACC_PUBLIC)
+	ZIPARCHIVE_ME(setCompressionName,	arginfo_ziparchive_setcompname, ZEND_ACC_PUBLIC)
+	ZIPARCHIVE_ME(setCompressionIndex,	arginfo_ziparchive_setcompindex, ZEND_ACC_PUBLIC)
 	{NULL, NULL, NULL}
 };
 /* }}} */
