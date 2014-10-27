@@ -30,7 +30,7 @@
   <notes>
 - add OPSYS_Z_CPM missing constant
 - new methods for ZipArchive:
-  setCompressionMethodName, setCompressionMethodIndex
+  setCompressionName, setCompressionIndex
   </notes>
   <contents>
     <dir name="/">

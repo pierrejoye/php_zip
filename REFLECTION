@@ -429,7 +429,7 @@ Extension [ <persistent> extension #16 zip version 1.12.5-dev ] {
           }
         }
 
-        Method [ <internal:zip> public method setCompressionMethodName ] {
+        Method [ <internal:zip> public method setCompressionName ] {
 
           - Parameters [3] {
             Parameter #0 [ <required> $name ]
@@ -438,7 +438,7 @@ Extension [ <persistent> extension #16 zip version 1.12.5-dev ] {
           }
         }
 
-        Method [ <internal:zip> public method setCompressionMethodIndex ] {
+        Method [ <internal:zip> public method setCompressionIndex ] {
 
           - Parameters [3] {
             Parameter #0 [ <required> $index ]
