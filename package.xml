@@ -218,6 +218,7 @@
         <file name="get_set_comments.php" role="doc"/>
         <file name="addglob.php" role="doc"/>
         <file name="addpattern.php" role="doc"/>
+        <file name="set_compression.php" role="doc"/>
       </dir> <!-- examples -->
     </dir>
   </contents>
