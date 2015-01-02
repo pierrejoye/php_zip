@@ -29,6 +29,8 @@
   <license>PHP 3.01</license>
   <notes>
 - add OPSYS_Z_CPM missing constant
+- new methods for ZipArchive:
+  setCompressionName, setCompressionIndex
   </notes>
   <contents>
     <dir name="/">
@@ -169,6 +171,7 @@
         <file name="oo_properties.phpt" role="test"/>
         <file name="oo_rename.phpt" role="test"/>
         <file name="oo_setcomment.phpt" role="test"/>
+        <file name="oo_setcompression.phpt" role="test"/>
         <file name="oo_stream.phpt" role="test"/>
         <file name="pecl12414.phpt" role="test"/>
         <file name="pecl12414.zip" role="test"/>
@@ -215,6 +218,7 @@
         <file name="get_set_comments.php" role="doc"/>
         <file name="addglob.php" role="doc"/>
         <file name="addpattern.php" role="doc"/>
+        <file name="set_compression.php" role="doc"/>
       </dir> <!-- examples -->
     </dir>
   </contents>
