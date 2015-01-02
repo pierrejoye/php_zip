@@ -171,6 +171,7 @@
         <file name="oo_properties.phpt" role="test"/>
         <file name="oo_rename.phpt" role="test"/>
         <file name="oo_setcomment.phpt" role="test"/>
+        <file name="oo_setcompression.phpt" role="test"/>
         <file name="oo_stream.phpt" role="test"/>
         <file name="pecl12414.phpt" role="test"/>
         <file name="pecl12414.zip" role="test"/>
