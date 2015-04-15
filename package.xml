@@ -29,6 +29,7 @@
   <license>PHP 3.01</license>
   <notes>
 - add OPSYS_Z_CPM missing constant
+- Fixed bug #69253 (ZIP Integer Overflow leads to writing past heap boundary). (CVE-2015-2331) (Stas)
   </notes>
   <contents>
     <dir name="/">
