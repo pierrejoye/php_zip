@@ -54,7 +54,12 @@ typedef long long ssize_t;
 #  endif
 #endif
 
-# undef strcasecmp
-# define strcasecmp _strcmpi
+#if !defined(EOPNOTSUPP) && defined(_WIN32)
+# define EOPNOTSUPP 130
+#endif
+
+#if !defined(EOVERFLOW) && defined(_WIN32)
+# define EOVERFLOW 132
+#endif
 
 #endif /* HAD_CONFIG_H */
