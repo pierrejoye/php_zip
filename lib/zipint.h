@@ -34,8 +34,12 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
+#ifdef PHP_WIN32
+# include "php_zip_config.w32.h"
+#else
+# ifdef HAVE_CONFIG_H
+#  include "config.h"
+# endif
 #endif
 
 /* to have *_MAX definitions for all types when compiling with g++ */
