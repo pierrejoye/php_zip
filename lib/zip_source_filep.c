@@ -183,7 +183,13 @@ create_temp_output(struct read_file *ctx)
     }
     sprintf(temp, "%s.XXXXXX", ctx->fname);
 
+#ifdef _WIN32
+    /* This might work under VS2015, however there's no good documentation
+    	about it. So let it be for now. */
+    mask = 0;
+#else
     mask = umask(S_IXUSR | S_IRWXG | S_IRWXO);
+#endif
     if ((tfd=mkstemp(temp)) == -1) {
         zip_error_set(&ctx->error, ZIP_ER_TMPOPEN, errno);
 	umask(mask);
