@@ -47,10 +47,10 @@
 
 #include <zlib.h>
 
-#ifdef _WIN32
-#define ZIP_EXTERN __declspec(dllexport)
+#ifdef PHP_WIN32
 /* for dup(), close(), etc. */
 #include <io.h>
+#include "config.w32.h"
 #endif
 
 #ifndef _ZIP_COMPILING_DEPRECATED
