@@ -450,18 +450,36 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 
 static int php_zip_status(struct zip *za TSRMLS_DC) /* {{{ */
 {
+#if LIBZIP_VERSION_MAJOR < 1
 	int zep, syp;
 
 	zip_error_get(za, &zep, &syp);
+#else
+	int zep;
+	zip_error_t *err;
+
+	err = zip_get_error(za);
+	zep = zip_error_code_zip(err);
+	zip_error_fini(err);
+#endif
 	return zep;
 }
 /* }}} */
 
 static int php_zip_status_sys(struct zip *za TSRMLS_DC) /* {{{ */
 {
+#if LIBZIP_VERSION_MAJOR < 1
 	int zep, syp;
 
 	zip_error_get(za, &zep, &syp);
+#else
+	int syp;
+	zip_error_t *err;
+
+	err = zip_get_error(za);
+	syp = zip_error_code_system(err);
+	zip_error_fini(err);
+#endif
 	return syp;
 }
 /* }}} */
@@ -1644,8 +1662,12 @@ static ZIPARCHIVE_METHOD(getStatusString)
 {
 	struct zip *intern;
 	zval *this = getThis();
+#if LIBZIP_VERSION_MAJOR < 1
 	int zep, syp, len;
 	char error_string[128];
+#else
+	zip_error_t *err;
+#endif
 
 	if (!this) {
 		RETURN_FALSE;
@@ -1653,10 +1675,16 @@ static ZIPARCHIVE_METHOD(getStatusString)
 
 	ZIP_FROM_OBJECT(intern, this);
 
+#if LIBZIP_VERSION_MAJOR < 1
 	zip_error_get(intern, &zep, &syp);
 
 	len = zip_error_to_str(error_string, 128, zep, syp);
 	RETVAL_STRINGL(error_string, len, 1);
+#else
+	err = zip_get_error(intern);
+	RETVAL_STRING(zip_error_strerror(err), 1);
+	zip_error_fini(err);
+#endif
 }
 /* }}} */
 

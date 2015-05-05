@@ -28,7 +28,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- update bundled libzip to 1.0.1
   </notes>
   <contents>
     <dir name="/">
@@ -37,6 +37,7 @@
         <file name="zip_add.c" role="src"/>
         <file name="zip_add_dir.c" role="src"/>
         <file name="zip_add_entry.c" role="src"/>
+        <file name="zip_buffer.c" role="src"/>
         <file name="zip_close.c" role="src"/>
         <file name="zip_delete.c" role="src"/>
         <file name="zip_dir_add.c" role="src"/>
@@ -64,6 +65,7 @@
         <file name="zip_file_replace.c" role="src"/>
         <file name="zip_file_set_comment.c" role="src"/>
         <file name="zip_file_set_external_attributes.c" role="src"/>
+        <file name="zip_file_set_mtime.c" role="src"/>
         <file name="zip_file_strerror.c" role="src"/>
         <file name="zip_filerange_crc.c" role="src"/>
         <file name="zip_fopen.c" role="src"/>
@@ -79,6 +81,7 @@
         <file name="zip_get_name.c" role="src"/>
         <file name="zip_get_num_entries.c" role="src"/>
         <file name="zip_get_num_files.c" role="src"/>
+        <file name="zip_io_util.c" role="src"/>
         <file name="zip_memdup.c" role="src"/>
         <file name="zip_name_locate.c" role="src"/>
         <file name="zip_new.c" role="src"/>
@@ -91,8 +94,11 @@
         <file name="zip_set_file_comment.c" role="src"/>
         <file name="zip_set_file_compression.c" role="src"/>
         <file name="zip_set_name.c" role="src"/>
+        <file name="zip_source_begin_write.c" role="src"/>
         <file name="zip_source_buffer.c" role="src"/>
+        <file name="zip_source_call.c" role="src"/>
         <file name="zip_source_close.c" role="src"/>
+        <file name="zip_source_commit_write.c" role="src"/>
         <file name="zip_source_crc.c" role="src"/>
         <file name="zip_source_deflate.c" role="src"/>
         <file name="zip_source_error.c" role="src"/>
@@ -100,13 +106,25 @@
         <file name="zip_source_filep.c" role="src"/>
         <file name="zip_source_free.c" role="src"/>
         <file name="zip_source_function.c" role="src"/>
+        <file name="zip_source_is_deleted.c" role="src"/>
         <file name="zip_source_layered.c" role="src"/>
         <file name="zip_source_open.c" role="src"/>
         <file name="zip_source_pkware.c" role="src"/>
-        <file name="zip_source_pop.c" role="src"/>
         <file name="zip_source_read.c" role="src"/>
+        <file name="zip_source_remove.c" role="src"/>
+        <file name="zip_source_rollback_write.c" role="src"/>
+        <file name="zip_source_seek.c" role="src"/>
+        <file name="zip_source_seek_write.c" role="src"/>
         <file name="zip_source_stat.c" role="src"/>
+        <file name="zip_source_supports.c" role="src"/>
+        <file name="zip_source_tell.c" role="src"/>
+        <file name="zip_source_tell_write.c" role="src"/>
+        <file name="zip_source_win32a.c" role="src"/>
+        <file name="zip_source_win32handle.c" role="src"/>
+        <file name="zip_source_win32utf8.c" role="src"/>
+        <file name="zip_source_win32w.c" role="src"/>
         <file name="zip_source_window.c" role="src"/>
+        <file name="zip_source_write.c" role="src"/>
         <file name="zip_source_zip.c" role="src"/>
         <file name="zip_source_zip_new.c" role="src"/>
         <file name="zip_stat.c" role="src"/>
@@ -119,6 +137,7 @@
         <file name="zip_unchange_archive.c" role="src"/>
         <file name="zip_unchange_data.c" role="src"/>
         <file name="zip_utf-8.c" role="src"/>
+        <file name="zipwin32.h" role="src"/>
         <file name="mkstemp.c" role="src"/>
         <file name="zipconf.h" role="src"/>
         <file name="zip.h" role="src"/>

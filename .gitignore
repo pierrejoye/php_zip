@@ -23,6 +23,7 @@ zip-*.tgz
 
 # uncompression libzip folders
 libzip-0*
+libzip-1*
 
 # autotools
 .deps
@@ -50,6 +51,7 @@ build
 install-sh
 libtool
 ltmain.sh
+ltmain.sh.backup
 missing
 mkinstalldirs
 modules
