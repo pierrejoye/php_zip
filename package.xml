@@ -30,7 +30,7 @@
   <notes>
 - update bundled libzip to 1.0.1 (Remi, Anatol)
 - new methods for ZipArchive:
-  setCompressionName, setCompressionIndex (cedricde)
+  setCompressionName, setCompressionIndex (Cedric Delmas)
   </notes>
   <contents>
     <dir name="/">
