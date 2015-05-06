@@ -18,14 +18,14 @@ $zip = new ZipArchive;
 if ($zip->open($tmpfile, ZipArchive::CREATE) !== TRUE) {
 	exit('failed');
 }
-
-$zip->addFromString('entry1.txt', 'entry #1');
-$zip->addFromString('entry2.txt', 'entry #2');
-$zip->addFromString('dir/entry3.txt', 'entry #3');
-$zip->addFromString('entry4.txt', 'entry #4');
-$zip->addFromString('entry5.txt', 'entry #5');
-$zip->addFromString('entry6.txt', 'entry #6');
-$zip->addFromString('entry7.txt', 'entry #7');
+$txt = file_get_contents(__FILE__);
+$zip->addFromString('entry1.txt', $txt);
+$zip->addFromString('entry2.txt', $txt);
+$zip->addFromString('dir/entry3.txt', $txt);
+$zip->addFromString('entry4.txt', $txt);
+$zip->addFromString('entry5.txt', $txt);
+$zip->addFromString('entry6.txt', $txt);
+$zip->addFromString('entry7.txt', $txt);
 
 var_dump($zip->setCompressionName('entry2.txt', ZipArchive::CM_DEFAULT));
 var_dump($zip->setCompressionName('dir/entry3.txt', ZipArchive::CM_STORE));
