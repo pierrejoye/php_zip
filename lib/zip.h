@@ -37,7 +37,7 @@
 
 #ifndef ZIP_EXTERN
 # ifndef ZIP_STATIC
-#  ifdef _WIN32
+#  if defined(_WIN32) && defined(PHP_ZIP_EXPORTS)
 #   define ZIP_EXTERN __declspec(dllimport)
 #  elif defined(__GNUC__) && __GNUC__ >= 4
 #   define ZIP_EXTERN __attribute__ ((visibility ("default")))

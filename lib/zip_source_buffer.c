@@ -388,12 +388,13 @@ buffer_write(buffer_t *buffer, const zip_uint8_t *data, zip_uint64_t length, zip
 	
 	if (needed_fragments > buffer->fragments_capacity) {
 	    zip_uint64_t new_capacity = buffer->fragments_capacity;
+	    zip_uint8_t **fragments;
 
 	    while (new_capacity < needed_fragments) {
 		new_capacity *= 2;
 	    }
 
-	    zip_uint8_t **fragments = realloc(buffer->fragments, new_capacity * sizeof(*fragments));
+	    fragments = realloc(buffer->fragments, new_capacity * sizeof(*fragments));
 
 	    if (fragments == NULL) {
 		zip_error_set(error, ZIP_ER_MEMORY, 0);

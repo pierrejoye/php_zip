@@ -34,8 +34,12 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
+#ifdef PHP_WIN32
+# include "php_zip_config.w32.h"
+#else
+# ifdef HAVE_CONFIG_H
+#  include "config.h"
+# endif
 #endif
 
 /* to have *_MAX definitions for all types when compiling with g++ */
@@ -43,10 +47,10 @@
 
 #include <zlib.h>
 
-#ifdef _WIN32
-#define ZIP_EXTERN __declspec(dllexport)
+#ifdef PHP_WIN32
 /* for dup(), close(), etc. */
 #include <io.h>
+#include "config.w32.h"
 #endif
 
 #ifndef _ZIP_COMPILING_DEPRECATED
