@@ -177,6 +177,8 @@
         <file name="doubleclose.phpt" role="test"/>
         <file name="oo_addemptydir.phpt" role="test"/>
         <file name="oo_addfile.phpt" role="test"/>
+        <file name="oo_addglob.phpt" role="test"/>
+        <file name="oo_addpattern.phpt" role="test"/>
         <file name="oo_close.phpt" role="test"/>
         <file name="oo_delete.phpt" role="test"/>
         <file name="oo_extract.phpt" role="test"/>
