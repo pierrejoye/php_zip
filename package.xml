@@ -28,7 +28,9 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- update bundled libzip to 1.0.1
+- update bundled libzip to 1.0.1 (Remi, Anatol)
+- new methods for ZipArchive:
+  setCompressionName, setCompressionIndex (cedricde)
   </notes>
   <contents>
     <dir name="/">
