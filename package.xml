@@ -19,8 +19,8 @@
   <date>2015-04-15</date>
   <time>17:27:00</time>
   <version>
-    <release>1.12.6dev</release>
-    <api>2.1.0</api>
+    <release>1.13.0dev</release>
+    <api>2.2.0</api>
   </version>
   <stability>
     <release>stable</release>
