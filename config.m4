@@ -51,6 +51,28 @@ if test "$PHP_ZIP" != "no"; then
     PHP_ADD_INCLUDE($PHP_ZLIB_INCDIR)
   fi
 
+  if test -d php7 ; then
+    dnl # only when for PECL, not for PHP
+    export OLD_CPPFLAGS="$CPPFLAGS"
+    export CPPFLAGS="$CPPFLAGS $INCLUDES"
+    AC_MSG_CHECKING(PHP version)
+    AC_TRY_COMPILE([#include <php_version.h>], [
+#if PHP_MAJOR_VERSION > 5
+#error  PHP > 5
+#endif
+    ], [
+      subdir=php5
+      AC_MSG_RESULT([PHP 5.x])
+    ], [
+      subdir=php7
+      AC_MSG_RESULT([PHP 7.x])
+    ])
+    export CPPFLAGS="$OLD_CPPFLAGS"
+    PHP_ZIP_SOURCES="$subdir/php_zip.c $subdir/zip_stream.c"
+  else
+    PHP_ZIP_SOURCES="php_zip.c zip_stream.c"
+  fi
+
   if test "$PHP_LIBZIP" != "no"; then
 
     AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
@@ -100,12 +122,11 @@ if test "$PHP_ZIP" != "no"; then
     ])
 
     AC_DEFINE(HAVE_ZIP,1,[ ])
-    PHP_NEW_EXTENSION(zip, php_zip.c zip_stream.c, $ext_shared,, $LIBZIP_CFLAGS)
-    PHP_SUBST(ZIP_SHARED_LIBADD)
+    PHP_NEW_EXTENSION(zip, $PHP_ZIP_SOURCES, $ext_shared,, $LIBZIP_CFLAGS)
   else
 
 
-  PHP_ZIP_SOURCES="$PHP_ZIP_SOURCES lib/zip_add.c lib/zip_add_dir.c lib/zip_add_entry.c\
+    PHP_ZIP_SOURCES="$PHP_ZIP_SOURCES lib/zip_add.c lib/zip_add_dir.c lib/zip_add_entry.c\
 			lib/zip_buffer.c lib/zip_file_set_mtime.c lib/zip_io_util.c lib/zip_source_begin_write.c \
 			lib/zip_source_call.c lib/zip_source_commit_write.c lib/zip_source_is_deleted.c \
 			lib/zip_source_remove.c lib/zip_source_rollback_write.c lib/zip_source_seek.c \
@@ -130,12 +151,17 @@ if test "$PHP_ZIP" != "no"; then
 			lib/zip_stat.c lib/zip_stat_index.c lib/zip_stat_init.c lib/zip_strerror.c lib/zip_string.c lib/zip_unchange.c lib/zip_unchange_all.c\
 			lib/zip_unchange_archive.c lib/zip_unchange_data.c lib/zip_utf-8.c lib/mkstemp.c"
 
-  AC_DEFINE(HAVE_ZIP,1,[ ])
-  PHP_NEW_EXTENSION(zip, php_zip.c zip_stream.c $PHP_ZIP_SOURCES, $ext_shared)
-  PHP_ADD_BUILD_DIR($ext_builddir/lib, 1)
-  PHP_ADD_INCLUDE([$ext_srcdir/lib])
+    AC_DEFINE(HAVE_ZIP,1,[ ])
+    PHP_NEW_EXTENSION(zip, $PHP_ZIP_SOURCES, $ext_shared)
+    PHP_ADD_BUILD_DIR($ext_builddir/lib, 1)
+    PHP_ADD_INCLUDE([$ext_srcdir/lib])
+  fi
+
+  if test -z "$subdir" ; then
+    PHP_ADD_BUILD_DIR($ext_builddir/$subdir, 1)
+    PHP_ADD_INCLUDE([$ext_srcdir/$subdir])
+  fi
   PHP_SUBST(ZIP_SHARED_LIBADD)
-fi
 
 AC_CHECK_HEADERS(stdbool.h)
 AC_CHECK_HEADERS(fts.h)

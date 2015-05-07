@@ -31,6 +31,7 @@
 - update bundled libzip to 1.0.1 (Remi, Anatol)
 - new methods for ZipArchive:
   setCompressionName, setCompressionIndex (Cedric Delmas)
+- allow to build with PHP 7
   </notes>
   <contents>
     <dir name="/">
@@ -216,9 +217,16 @@
       <!-- sources -->
       <file name="config.m4" role="src"/>
       <file name="config.w32" role="src"/>
-      <file name="php_zip.c" role="src" />
-      <file name="php_zip.h" role="src"/>
-      <file name="zip_stream.c" role="src"/>
+      <dir name ="php5">
+        <file name="php_zip.c" role="src" />
+        <file name="php_zip.h" role="src"/>
+        <file name="zip_stream.c" role="src"/>
+      </dir><!-- php5 -->
+      <dir name ="php7">
+        <file name="php_zip.c" role="src" />
+        <file name="php_zip.h" role="src"/>
+        <file name="zip_stream.c" role="src"/>
+      </dir><!-- php7 -->
       <!-- documentation -->
       <file name="CREDITS" role="doc"/>
       <file name="LICENSE" role="doc"/>
