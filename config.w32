@@ -9,7 +9,21 @@ if (PHP_ZIP != "no") {
 		(((PHP_ZLIB=="no") && (CHECK_LIB("zlib_a.lib", "zip", PHP_ZIP) ||  CHECK_LIB("zlib.lib", "zip", PHP_ZIP))) || 
 			(PHP_ZLIB_SHARED && CHECK_LIB("zlib.lib", "zip", PHP_ZIP)) || (PHP_ZLIB == "yes" && (!PHP_ZLIB_SHARED)))
 		) {
-		EXTENSION('zip', 'php_zip.c zip_stream.c');
+		
+		var dll = get_define('PHPDLL');
+		var sdir = configure_module_dirname;
+		
+		if (null == dll.match(/^php5/) && null == dll.match(/^php7/)) {
+			if (null != PHP_DLL.match(/^php5/)) {
+				sdir = sdir + "\\php5";
+			} else if (null != PHP_DLL.match(/^php7/)) {
+				sdir = sdir + "\\php7";
+			} else {
+				ERROR("Cannot match any known PHP version with '" + PHP_DLL + "'");
+			}
+		}
+
+		EXTENSION('zip', sdir + '/php_zip.c ' + sdir + '/zip_stream.c');
 		ADD_SOURCES(configure_module_dirname + "/lib", "zip_add.c zip_add_dir.c zip_add_entry.c\
 			zip_close.c zip_delete.c zip_dir_add.c zip_dirent.c zip_discard.c zip_entry.c\
 			zip_err_str.c zip_error.c zip_error_clear.c zip_error_get.c zip_error_get_sys_type.c\
