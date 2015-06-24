@@ -6,24 +6,27 @@ ARG_ENABLE("zip", "ZIP support", "yes");
 if (PHP_ZIP != "no") {
 	if (CHECK_HEADER_ADD_INCLUDE("zlib.h", "CFLAGS_ZIP", "..\\zlib;" + PHP_ZIP) &&
 		CHECK_HEADER_ADD_INCLUDE("zipconf.h", "CFLAGS_ZIP", configure_module_dirname + "\\lib;" + PHP_ZIP) &&
+		CHECK_HEADER_ADD_INCLUDE("lib/zip.h", "CFLAGS_ZIP", configure_module_dirname + ";" + PHP_ZIP) &&
 		(((PHP_ZLIB=="no") && (CHECK_LIB("zlib_a.lib", "zip", PHP_ZIP) ||  CHECK_LIB("zlib.lib", "zip", PHP_ZIP))) || 
 			(PHP_ZLIB_SHARED && CHECK_LIB("zlib.lib", "zip", PHP_ZIP)) || (PHP_ZLIB == "yes" && (!PHP_ZLIB_SHARED)))
 		) {
 		
 		var dll = get_define('PHPDLL');
-		var sdir = configure_module_dirname;
+		var old_conf_dir = configure_module_dirname;
 		
-		if (null == dll.match(/^php5/) && null == dll.match(/^php7/)) {
-			if (null != PHP_DLL.match(/^php5/)) {
-				sdir = sdir + "\\php5";
-			} else if (null != PHP_DLL.match(/^php7/)) {
-				sdir = sdir + "\\php7";
-			} else {
-				ERROR("Cannot match any known PHP version with '" + PHP_DLL + "'");
-			}
+		/* XXX tricky job here, override configure_module_dirname, define the basic extension,
+			then set it back*/
+		if (null != dll.match(/^php5/)) {
+			configure_module_dirname = configure_module_dirname + "\\php5";
+		} else if (null != dll.match(/^php7/)) {
+			configure_module_dirname = configure_module_dirname + "\\php7";
+		} else {
+			ERROR("Cannot match any known PHP version with '" + dll + "'");
 		}
 
-		EXTENSION('zip', sdir + '/php_zip.c ' + sdir + '/zip_stream.c');
+		EXTENSION('zip', 'php_zip.c zip_stream.c');
+		configure_module_dirname = old_conf_dir;
+
 		ADD_SOURCES(configure_module_dirname + "/lib", "zip_add.c zip_add_dir.c zip_add_entry.c\
 			zip_close.c zip_delete.c zip_dir_add.c zip_dirent.c zip_discard.c zip_entry.c\
 			zip_err_str.c zip_error.c zip_error_clear.c zip_error_get.c zip_error_get_sys_type.c\
