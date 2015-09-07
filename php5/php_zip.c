@@ -200,7 +200,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 
 	/* it is a directory only, see #40228 */
 	if (path_cleaned_len > 1 && IS_SLASH(path_cleaned[path_cleaned_len - 1])) {
-		len = spprintf(&file_dirname_fullpath, 0, "%s/%s", dest, file);
+		len = spprintf(&file_dirname_fullpath, 0, "%s/%s", dest, path_cleaned);
 		is_dir_only = 1;
 	} else {
 		memcpy(file_dirname, path_cleaned, path_cleaned_len);
@@ -620,7 +620,7 @@ int php_zip_glob(char *pattern, int pattern_len, long flags, zval *return_value 
 
 	array_init(return_value);
 	for (n = 0; n < globbuf.gl_pathc; n++) {
-		/* we need to do this everytime since GLOB_ONLYDIR does not guarantee that
+		/* we need to do this every time since GLOB_ONLYDIR does not guarantee that
 		 * all directories will be filtered. GNU libc documentation states the
 		 * following:
 		 * If the information about the type of the file is easily available
@@ -1634,6 +1634,7 @@ static ZIPARCHIVE_METHOD(close)
 	struct zip *intern;
 	zval *this = getThis();
 	ze_zip_object *ze_obj;
+	int err;
 
 	if (!this) {
 		RETURN_FALSE;
@@ -1643,7 +1644,8 @@ static ZIPARCHIVE_METHOD(close)
 
 	ze_obj = (ze_zip_object*) zend_object_store_get_object(this TSRMLS_CC);
 
-	if (zip_close(intern)) {
+	if ((err = zip_close(intern))) {
+		php_error_docref(NULL TSRMLS_CC, E_WARNING, "%s", zip_strerror(intern));
 		zip_discard(intern);
 	}
 
@@ -1652,7 +1654,11 @@ static ZIPARCHIVE_METHOD(close)
 	ze_obj->filename_len = 0;
 	ze_obj->za = NULL;
 
-	RETURN_TRUE;
+	if (!err) {
+		RETURN_TRUE;
+	} else {
+		RETURN_FALSE;
+	}
 }
 /* }}} */
 

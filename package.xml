@@ -32,6 +32,9 @@
 - new methods for ZipArchive:
   setCompressionName, setCompressionIndex (Cedric Delmas)
 - allow to build with PHP 7
+- Fixed bug #70350 (ZipArchive::extractTo allows for directory traversal
+  when creating directories). (neal at fb dot com)
+- Fixed bug #70322 (ZipArchive::close() doesn't indicate errors). (cmb)
   </notes>
   <contents>
     <dir name="/">
@@ -168,6 +171,8 @@
         <file name="bug53885.phpt" role="test"/>
         <file name="bug64342_0.phpt" role="test"/>
         <file name="bug64342_1.phpt" role="test"/>
+        <file name="bug70322.phpt" role="test"/>
+        <file name="bug70350.phpt" role="test"/>
         <file name="bug7214.phpt" role="test"/>
         <file name="bug7658.odt" role="test"/>
         <file name="bug7658.phpt" role="test"/>
@@ -175,6 +180,8 @@
         <file name="bug8009.phpt" role="test"/>
         <file name="bug8009.zip" role="test"/>
         <file name="bug8700.phpt" role="test"/>
+        <file name="compression_methods.phpt" role="test"/>
+        <file name="compression_methods.zip" role="test"/>
         <file name="doubleclose.phpt" role="test"/>
         <file name="oo_addemptydir.phpt" role="test"/>
         <file name="oo_addfile.phpt" role="test"/>
