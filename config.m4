@@ -51,11 +51,11 @@ if test "$PHP_ZIP" != "no"; then
     PHP_ADD_INCLUDE($PHP_ZLIB_INCDIR)
   fi
 
-  if test -d php7 ; then
+  AC_MSG_CHECKING(PHP version)
+  if test -d $abs_srcdir/php7 ; then
     dnl # only when for PECL, not for PHP
     export OLD_CPPFLAGS="$CPPFLAGS"
     export CPPFLAGS="$CPPFLAGS $INCLUDES"
-    AC_MSG_CHECKING(PHP version)
     AC_TRY_COMPILE([#include <php_version.h>], [
 #if PHP_MAJOR_VERSION > 5
 #error  PHP > 5
@@ -70,6 +70,7 @@ if test "$PHP_ZIP" != "no"; then
     export CPPFLAGS="$OLD_CPPFLAGS"
     PHP_ZIP_SOURCES="$subdir/php_zip.c $subdir/zip_stream.c"
   else
+    AC_MSG_ERROR([unknown])
     PHP_ZIP_SOURCES="php_zip.c zip_stream.c"
   fi
 
