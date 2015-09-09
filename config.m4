@@ -158,7 +158,7 @@ if test "$PHP_ZIP" != "no"; then
     PHP_ADD_INCLUDE([$ext_srcdir/lib])
   fi
 
-  if test -z "$subdir" ; then
+  if test -n "$subdir" ; then
     PHP_ADD_BUILD_DIR($abs_builddir/$subdir, 1)
     PHP_ADD_INCLUDE([$ext_srcdir/$subdir])
   fi
