@@ -28,7 +28,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Update bundled libzip to 1.0.1 (Remi, Anatol)
+- Update bundled libzip to 1.1.2 (Remi, Anatol)
 - Fixed bug #71561 (NULL pointer dereference in Zip::ExtractTo) (Stas)
 - Format string fixes (Mikic)
 - Remove TSRMLS_* from code, they are not used anymore (Stas)
