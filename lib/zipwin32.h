@@ -34,8 +34,6 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* 0x0501 => Windows XP; needs to be at least this value because of GetFileSizeEx */
-#define _WIN32_WINNT 0x0501
 #include <windows.h>
 
 /* context for Win32 source */
