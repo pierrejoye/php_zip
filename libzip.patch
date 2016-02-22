@@ -1,6 +1,7 @@
-diff -u lib.orig/zip.h lib/zip.h
---- lib.orig/zip.h	Wed Apr 29 17:43:29 2015
-+++ lib/zip.h	Tue May  5 15:33:32 2015
+diff --git a/lib/zip.h b/lib/zip.h
+index 27141b3..7b243bc 100644
+--- a/lib/zip.h
++++ b/lib/zip.h
 @@ -37,7 +37,7 @@
  
  #ifndef ZIP_EXTERN
@@ -10,81 +11,10 @@ diff -u lib.orig/zip.h lib/zip.h
  #   define ZIP_EXTERN __declspec(dllimport)
  #  elif defined(__GNUC__) && __GNUC__ >= 4
  #   define ZIP_EXTERN __attribute__ ((visibility ("default")))
-diff -u lib.orig/zip_dirent.c lib/zip_dirent.c
---- lib.orig/zip_dirent.c	Wed Apr 29 17:43:29 2015
-+++ lib/zip_dirent.c	Tue May  5 14:58:15 2015
-@@ -618,6 +618,7 @@
-     bool is_really_zip64;
-     zip_uint8_t buf[CDENTRYSIZE];
-     zip_buffer_t *buffer;
-+    zip_uint32_t ef_total_size;
- 
-     ef = NULL;
- 
-@@ -654,6 +655,7 @@
-     if (is_zip64) {
-         zip_uint8_t ef_zip64[EFZIP64SIZE];
-         zip_buffer_t *ef_buffer = _zip_buffer_new(ef_zip64, sizeof(ef_zip64));
-+        zip_extra_field_t *ef64;
-         if (ef_buffer == NULL) {
-             zip_error_set(&za->error, ZIP_ER_MEMORY, 0);
- 	    _zip_ef_free(ef);
-@@ -687,7 +689,7 @@
-             return -1;
-         }
- 
--        zip_extra_field_t *ef64 = _zip_ef_new(ZIP_EF_ZIP64, (zip_uint16_t)(_zip_buffer_offset(ef_buffer)), ef_zip64, ZIP_EF_BOTH);
-+        ef64 = _zip_ef_new(ZIP_EF_ZIP64, (zip_uint16_t)(_zip_buffer_offset(ef_buffer)), ef_zip64, ZIP_EF_BOTH);
-         _zip_buffer_free(ef_buffer);
-         ef64->next = ef;
-         ef = ef64;
-@@ -740,7 +742,7 @@
- 
-     _zip_buffer_put_16(buffer, _zip_string_length(de->filename));
-     /* TODO: check for overflow */
--    zip_uint32_t ef_total_size = (zip_uint32_t)_zip_ef_size(de->extra_fields, flags) + (zip_uint32_t)_zip_ef_size(ef, ZIP_EF_BOTH);
-+    ef_total_size = (zip_uint32_t)_zip_ef_size(de->extra_fields, flags) + (zip_uint32_t)_zip_ef_size(ef, ZIP_EF_BOTH);
-     _zip_buffer_put_16(buffer, (zip_uint16_t)ef_total_size);
-     
-     if ((flags & ZIP_FL_LOCAL) == 0) {
-diff -u lib.orig/zip_source_buffer.c lib/zip_source_buffer.c
---- lib.orig/zip_source_buffer.c	Tue Nov  4 15:47:37 2014
-+++ lib/zip_source_buffer.c	Tue May  5 15:09:48 2015
-@@ -388,12 +388,13 @@
- 	
- 	if (needed_fragments > buffer->fragments_capacity) {
- 	    zip_uint64_t new_capacity = buffer->fragments_capacity;
-+	    zip_uint8_t **fragments;
- 
- 	    while (new_capacity < needed_fragments) {
- 		new_capacity *= 2;
- 	    }
- 
--	    zip_uint8_t **fragments = realloc(buffer->fragments, new_capacity * sizeof(*fragments));
-+	    fragments = realloc(buffer->fragments, new_capacity * sizeof(*fragments));
- 
- 	    if (fragments == NULL) {
- 		zip_error_set(error, ZIP_ER_MEMORY, 0);
-diff -u lib.orig/zip_source_filep.c lib/zip_source_filep.c
---- lib.orig/zip_source_filep.c	Mon May  4 22:49:13 2015
-+++ lib/zip_source_filep.c	Tue May  5 15:22:49 2015
-@@ -183,7 +183,13 @@
-     }
-     sprintf(temp, "%s.XXXXXX", ctx->fname);
- 
-+#ifdef _WIN32
-+    /* This might work under VS2015, however there's no good documentation
-+    	about it. So let it be for now. */
-+    mask = 0;
-+#else
-     mask = umask(S_IXUSR | S_IRWXG | S_IRWXO);
-+#endif
-     if ((tfd=mkstemp(temp)) == -1) {
-         zip_error_set(&ctx->error, ZIP_ER_TMPOPEN, errno);
- 	umask(mask);
-diff -u lib.orig/zipint.h lib/zipint.h
---- lib.orig/zipint.h	Wed Apr 29 17:43:29 2015
-+++ lib/zipint.h	Tue May  5 15:45:41 2015
+diff --git a/lib/zipint.h b/lib/zipint.h
+index 40f75c4..323b3f1 100644
+--- a/lib/zipint.h
++++ b/lib/zipint.h
 @@ -34,8 +34,12 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
@@ -113,3 +43,16 @@ diff -u lib.orig/zipint.h lib/zipint.h
  #endif
  
  #ifndef _ZIP_COMPILING_DEPRECATED
+diff --git a/lib/zipwin32.h b/lib/zipwin32.h
+index 60f8d0c..4fa29cc 100644
+--- a/lib/zipwin32.h
++++ b/lib/zipwin32.h
+@@ -34,8 +34,6 @@
+   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+-/* 0x0501 => Windows XP; needs to be at least this value because of GetFileSizeEx */
+-#define _WIN32_WINNT 0x0501
+ #include <windows.h>
+ 
+ /* context for Win32 source */
