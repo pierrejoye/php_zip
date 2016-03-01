@@ -16,10 +16,10 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2016-02-22</date>
-  <time>18:37:00</time>
+  <date>2016-03-01</date>
+  <time>15:00:00</time>
   <version>
-    <release>1.13.2dev</release>
+    <release>1.13.2</release>
     <api>2.2.0</api>
   </version>
   <stability>
@@ -30,7 +30,7 @@
   <notes>
 - Update bundled libzip to 1.1.2 (Remi, Anatol)
 - Fixed bug #71561 (NULL pointer dereference in Zip::ExtractTo) (Stas)
-- Format string fixes (Mikic)
+- Format string fixes (Nikic)
 - Remove TSRMLS_* from code, they are not used anymore (Stas)
 - Fixed incorrect usage of HASH_OF() macro. (Dmitry)
   </notes>
