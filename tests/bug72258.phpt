@@ -1,5 +1,5 @@
 --TEST--
-Bug #72258 ZipArchive converts fns to unrecoverable form
+Bug #72258 ZipArchive converts filenames to unrecoverable form
 --SKIPIF--
 <?php
 /* $Id$ */
@@ -23,4 +23,4 @@ for ($i = 0; $i < $zip->numFiles; $i++) {
 }
 ?>
 --EXPECT--
-string(6) "Â€ÂÂ‚ÂƒÂ„/"
+string(6) "€‚ƒ„/"
