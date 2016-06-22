@@ -30,6 +30,7 @@
   <notes>
 - Fixed bug #71923 (integer overflow in ZipArchive::getFrom*). (CVE-2016-3078) (Stas)
 - Fixed bug #72258 (ZipArchive converts filenames to unrecoverable form). (Anatol)
+- Fixed bug #72434 (ZipArchive class Use After Free Vulnerability in PHP's GC algorithm and unserialize). (Dmitry)
   </notes>
   <contents>
     <dir name="/">
@@ -171,6 +172,7 @@
         <file name="bug70350.phpt" role="test"/>
         <file name="bug72258.phpt" role="test"/>
         <file name="bug72258.zip" role="test"/>
+        <file name="bug72434.phpt" role="test"/>
         <file name="bug7214.phpt" role="test"/>
         <file name="bug7658.odt" role="test"/>
         <file name="bug7658.phpt" role="test"/>
