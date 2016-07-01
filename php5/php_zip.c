@@ -1060,6 +1060,7 @@ static int php_zip_has_property(zval *object, zval *member, int type KEY_ARG_DC 
 }
 /* }}} */
 
+#if PHP_VERSION_ID >= 50400
 static HashTable *php_zip_get_gc(zval *object, zval ***gc_data, int *gc_data_count TSRMLS_DC) /* {{{ */
 {
 	*gc_data = NULL;
@@ -1067,6 +1068,7 @@ static HashTable *php_zip_get_gc(zval *object, zval ***gc_data, int *gc_data_cou
 	return zend_std_get_properties(object TSRMLS_CC);
 }
 /* }}} */
+#endif
 
 static HashTable *php_zip_get_properties(zval *object TSRMLS_DC)/* {{{ */
 {
@@ -3156,7 +3158,9 @@ static PHP_MINIT_FUNCTION(zip)
 	zip_object_handlers.clone_obj		= NULL;
 	zip_object_handlers.get_property_ptr_ptr = php_zip_get_property_ptr_ptr;
 
+#if PHP_VERSION_ID >= 50400
 	zip_object_handlers.get_gc          = php_zip_get_gc;
+#endif
 	zip_object_handlers.get_properties = php_zip_get_properties;
 	zip_object_handlers.read_property	= php_zip_read_property;
 	zip_object_handlers.has_property	= php_zip_has_property;
