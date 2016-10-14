@@ -16,10 +16,10 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2016-07-21</date>
-  <time>08:00:00</time>
+  <date>2016-10-14</date>
+  <time>17:00:00</time>
   <version>
-    <release>1.13.4</release>
+    <release>1.13.5</release>
     <api>2.2.0</api>
   </version>
   <stability>
@@ -28,7 +28,9 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fixed bug #72520 (Stack-based buffer overflow vulnerability in php_stream_zip_opener). (Stas)
+- Fixed bug #72660 (NULL Pointer dereference in zend_virtual_cwd). (Laruence)
+- Fixed bug #68302 (impossible to compile php with zip support). (cmb)
+- Fixed bug #70752 (Depacking with wrong password leaves 0 length files). (cmb)
   </notes>
   <contents>
     <dir name="/">
@@ -168,6 +170,9 @@
         <file name="bug64342_1.phpt" role="test"/>
         <file name="bug70322.phpt" role="test"/>
         <file name="bug70350.phpt" role="test"/>
+        <file name="bug70752.phpt" role="test"/>
+        <file name="bug70752.zip" role="test"/>
+        <file name="bug72660.phpt" role="test"/>
         <file name="bug72258.phpt" role="test"/>
         <file name="bug72258.zip" role="test"/>
         <file name="bug72434.phpt" role="test"/>
@@ -269,6 +274,22 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2016-07-21</date>
+      <time>08:00:00</time>
+      <version>
+        <release>1.13.4</release>
+        <api>2.2.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fixed bug #72520 (Stack-based buffer overflow vulnerability in php_stream_zip_opener). (Stas)
+      </notes>
+    </release>
     <release>
       <date>2016-06-23</date>
       <time>12:00:00</time>
