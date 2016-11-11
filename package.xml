@@ -19,7 +19,7 @@
   <date>2016-10-14</date>
   <time>17:00:00</time>
   <version>
-    <release>1.13.5</release>
+    <release>1.13.6dev</release>
     <api>2.2.0</api>
   </version>
   <stability>
@@ -28,9 +28,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fixed bug #72660 (NULL Pointer dereference in zend_virtual_cwd). (Laruence)
-- Fixed bug #68302 (impossible to compile php with zip support). (cmb)
-- Fixed bug #70752 (Depacking with wrong password leaves 0 length files). (cmb)
+-
   </notes>
   <contents>
     <dir name="/">
@@ -274,6 +272,24 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2016-10-14</date>
+      <time>17:00:00</time>
+      <version>
+        <release>1.13.5</release>
+        <api>2.2.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fixed bug #72660 (NULL Pointer dereference in zend_virtual_cwd). (Laruence)
+- Fixed bug #68302 (impossible to compile php with zip support). (cmb)
+- Fixed bug #70752 (Depacking with wrong password leaves 0 length files). (cmb)
+      </notes>
+    </release>
     <release>
       <date>2016-07-21</date>
       <time>08:00:00</time>
