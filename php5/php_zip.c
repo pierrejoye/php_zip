@@ -444,7 +444,9 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 		add_ascii_assoc_long(return_value, "mtime", (long) (sb)->mtime); \
 		add_ascii_assoc_long(return_value, "comp_size", (long) (sb)->comp_size); \
 		add_ascii_assoc_long(return_value, "comp_method", (long) (sb)->comp_method); \
+#ifdef HAVE_ENCRYPTION
 		add_ascii_assoc_long(return_value, "encryption_method", (long) (sb)->encryption_method); \
+#endif
 	}
 /* }}} */
 
