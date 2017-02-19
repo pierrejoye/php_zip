@@ -444,6 +444,7 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 		add_ascii_assoc_long(return_value, "mtime", (long) (sb)->mtime); \
 		add_ascii_assoc_long(return_value, "comp_size", (long) (sb)->comp_size); \
 		add_ascii_assoc_long(return_value, "comp_method", (long) (sb)->comp_method); \
+		add_ascii_assoc_long(return_value, "encryption_method", (long) (sb)->encryption_method); \
 	}
 /* }}} */
 
@@ -2365,6 +2366,74 @@ static ZIPARCHIVE_METHOD(getExternalAttributesIndex)
 /* }}} */
 #endif /* ifdef ZIP_OPSYS_DEFAULT */
 
+#ifdef HAVE_ENCRYPTION
+/* {{{ proto bool ZipArchive::setEncryptionName(string name, int method, [string password])
+Set encryption method for file in zip, using its name */
+static ZIPARCHIVE_METHOD(setEncryptionName)
+{
+	struct zip *intern;
+	zval *self = getThis();
+	long method;
+	zip_int64_t idx;
+	char *name, *password = NULL;
+	int name_len, password_len;
+
+	if (!self) {
+		RETURN_FALSE;
+	}
+
+	ZIP_FROM_OBJECT(intern, self);
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl|s",
+			&name, &name_len, &method, &password, &password_len) == FAILURE) {
+		return;
+	}
+
+	if (name_len < 1) {
+		php_error_docref(NULL, E_NOTICE, "Empty string as entry name");
+	}
+
+	idx = zip_name_locate(intern, name, 0);
+	if (idx < 0) {
+		RETURN_FALSE;
+	}
+
+	if (zip_file_set_encryption(intern, idx, (zip_uint16_t)method, password)) {
+		RETURN_FALSE;
+	}
+	RETURN_TRUE;
+}
+/* }}} */
+
+/* {{{ proto bool ZipArchive::setEncryptionIndex(int index, int method, [string password])
+Set encryption method for file in zip, using its index */
+static ZIPARCHIVE_METHOD(setEncryptionIndex)
+{
+	struct zip *intern;
+	zval *self = getThis();
+	long index, method;
+	char *password = NULL;
+	int password_len;
+
+	if (!self) {
+		RETURN_FALSE;
+	}
+
+	ZIP_FROM_OBJECT(intern, self);
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ll|s",
+			&index, &method, &password, &password_len) == FAILURE) {
+		return;
+	}
+
+	if (zip_file_set_encryption(intern, index, (zip_uint16_t)method, password)) {
+		RETURN_FALSE;
+	}
+	RETURN_TRUE;
+}
+/* }}} */
+#endif
+
 /* {{{ proto string ZipArchive::getCommentName(string name[, int flags])
 Returns the comment of an entry using its name */
 static ZIPARCHIVE_METHOD(getCommentName)
@@ -3091,6 +3160,20 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_getextattrindex, 0, 0, 3)
 ZEND_END_ARG_INFO()
 #endif /* ifdef ZIP_OPSYS_DEFAULT */
 
+#ifdef HAVE_ENCRYPTION
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setencryption_name, 0, 0, 2)
+	ZEND_ARG_INFO(0, name)
+	ZEND_ARG_INFO(0, method)
+	ZEND_ARG_INFO(0, password)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setencryption_index, 0, 0, 2)
+	ZEND_ARG_INFO(0, index)
+	ZEND_ARG_INFO(0, method)
+	ZEND_ARG_INFO(0, password)
+ZEND_END_ARG_INFO()
+#endif
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setcompname, 0, 0, 2)
 	ZEND_ARG_INFO(0, name)
 	ZEND_ARG_INFO(0, method)
@@ -3143,6 +3226,10 @@ static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(getExternalAttributesIndex,	arginfo_ziparchive_getextattrindex, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(setCompressionName,	arginfo_ziparchive_setcompname, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(setCompressionIndex,	arginfo_ziparchive_setcompindex, ZEND_ACC_PUBLIC)
+#ifdef HAVE_ENCRYPTION
+	ZIPARCHIVE_ME(setEncryptionName,		arginfo_ziparchive_setencryption_name, ZEND_ACC_PUBLIC)
+	ZIPARCHIVE_ME(setEncryptionIndex,		arginfo_ziparchive_setencryption_index, ZEND_ACC_PUBLIC)
+#endif
 	{NULL, NULL, NULL}
 };
 /* }}} */
@@ -3271,6 +3358,13 @@ static PHP_MINIT_FUNCTION(zip)
 
 	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_DEFAULT", ZIP_OPSYS_DEFAULT);
 #endif /* ifdef ZIP_OPSYS_DEFAULT */
+
+#ifdef HAVE_ENCRYPTION
+	REGISTER_ZIP_CLASS_CONST_LONG("EM_NONE",				ZIP_EM_NONE);
+	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_128",				ZIP_EM_AES_128);
+	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_192",				ZIP_EM_AES_192);
+	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_256",				ZIP_EM_AES_256);
+#endif
 
 	php_register_url_stream_wrapper("zip", &php_stream_zip_wrapper TSRMLS_CC);
 #endif /* ifdef PHP_ZIP_USE_OO */

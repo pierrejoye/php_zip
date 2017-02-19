@@ -19,7 +19,7 @@
   <date>2016-10-14</date>
   <time>17:00:00</time>
   <version>
-    <release>1.13.6dev</release>
+    <release>1.14.0dev</release>
     <api>2.2.0</api>
   </version>
   <stability>
@@ -29,6 +29,9 @@
   <license>PHP 3.01</license>
   <notes>
 - Fix #70103: ZipArchive::addGlob ignores remove_all_path option (cmb)
+- add ZipArchive::setEncryptionName and ZipArchive::setEncryptionIndex
+  methods available in libzip >= 1.2.0 (Remi)
+- add encryption_method in statIndex/statName returned array
   </notes>
   <contents>
     <dir name="/">
@@ -190,6 +193,7 @@
         <file name="oo_addpattern.phpt" role="test"/>
         <file name="oo_close.phpt" role="test"/>
         <file name="oo_delete.phpt" role="test"/>
+        <file name="oo_encryption.phpt" role="test"/>
         <file name="oo_extract.phpt" role="test"/>
         <file name="oo_ext_zip.phpt" role="test"/>
         <file name="oo_externalattributes.phpt" role="test"/>

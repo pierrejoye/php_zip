@@ -122,6 +122,15 @@ if test "$PHP_ZIP" != "no"; then
       -L$LIBZIP_LIBDIR
     ])
 
+    PHP_CHECK_LIBRARY(zip, zip_file_set_encryption,
+    [
+      PHP_ADD_LIBRARY_WITH_PATH(zip, $LIBZIP_LIBDIR, ZIP_SHARED_LIBADD)
+      AC_DEFINE(HAVE_ENCRYPTION, 1, [Libzip >= 1.2.0 with encryption support])
+    ], [
+    ], [
+      -L$LIBZIP_LIBDIR
+    ])
+
     AC_DEFINE(HAVE_ZIP,1,[ ])
     PHP_NEW_EXTENSION(zip, $PHP_ZIP_SOURCES, $ext_shared,, $LIBZIP_CFLAGS)
   else
