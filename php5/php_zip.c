@@ -2,7 +2,7 @@
   +----------------------------------------------------------------------+
   | PHP Version 5                                                        |
   +----------------------------------------------------------------------+
-  | Copyright (c) 1997-2016 The PHP Group                                |
+  | Copyright (c) 1997-2017 The PHP Group                                |
   +----------------------------------------------------------------------+
   | This source file is subject to version 3.01 of the PHP license,      |
   | that is bundled with this package in the file LICENSE, and is        |
@@ -1840,12 +1840,12 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 					}
 
 					snprintf(entry_name_buf, MAXPATHLEN, "%s%s", add_path, file_stripped);
-					entry_name = entry_name_buf;
-					entry_name_len = strlen(entry_name);
 				} else {
-					entry_name = Z_STRVAL_PP(zval_file);
-					entry_name_len = Z_STRLEN_PP(zval_file);
+					snprintf(entry_name_buf, MAXPATHLEN, "%s", file_stripped);
 				}
+				entry_name = entry_name_buf;
+				entry_name_len = strlen(entry_name);
+
 				if (basename) {
 					efree(basename);
 					basename = NULL;
@@ -2759,7 +2759,7 @@ static ZIPARCHIVE_METHOD(extractTo)
 		RETURN_FALSE;
 	}
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s|z", &pathto, &pathto_len, &zval_files) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, ARG_PATH "|z", &pathto, &pathto_len, &zval_files) == FAILURE) {
 		return;
 	}
 

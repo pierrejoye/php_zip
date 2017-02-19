@@ -28,7 +28,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- Fix #70103: ZipArchive::addGlob ignores remove_all_path option (cmb)
   </notes>
   <contents>
     <dir name="/">
