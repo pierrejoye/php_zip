@@ -2398,13 +2398,13 @@ static ZIPARCHIVE_METHOD(setEncryptionName)
 
 	ZIP_FROM_OBJECT(intern, self);
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl|s",
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl|s",
 			&name, &name_len, &method, &password, &password_len) == FAILURE) {
 		return;
 	}
 
 	if (name_len < 1) {
-		php_error_docref(NULL, E_NOTICE, "Empty string as entry name");
+		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "Empty string as entry name");
 	}
 
 	idx = zip_name_locate(intern, name, 0);
@@ -2435,7 +2435,7 @@ static ZIPARCHIVE_METHOD(setEncryptionIndex)
 
 	ZIP_FROM_OBJECT(intern, self);
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ll|s",
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ll|s",
 			&index, &method, &password, &password_len) == FAILURE) {
 		return;
 	}
