@@ -379,6 +379,7 @@ static int php_zip_parse_options(zval *options, zend_long *remove_all_path, char
 /* }}} */
 
 /* {{{ RETURN_SB(sb) */
+#ifdef HAVE_ENCRYPTION
 #define RETURN_SB(sb) \
 	{ \
 		array_init(return_value); \
@@ -389,10 +390,21 @@ static int php_zip_parse_options(zval *options, zend_long *remove_all_path, char
 		add_ascii_assoc_long(return_value, "mtime", (zend_long) (sb)->mtime); \
 		add_ascii_assoc_long(return_value, "comp_size", (zend_long) (sb)->comp_size); \
 		add_ascii_assoc_long(return_value, "comp_method", (zend_long) (sb)->comp_method); \
-#ifdef HAVE_ENCRYPTION
 		add_ascii_assoc_long(return_value, "encryption_method", (zend_long) (sb)->encryption_method); \
-#endif
 	}
+#else
+#define RETURN_SB(sb) \
+	{ \
+		array_init(return_value); \
+		add_ascii_assoc_string(return_value, "name", (char *)(sb)->name); \
+		add_ascii_assoc_long(return_value, "index", (zend_long) (sb)->index); \
+		add_ascii_assoc_long(return_value, "crc", (zend_long) (sb)->crc); \
+		add_ascii_assoc_long(return_value, "size", (zend_long) (sb)->size); \
+		add_ascii_assoc_long(return_value, "mtime", (zend_long) (sb)->mtime); \
+		add_ascii_assoc_long(return_value, "comp_size", (zend_long) (sb)->comp_size); \
+		add_ascii_assoc_long(return_value, "comp_method", (zend_long) (sb)->comp_method); \
+	}
+#endif
 /* }}} */
 
 static int php_zip_status(struct zip *za) /* {{{ */

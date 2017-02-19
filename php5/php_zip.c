@@ -434,6 +434,7 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 /* }}} */
 
 /* {{{ RETURN_SB(sb) */
+#ifdef HAVE_ENCRYPTION
 #define RETURN_SB(sb) \
 	{ \
 		array_init(return_value); \
@@ -444,10 +445,21 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 		add_ascii_assoc_long(return_value, "mtime", (long) (sb)->mtime); \
 		add_ascii_assoc_long(return_value, "comp_size", (long) (sb)->comp_size); \
 		add_ascii_assoc_long(return_value, "comp_method", (long) (sb)->comp_method); \
-#ifdef HAVE_ENCRYPTION
 		add_ascii_assoc_long(return_value, "encryption_method", (long) (sb)->encryption_method); \
-#endif
 	}
+#else
+#define RETURN_SB(sb) \
+	{ \
+		array_init(return_value); \
+		add_ascii_assoc_string(return_value, "name", (char *)(sb)->name, 1); \
+		add_ascii_assoc_long(return_value, "index", (long) (sb)->index); \
+		add_ascii_assoc_long(return_value, "crc", (long) (sb)->crc); \
+		add_ascii_assoc_long(return_value, "size", (long) (sb)->size); \
+		add_ascii_assoc_long(return_value, "mtime", (long) (sb)->mtime); \
+		add_ascii_assoc_long(return_value, "comp_size", (long) (sb)->comp_size); \
+		add_ascii_assoc_long(return_value, "comp_method", (long) (sb)->comp_method); \
+	}
+#endif
 /* }}} */
 
 static int php_zip_status(struct zip *za TSRMLS_DC) /* {{{ */
