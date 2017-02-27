@@ -310,6 +310,14 @@ php_stream *php_stream_zip_opener(php_stream_wrapper *wrapper,
 
 	za = zip_open(file_dirname, ZIP_CREATE, &err);
 	if (za) {
+		zval *tmpzval;
+
+		if (NULL != (tmpzval = php_stream_context_get_option(context, "zip", "password"))) {
+			if (Z_TYPE_P(tmpzval) != IS_STRING || zip_set_default_password(za, Z_STRVAL_P(tmpzval))) {
+				php_error_docref(NULL, E_WARNING, "Can't set zip password");
+			}
+		}
+
 		zf = zip_fopen(za, fragment, 0);
 		if (zf) {
 			self = emalloc(sizeof(*self));
@@ -327,7 +335,6 @@ php_stream *php_stream_zip_opener(php_stream_wrapper *wrapper,
 			zip_close(za);
 		}
 	}
-
 	zend_string_release(file_basename);
 
 	if (!stream) {

@@ -35,6 +35,11 @@ $zip->setPassword($pass);
 var_dump($zip->getFromName('bar.txt')); // Ecnrypted, ok
 $zip->close();
 
+echo "== Stream\n";
+var_dump(file_get_contents("zip://$name#foo.txt")); // Clear, ok
+var_dump(file_get_contents("zip://$name#bar.txt")); // Encrypted, fails
+$ctx = stream_context_create(array('zip' => array('password' => $pass)));
+var_dump(file_get_contents("zip://$name#bar.txt", false, $ctx)); // Ecnrypted, ok
 ?>
 == Done
 --CLEAN--
@@ -50,6 +55,12 @@ bool(true)
 bool(true)
 bool(true)
 string(3) "foo"
+bool(false)
+string(3) "bar"
+== Stream
+string(3) "foo"
+
+Warning: file_get_contents(%s): failed to open stream: operation failed in %s on line %d
 bool(false)
 string(3) "bar"
 == Done

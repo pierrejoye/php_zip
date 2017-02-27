@@ -316,6 +316,14 @@ php_stream *php_stream_zip_opener(php_stream_wrapper *wrapper,
 
 	za = zip_open(file_dirname, ZIP_CREATE, &err);
 	if (za) {
+		zval **tmpzval;
+
+		if (php_stream_context_get_option(context, "zip", "password", &tmpzval) == SUCCESS) {
+			if (Z_TYPE_PP(tmpzval)  != IS_STRING || zip_set_default_password(za, Z_STRVAL_PP(tmpzval))) {
+				php_error_docref(NULL TSRMLS_CC, E_WARNING, "Can't set zip password");
+			}
+		}
+
 		zf = zip_fopen(za, fragment, 0);
 		if (zf) {
 			self = emalloc(sizeof(*self));

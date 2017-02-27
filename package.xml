@@ -20,7 +20,7 @@
   <time>17:00:00</time>
   <version>
     <release>1.14.0dev</release>
-    <api>2.2.0</api>
+    <api>2.3.0</api>
   </version>
   <stability>
     <release>stable</release>
@@ -32,6 +32,7 @@
 - add ZipArchive::setEncryptionName and ZipArchive::setEncryptionIndex
   methods available in libzip >= 1.2.0 (Remi)
 - add encryption_method in statIndex/statName returned array
+- allow to set password in stream wrapper using context
   </notes>
   <contents>
     <dir name="/">
