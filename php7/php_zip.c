@@ -514,7 +514,7 @@ int php_zip_glob(char *pattern, int pattern_len, zend_long flags, zval *return_v
 	char *result;
 #endif
 	glob_t globbuf;
-	int n;
+	size_t n;
 	int ret;
 
 	if (pattern_len >= MAXPATHLEN) {
@@ -604,7 +604,7 @@ int php_zip_glob(char *pattern, int pattern_len, zend_long flags, zval *return_v
 	globfree(&globbuf);
 	return globbuf.gl_pathc;
 #else
-	php_error_docref(NULL, E_ERROR, "Glob support is not available");
+	zend_throw_error(NULL, "Glob support is not available");
 	return 0;
 #endif  /* HAVE_GLOB */
 }
@@ -1709,7 +1709,7 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 
 				if (add_path) {
 					if ((add_path_len + file_stripped_len) > MAXPATHLEN) {
-						php_error_docref(NULL, E_WARNING, "Entry name too long (max: %d, %pd given)",
+						php_error_docref(NULL, E_WARNING, "Entry name too long (max: %d, %zd given)",
 						MAXPATHLEN - 1, (add_path_len + file_stripped_len));
 						zval_ptr_dtor(return_value);
 						RETURN_FALSE;
@@ -3104,7 +3104,7 @@ static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(setEncryptionName,		arginfo_ziparchive_setencryption_name, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(setEncryptionIndex,		arginfo_ziparchive_setencryption_index, ZEND_ACC_PUBLIC)
 #endif
-	{NULL, NULL, NULL}
+	PHP_FE_END
 };
 /* }}} */
 

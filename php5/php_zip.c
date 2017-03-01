@@ -569,7 +569,7 @@ int php_zip_glob(char *pattern, int pattern_len, long flags, zval *return_value 
 	char *result;
 #endif
 	glob_t globbuf;
-	int n;
+	size_t n;
 	int ret;
 
 	if (pattern_len >= MAXPATHLEN) {
