@@ -33,6 +33,7 @@
   methods available in libzip >= 1.2.0 (Remi)
 - add encryption_method in statIndex/statName returned array
 - allow to set password in stream wrapper using context
+- Fix #73803: Reflection of ZipArchive does not show public properties
   </notes>
   <contents>
     <dir name="/">
