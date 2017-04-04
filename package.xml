@@ -16,10 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2017-03-01</date>
-  <time>17:00:00</time>
+  <date>2017-04-05</date>
   <version>
-    <release>1.14.0dev</release>
+    <release>1.14.0</release>
     <api>2.3.0</api>
   </version>
   <stability>
@@ -31,10 +30,11 @@
 - Fix #70103: ZipArchive::addGlob ignores remove_all_path option (cmb)
 - add ZipArchive::setEncryptionName and ZipArchive::setEncryptionIndex
   methods available with libzip >= 1.2.0 (Remi)
-- add encryption_method in statIndex/statName returned array
-- allow to set password in stream wrapper using context
-- Fix #73803: Reflection of ZipArchive does not show public properties
-- drop bundled libzip, only support system library
+- add encryption_method in statIndex/statName returned array (Remi)
+- allow to set password in stream wrapper using context (Remi)
+- Fix #73803: Reflection of ZipArchive does not show public properties (Remi)
+- support for system libzip on Windows (Anatol)
+- drop bundled libzip, only support system library (Remi)
   </notes>
   <contents>
     <dir name="/">
