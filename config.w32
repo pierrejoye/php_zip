@@ -10,7 +10,7 @@ if (PHP_ZIP != "no") {
 		if (CHECK_LIB("libzip_a.lib;", "zip", PHP_ZIP)) {
 			AC_DEFINE("ZIP_STATIC", 1);
 		} else if (!CHECK_LIB("libzip.lib;zip.lib", "zip", PHP_ZIP)) {
-			WARNING("zip not enabled; libraries not found");
+			ERROR("zip not enabled; libraries not found");
 		}
 		
 		var dll = get_define('PHPDLL');
@@ -33,6 +33,6 @@ if (PHP_ZIP != "no") {
 		ADD_FLAG("CFLAGS_ZIP", "/D _WIN32");
 		AC_DEFINE('HAVE_LIBZIP', 1);
 	} else {
-		WARNING("zip not enabled; headers not found");
+		ERROR("zip not enabled; headers not found");
 	}
 }
