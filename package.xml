@@ -30,126 +30,14 @@
   <notes>
 - Fix #70103: ZipArchive::addGlob ignores remove_all_path option (cmb)
 - add ZipArchive::setEncryptionName and ZipArchive::setEncryptionIndex
-  methods available in libzip >= 1.2.0 (Remi)
+  methods available with libzip >= 1.2.0 (Remi)
 - add encryption_method in statIndex/statName returned array
 - allow to set password in stream wrapper using context
 - Fix #73803: Reflection of ZipArchive does not show public properties
+- drop bundled libzip, only support system library
   </notes>
   <contents>
     <dir name="/">
-      <dir name="lib"> <!-- bundled libzip -->
-        <file name="config.h" role="src"/>
-        <file name="zip_add.c" role="src"/>
-        <file name="zip_add_dir.c" role="src"/>
-        <file name="zip_add_entry.c" role="src"/>
-        <file name="zip_buffer.c" role="src"/>
-        <file name="zip_close.c" role="src"/>
-        <file name="zip_delete.c" role="src"/>
-        <file name="zip_dir_add.c" role="src"/>
-        <file name="zip_dirent.c" role="src"/>
-        <file name="zip_discard.c" role="src"/>
-        <file name="zip_entry.c" role="src"/>
-        <file name="zip_err_str.c" role="src"/>
-        <file name="zip_error.c" role="src"/>
-        <file name="zip_error_clear.c" role="src"/>
-        <file name="zip_error_get.c" role="src"/>
-        <file name="zip_error_get_sys_type.c" role="src"/>
-        <file name="zip_error_strerror.c" role="src"/>
-        <file name="zip_error_to_str.c" role="src"/>
-        <file name="zip_extra_field.c" role="src"/>
-        <file name="zip_extra_field_api.c" role="src"/>
-        <file name="zip_fclose.c" role="src"/>
-        <file name="zip_fdopen.c" role="src"/>
-        <file name="zip_file_add.c" role="src"/>
-        <file name="zip_file_error_clear.c" role="src"/>
-        <file name="zip_file_error_get.c" role="src"/>
-        <file name="zip_file_get_comment.c" role="src"/>
-        <file name="zip_file_get_external_attributes.c" role="src"/>
-        <file name="zip_file_get_offset.c" role="src"/>
-        <file name="zip_file_rename.c" role="src"/>
-        <file name="zip_file_replace.c" role="src"/>
-        <file name="zip_file_set_comment.c" role="src"/>
-        <file name="zip_file_set_external_attributes.c" role="src"/>
-        <file name="zip_file_set_mtime.c" role="src"/>
-        <file name="zip_file_strerror.c" role="src"/>
-        <file name="zip_filerange_crc.c" role="src"/>
-        <file name="zip_fopen.c" role="src"/>
-        <file name="zip_fopen_encrypted.c" role="src"/>
-        <file name="zip_fopen_index.c" role="src"/>
-        <file name="zip_fopen_index_encrypted.c" role="src"/>
-        <file name="zip_fread.c" role="src"/>
-        <file name="zip_get_archive_comment.c" role="src"/>
-        <file name="zip_get_archive_flag.c" role="src"/>
-        <file name="zip_get_compression_implementation.c" role="src"/>
-        <file name="zip_get_encryption_implementation.c" role="src"/>
-        <file name="zip_get_file_comment.c" role="src"/>
-        <file name="zip_get_name.c" role="src"/>
-        <file name="zip_get_num_entries.c" role="src"/>
-        <file name="zip_get_num_files.c" role="src"/>
-        <file name="zip_hash.c" role="src"/>
-        <file name="zip_io_util.c" role="src"/>
-        <file name="zip_memdup.c" role="src"/>
-        <file name="zip_name_locate.c" role="src"/>
-        <file name="zip_new.c" role="src"/>
-        <file name="zip_open.c" role="src"/>
-        <file name="zip_rename.c" role="src"/>
-        <file name="zip_replace.c" role="src"/>
-        <file name="zip_set_archive_comment.c" role="src"/>
-        <file name="zip_set_archive_flag.c" role="src"/>
-        <file name="zip_set_default_password.c" role="src"/>
-        <file name="zip_set_file_comment.c" role="src"/>
-        <file name="zip_set_file_compression.c" role="src"/>
-        <file name="zip_set_name.c" role="src"/>
-        <file name="zip_source_begin_write.c" role="src"/>
-        <file name="zip_source_buffer.c" role="src"/>
-        <file name="zip_source_call.c" role="src"/>
-        <file name="zip_source_close.c" role="src"/>
-        <file name="zip_source_commit_write.c" role="src"/>
-        <file name="zip_source_crc.c" role="src"/>
-        <file name="zip_source_deflate.c" role="src"/>
-        <file name="zip_source_error.c" role="src"/>
-        <file name="zip_source_file.c" role="src"/>
-        <file name="zip_source_filep.c" role="src"/>
-        <file name="zip_source_free.c" role="src"/>
-        <file name="zip_source_function.c" role="src"/>
-        <file name="zip_source_is_deleted.c" role="src"/>
-        <file name="zip_source_layered.c" role="src"/>
-        <file name="zip_source_open.c" role="src"/>
-        <file name="zip_source_pkware.c" role="src"/>
-        <file name="zip_source_read.c" role="src"/>
-        <file name="zip_source_remove.c" role="src"/>
-        <file name="zip_source_rollback_write.c" role="src"/>
-        <file name="zip_source_seek.c" role="src"/>
-        <file name="zip_source_seek_write.c" role="src"/>
-        <file name="zip_source_stat.c" role="src"/>
-        <file name="zip_source_supports.c" role="src"/>
-        <file name="zip_source_tell.c" role="src"/>
-        <file name="zip_source_tell_write.c" role="src"/>
-        <file name="zip_source_win32a.c" role="src"/>
-        <file name="zip_source_win32handle.c" role="src"/>
-        <file name="zip_source_win32utf8.c" role="src"/>
-        <file name="zip_source_win32w.c" role="src"/>
-        <file name="zip_source_window.c" role="src"/>
-        <file name="zip_source_write.c" role="src"/>
-        <file name="zip_source_zip.c" role="src"/>
-        <file name="zip_source_zip_new.c" role="src"/>
-        <file name="zip_stat.c" role="src"/>
-        <file name="zip_stat_index.c" role="src"/>
-        <file name="zip_stat_init.c" role="src"/>
-        <file name="zip_strerror.c" role="src"/>
-        <file name="zip_string.c" role="src"/>
-        <file name="zip_unchange.c" role="src"/>
-        <file name="zip_unchange_all.c" role="src"/>
-        <file name="zip_unchange_archive.c" role="src"/>
-        <file name="zip_unchange_data.c" role="src"/>
-        <file name="zip_utf-8.c" role="src"/>
-        <file name="zipwin32.h" role="src"/>
-        <file name="mkstemp.c" role="src"/>
-        <file name="zipconf.h" role="src"/>
-        <file name="zip.h" role="src"/>
-        <file name="zipint.h" role="src"/>
-        <file name="php_zip_config.w32.h" role="src"/>
-      </dir> <!-- lib -->
       <dir name ="tests">
         <file name="001.phpt" role="test"/>
         <file name="binarynull.zip" role="test"/>
@@ -244,7 +132,6 @@
       <!-- documentation -->
       <file name="CREDITS" role="doc"/>
       <file name="LICENSE" role="doc"/>
-      <file name="LICENSE_libzip" role="doc"/>
       <dir name ="examples">
         <file name="odt.php" role="doc"/>
         <file name="test_with_comment.zip" role="doc"/>
