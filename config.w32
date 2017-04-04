@@ -31,6 +31,7 @@ if (PHP_ZIP != "no") {
 
 		AC_DEFINE('HAVE_ZIP', 1);
 		ADD_FLAG("CFLAGS_ZIP", "/D _WIN32");
+		AC_DEFINE('HAVE_LIBZIP', 1);
 	} else {
 		WARNING("zip not enabled; headers not found");
 	}
