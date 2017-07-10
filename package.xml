@@ -16,10 +16,10 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2017-04-05</date>
+  <date>2017-07-10</date>
   <version>
-    <release>1.14.0</release>
-    <api>2.3.0</api>
+    <release>1.15.0</release>
+    <api>2.4.0</api>
   </version>
   <stability>
     <release>stable</release>
@@ -27,14 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fix #70103: ZipArchive::addGlob ignores remove_all_path option (cmb)
-- add ZipArchive::setEncryptionName and ZipArchive::setEncryptionIndex
-  methods available with libzip >= 1.2.0 (Remi)
-- add encryption_method in statIndex/statName returned array (Remi)
-- allow to set password in stream wrapper using context (Remi)
-- Fix #73803: Reflection of ZipArchive does not show public properties (Remi)
-- support for system libzip on Windows (Anatol)
-- drop bundled libzip, only support system library (Remi)
+- ZipArchive implements Countable, added ZipArchive::count() method
   </notes>
   <contents>
     <dir name="/">
@@ -82,6 +75,7 @@
         <file name="oo_addglob.phpt" role="test"/>
         <file name="oo_addpattern.phpt" role="test"/>
         <file name="oo_close.phpt" role="test"/>
+        <file name="oo_count.phpt" role="test"/>
         <file name="oo_delete.phpt" role="test"/>
         <file name="oo_encryption.phpt" role="test"/>
         <file name="oo_extract.phpt" role="test"/>
@@ -166,6 +160,28 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2017-04-05</date>
+      <version>
+        <release>1.14.0</release>
+        <api>2.3.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fix #70103: ZipArchive::addGlob ignores remove_all_path option (cmb)
+- add ZipArchive::setEncryptionName and ZipArchive::setEncryptionIndex
+  methods available with libzip >= 1.2.0 (Remi)
+- add encryption_method in statIndex/statName returned array (Remi)
+- allow to set password in stream wrapper using context (Remi)
+- Fix #73803: Reflection of ZipArchive does not show public properties (Remi)
+- support for system libzip on Windows (Anatol)
+- drop bundled libzip, only support system library (Remi)
+      </notes>
+    </release>
     <release>
       <date>2016-10-14</date>
       <time>17:00:00</time>

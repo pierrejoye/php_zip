@@ -1,4 +1,4 @@
-Extension [ <persistent> extension #159 zip version 1.14.0 ] {
+Extension [ <persistent> extension #15 zip version 1.15.0-dev ] {
 
   - Functions {
     Function [ <internal:zip> function zip_open ] {
@@ -67,7 +67,7 @@ Extension [ <persistent> extension #159 zip version 1.14.0 ] {
   }
 
   - Classes [1] {
-    Class [ <internal:zip> class ZipArchive ] {
+    Class [ <internal:zip> class ZipArchive implements Countable ] {
 
       - Constants [79] {
         Constant [ integer CREATE ] { 1 }
@@ -165,7 +165,7 @@ Extension [ <persistent> extension #159 zip version 1.14.0 ] {
         Property [ <default> public $comment ]
       }
 
-      - Methods [39] {
+      - Methods [40] {
         Method [ <internal:zip> public method open ] {
 
           - Parameters [2] {
@@ -182,6 +182,12 @@ Extension [ <persistent> extension #159 zip version 1.14.0 ] {
         }
 
         Method [ <internal:zip> public method close ] {
+
+          - Parameters [0] {
+          }
+        }
+
+        Method [ <internal:zip, prototype Countable> public method count ] {
 
           - Parameters [0] {
           }
