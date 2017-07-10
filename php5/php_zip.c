@@ -3301,7 +3301,7 @@ static PHP_MINIT_FUNCTION(zip)
 	php_zip_register_prop_handler(&zip_prop_handlers, "filename", NULL, NULL, php_zipobj_get_filename, IS_STRING TSRMLS_CC);
 	php_zip_register_prop_handler(&zip_prop_handlers, "comment", NULL, php_zipobj_get_zip_comment, NULL, IS_STRING TSRMLS_CC);
 #if defined(HAVE_SPL)
-       zend_class_implements(zip_class_entry, 1, spl_ce_Countable);
+       zend_class_implements(zip_class_entry TSRMLS_CC, 1, spl_ce_Countable);
 #endif
 
 	REGISTER_ZIP_CLASS_CONST_LONG("CREATE", ZIP_CREATE);
