@@ -37,7 +37,7 @@ extern zend_module_entry zip_module_entry;
 #define ZIP_OVERWRITE ZIP_TRUNCATE
 #endif
 
-#define PHP_ZIP_VERSION "1.15.0"
+#define PHP_ZIP_VERSION "1.15.1"
 
 #if ((PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 2) || PHP_MAJOR_VERSION >= 6)
 # define PHP_ZIP_USE_OO 1

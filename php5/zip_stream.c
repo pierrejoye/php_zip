@@ -318,7 +318,7 @@ php_stream *php_stream_zip_opener(php_stream_wrapper *wrapper,
 	if (za) {
 		zval **tmpzval;
 
-		if (php_stream_context_get_option(context, "zip", "password", &tmpzval) == SUCCESS) {
+		if (context && php_stream_context_get_option(context, "zip", "password", &tmpzval) == SUCCESS) {
 			if (Z_TYPE_PP(tmpzval)  != IS_STRING || zip_set_default_password(za, Z_STRVAL_PP(tmpzval))) {
 				php_error_docref(NULL TSRMLS_CC, E_WARNING, "Can't set zip password");
 			}

@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2017-07-10</date>
+  <date>2017-07-11</date>
   <version>
-    <release>1.15.0</release>
+    <release>1.15.1</release>
     <api>2.4.0</api>
   </version>
   <stability>
@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- ZipArchive implements Countable, added ZipArchive::count() method
+- fix segfault in php_stream_context_get_option call
   </notes>
   <contents>
     <dir name="/">
@@ -160,6 +160,21 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2017-07-10</date>
+      <version>
+        <release>1.15.0</release>
+        <api>2.4.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- ZipArchive implements Countable, added ZipArchive::count() method
+      </notes>
+    </release>
     <release>
       <date>2017-04-05</date>
       <version>
