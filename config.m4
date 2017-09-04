@@ -92,7 +92,7 @@ if test "$PHP_ZIP" != "no"; then
     AC_DEFINE(HAVE_ZIP,1,[ ])
     PHP_NEW_EXTENSION(zip, $PHP_ZIP_SOURCES, $ext_shared,, $LIBZIP_CFLAGS)
   else
-    AC_MSG_ERROR([libzip is no more bundled: install libzip version >= 0.11 (1.2.0 recommended)])
+    AC_MSG_ERROR([libzip is no more bundled: install libzip version >= 0.11 (1.3.0 recommended for encryption and bzip2 support)])
   fi
 
   if test -n "$subdir" ; then
