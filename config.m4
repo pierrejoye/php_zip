@@ -85,6 +85,7 @@ if test "$PHP_ZIP" != "no"; then
       PHP_ADD_LIBRARY_WITH_PATH(zip, $LIBZIP_LIBDIR, ZIP_SHARED_LIBADD)
       AC_DEFINE(HAVE_ENCRYPTION, 1, [Libzip >= 1.2.0 with encryption support])
     ], [
+      AC_MSG_WARN(Libzip >= 1.2.0 needed for encryption support)
     ], [
       -L$LIBZIP_LIBDIR
     ])
