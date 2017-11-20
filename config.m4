@@ -82,10 +82,17 @@ if test "$PHP_ZIP" != "no"; then
 
     PHP_CHECK_LIBRARY(zip, zip_file_set_encryption,
     [
-      PHP_ADD_LIBRARY_WITH_PATH(zip, $LIBZIP_LIBDIR, ZIP_SHARED_LIBADD)
       AC_DEFINE(HAVE_ENCRYPTION, 1, [Libzip >= 1.2.0 with encryption support])
     ], [
       AC_MSG_WARN(Libzip >= 1.2.0 needed for encryption support)
+    ], [
+      -L$LIBZIP_LIBDIR
+    ])
+
+    PHP_CHECK_LIBRARY(zip, zip_libzip_version,
+    [
+      AC_DEFINE(HAVE_LIBZIP_VERSION, 1, [Libzip >= 1.3.1 with zip_libzip_version function])
+    ], [
     ], [
       -L$LIBZIP_LIBDIR
     ])
