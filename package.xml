@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- fix bug #75540 Segfault with libzip 1.3.1 (double free)
   </notes>
   <contents>
     <dir name="/">
