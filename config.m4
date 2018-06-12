@@ -16,15 +16,24 @@ if test "$PHP_ZIP" != "no"; then
     export OLD_CPPFLAGS="$CPPFLAGS"
     export CPPFLAGS="$CPPFLAGS $INCLUDES"
     AC_TRY_COMPILE([#include <php_version.h>], [
+#if PHP_MAJOR_VERSION >= 7 && PHP_MINOR_VERSION >= 3
+#error  PHP >= 7.3
+#endif
+    ], [
+      AC_TRY_COMPILE([#include <php_version.h>], [
 #if PHP_MAJOR_VERSION > 5
 #error  PHP > 5
 #endif
+      ], [
+        subdir=php5
+        AC_MSG_RESULT([PHP 5.x])
+      ], [
+        subdir=php7
+        AC_MSG_RESULT([PHP 7.0 - 7.2])
+      ])
     ], [
-      subdir=php5
-      AC_MSG_RESULT([PHP 5.x])
-    ], [
-      subdir=php7
-      AC_MSG_RESULT([PHP 7.x])
+      subdir=php73
+      AC_MSG_RESULT([PHP >= 7.3])
     ])
     export CPPFLAGS="$OLD_CPPFLAGS"
     PHP_ZIP_SOURCES="$subdir/php_zip.c $subdir/zip_stream.c"
