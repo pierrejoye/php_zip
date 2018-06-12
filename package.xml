@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2017-12-19</date>
+  <date>2018-06-12</date>
   <version>
-    <release>1.15.2</release>
+    <release>1.15.3</release>
     <api>2.4.0</api>
   </version>
   <stability>
@@ -27,8 +27,8 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- fix bug #75540 Segfault with libzip 1.3.1 (double free)
-- display headers (buildtime) and library (runtime) versions in phpinfo (libzip >= 1.3.1)
+- Add OPSYS_CPM constant as documented
+- Fix build with PHP 7.3
   </notes>
   <contents>
     <dir name="/">
@@ -166,6 +166,22 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2017-12-19</date>
+      <version>
+        <release>1.15.2</release>
+        <api>2.4.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- fix bug #75540 Segfault with libzip 1.3.1 (double free)
+- display headers (buildtime) and library (runtime) versions in phpinfo (libzip >= 1.3.1)
+      </notes>
+    </release>
     <release>
       <date>2017-07-11</date>
       <version>
