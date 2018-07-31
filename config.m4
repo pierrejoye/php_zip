@@ -15,16 +15,16 @@ if test "$PHP_ZIP" != "no"; then
     dnl # only when for PECL, not for PHP
     export OLD_CPPFLAGS="$CPPFLAGS"
     export CPPFLAGS="$CPPFLAGS $INCLUDES"
-    AC_TRY_COMPILE([#include <php_version.h>], [
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <php_version.h>]], [[
 #if PHP_MAJOR_VERSION >= 7 && PHP_MINOR_VERSION >= 3
 #error  PHP >= 7.3
 #endif
-    ], [
-      AC_TRY_COMPILE([#include <php_version.h>], [
+    ]])], [
+      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <php_version.h>]], [[
 #if PHP_MAJOR_VERSION > 5
 #error  PHP > 5
 #endif
-      ], [
+      ]])], [
         subdir=php5
         AC_MSG_RESULT([PHP 5.x])
       ], [
