@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2018-06-12</date>
+  <date>2018-10-03</date>
   <version>
-    <release>1.15.3</release>
+    <release>1.15.4</release>
     <api>2.4.0</api>
   </version>
   <stability>
@@ -27,8 +27,8 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Add OPSYS_CPM constant as documented
-- Fix build with PHP 7.3
+- Fixed Bug #76524 ZipArchive memory leak (OVERWRITE flag and empty archive)
+- Fixed incorrrecr zval_dtor() usage to replace value of argument passed by reference, that may lead to memory leaks.
   </notes>
   <contents>
     <dir name="/">
@@ -57,11 +57,13 @@
         <file name="bug70350.phpt" role="test"/>
         <file name="bug70752.phpt" role="test"/>
         <file name="bug70752.zip" role="test"/>
-        <file name="bug72660.phpt" role="test"/>
+        <file name="bug7214.phpt" role="test"/>
         <file name="bug72258.phpt" role="test"/>
         <file name="bug72258.zip" role="test"/>
         <file name="bug72434.phpt" role="test"/>
-        <file name="bug7214.phpt" role="test"/>
+        <file name="bug72434.phpt" role="test"/>
+        <file name="bug72660.phpt" role="test"/>
+        <file name="bug76524.phpt" role="test"/>
         <file name="bug7658.odt" role="test"/>
         <file name="bug7658.phpt" role="test"/>
         <file name="bug7658.xml" role="test"/>
@@ -166,6 +168,22 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2018-06-12</date>
+      <version>
+        <release>1.15.3</release>
+        <api>2.4.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Add OPSYS_CPM constant as documented
+- Fix build with PHP 7.3
+      </notes>
+    </release>
     <release>
       <date>2017-12-19</date>
       <version>
