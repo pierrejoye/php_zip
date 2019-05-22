@@ -18,7 +18,7 @@
   </lead>
   <date>2018-10-03</date>
   <version>
-    <release>1.15.4</release>
+    <release>1.15.5dev</release>
     <api>2.4.0</api>
   </version>
   <stability>
@@ -27,8 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fixed Bug #76524 ZipArchive memory leak (OVERWRITE flag and empty archive)
-- Fixed incorrrecr zval_dtor() usage to replace value of argument passed by reference, that may lead to memory leaks.
+-
   </notes>
   <contents>
     <dir name="/">
@@ -168,6 +167,22 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2018-10-03</date>
+      <version>
+        <release>1.15.4</release>
+        <api>2.4.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fixed Bug #76524 ZipArchive memory leak (OVERWRITE flag and empty archive)
+- Fixed incorrrecr zval_dtor() usage to replace value of argument passed by reference, that may lead to memory leaks.
+      </notes>
+    </release>
     <release>
       <date>2018-06-12</date>
       <version>
