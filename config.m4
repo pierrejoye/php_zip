@@ -10,37 +10,22 @@ PHP_ARG_WITH(libzip, libzip,
 
 if test "$PHP_ZIP" != "no"; then
 
+  PHP_VERSION=$($PHP_CONFIG --vernum)
   AC_MSG_CHECKING(PHP version)
-  if test -d $abs_srcdir/php7 ; then
-    dnl # only when for PECL, not for PHP
-    export OLD_CPPFLAGS="$CPPFLAGS"
-    export CPPFLAGS="$CPPFLAGS $INCLUDES"
-    AC_TRY_COMPILE([#include <php_version.h>], [
-#if PHP_MAJOR_VERSION >= 7 && PHP_MINOR_VERSION >= 3
-#error  PHP >= 7.3
-#endif
-    ], [
-      AC_TRY_COMPILE([#include <php_version.h>], [
-#if PHP_MAJOR_VERSION > 5
-#error  PHP > 5
-#endif
-      ], [
-        subdir=php5
-        AC_MSG_RESULT([PHP 5.x])
-      ], [
-        subdir=php7
-        AC_MSG_RESULT([PHP 7.0 - 7.2])
-      ])
-    ], [
-      subdir=php73
-      AC_MSG_RESULT([PHP >= 7.3])
-    ])
-    export CPPFLAGS="$OLD_CPPFLAGS"
-    PHP_ZIP_SOURCES="$subdir/php_zip.c $subdir/zip_stream.c"
+  if test $PHP_VERSION -lt 70000; then
+    AC_MSG_RESULT(5.x)
+    subdir=php5
+  elif test $PHP_VERSION -lt 70300; then
+    AC_MSG_RESULT(7.0/7.1/7.2)
+    subdir=php7
+  elif test $PHP_VERSION -lt 70400; then
+    AC_MSG_RESULT(7.3)
+    subdir=php73
   else
-    AC_MSG_ERROR([unknown])
-    PHP_ZIP_SOURCES="php_zip.c zip_stream.c"
+    AC_MSG_RESULT(7.4)
+    subdir=php74
   fi
+  PHP_ZIP_SOURCES="$subdir/php_zip.c $subdir/zip_stream.c"
 
   if test "$PHP_LIBZIP" != "no"; then
 
