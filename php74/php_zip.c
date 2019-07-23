@@ -677,19 +677,6 @@ int php_zip_pcre(zend_string *regexp, char *path, int path_len, zval *return_val
 				break;
 			}
 
-			snprintf(fullpath, MAXPATHLEN, "%s%c%s", path, DEFAULT_SLASH, ZSTR_VAL(namelist[i]));
-
-			if (0 != VCWD_STAT(fullpath, &s)) {
-				php_error_docref(NULL, E_WARNING, "Cannot read <%s>", fullpath);
-				zend_string_release_ex(namelist[i], 0);
-				continue;
-			}
-
-			if (S_IFDIR == (s.st_mode & S_IFMT)) {
-				zend_string_release_ex(namelist[i], 0);
-				continue;
-			}
-
 			match_data = php_pcre_create_match_data(capture_count, re);
 			if (!match_data) {
 				/* Allocation failed, but can proceed to the next pattern. */
@@ -700,6 +687,19 @@ int php_zip_pcre(zend_string *regexp, char *path, int path_len, zval *return_val
 			php_pcre_free_match_data(match_data);
 			/* 0 means that the vector is too small to hold all the captured substring offsets */
 			if (rc < 0) {
+				zend_string_release_ex(namelist[i], 0);
+				continue;
+			}
+
+			snprintf(fullpath, MAXPATHLEN, "%s%c%s", path, DEFAULT_SLASH, ZSTR_VAL(namelist[i]));
+
+			if (0 != VCWD_STAT(fullpath, &s)) {
+				php_error_docref(NULL, E_WARNING, "Cannot read <%s>", fullpath);
+				zend_string_release_ex(namelist[i], 0);
+				continue;
+			}
+
+			if (S_IFDIR == (s.st_mode & S_IFMT)) {
 				zend_string_release_ex(namelist[i], 0);
 				continue;
 			}
@@ -873,7 +873,11 @@ static zval *php_zip_get_property_ptr_ptr(zval *object, zval *member, int type, 
 	zip_prop_handler *hnd = NULL;
 
 	if (Z_TYPE_P(member) != IS_STRING) {
-		ZVAL_STR(&tmp_member, zval_get_string_func(member));
+		zend_string *str = zval_try_get_string_func(member);
+		if (UNEXPECTED(!str)) {
+			return NULL;
+		}
+		ZVAL_STR(&tmp_member, str);
 		member = &tmp_member;
 		cache_slot = NULL;
 	}
@@ -904,7 +908,11 @@ static zval *php_zip_read_property(zval *object, zval *member, int type, void **
 	zip_prop_handler *hnd = NULL;
 
 	if (Z_TYPE_P(member) != IS_STRING) {
-		ZVAL_STR(&tmp_member, zval_get_string_func(member));
+		zend_string *str = zval_try_get_string_func(member);
+		if (UNEXPECTED(!str)) {
+			return &EG(uninitialized_zval);
+		}
+		ZVAL_STR(&tmp_member, str);
 		member = &tmp_member;
 		cache_slot = NULL;
 	}
@@ -940,7 +948,11 @@ static int php_zip_has_property(zval *object, zval *member, int type, void **cac
 	int retval = 0;
 
 	if (Z_TYPE_P(member) != IS_STRING) {
-		ZVAL_STR(&tmp_member, zval_get_string_func(member));
+		zend_string *str = zval_try_get_string_func(member);
+		if (UNEXPECTED(!str)) {
+			return 0;
+		}
+		ZVAL_STR(&tmp_member, str);
 		member = &tmp_member;
 		cache_slot = NULL;
 	}
