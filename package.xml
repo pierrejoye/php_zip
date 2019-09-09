@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2018-10-03</date>
+  <date>2019-09-09</date>
   <version>
-    <release>1.15.5dev</release>
+    <release>1.15.5</release>
     <api>2.4.0</api>
   </version>
   <stability>
@@ -28,6 +28,8 @@
   <license>PHP 3.01</license>
   <notes>
 - Fix build with PHP 7.4
+- Remove dead code
+- Replace deprecated libzip functions (7.4)
   </notes>
   <contents>
     <dir name="/">
