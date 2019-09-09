@@ -29,7 +29,7 @@
   <notes>
 - Fix build with PHP 7.4
 - Remove dead code
-- Replace deprecated libzip functions (7.4)
+- Replace deprecated libzip functions
   </notes>
   <contents>
     <dir name="/">
