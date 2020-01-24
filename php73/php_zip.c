@@ -2482,6 +2482,75 @@ static ZIPARCHIVE_METHOD(setCompressionIndex)
 }
 /* }}} */
 
+#ifdef HAVE_SET_MTIME
+/* {{{ proto bool ZipArchive::setMtimeName(string name, int timestamp[, int comp_flags])
+Set the modification time of a file in zip, using its name */
+static ZIPARCHIVE_METHOD(setMtimeName)
+ {
+	struct zip *intern;
+	zval *this = getThis();
+	size_t name_len;
+	char *name;
+	zip_int64_t idx;
+	zend_long mtime, flags = 0;
+
+	if (!this) {
+		RETURN_FALSE;
+	}
+
+	ZIP_FROM_OBJECT(intern, this);
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl|l",
+			&name, &name_len, &mtime,  &flags) == FAILURE) {
+		return;
+	}
+
+	if (name_len < 1) {
+		php_error_docref(NULL, E_NOTICE, "Empty string as entry name");
+	}
+
+	idx = zip_name_locate(intern, name, 0);
+	if (idx < 0) {
+		RETURN_FALSE;
+	}
+
+	if (zip_file_set_mtime(intern, (zip_uint64_t)idx,
+			(time_t)mtime, (zip_uint32_t)flags) != 0) {
+		RETURN_FALSE;
+	}
+	RETURN_TRUE;
+}
+/* }}} */
+
+/* {{{ proto bool ZipArchive::setMtimeIndex(int index, int timestamp[, int comp_flags])
+Set the modification time of a file in zip, using its index */
+static ZIPARCHIVE_METHOD(setMtimeIndex)
+{
+	struct zip *intern;
+	zval *this = getThis();
+	zend_long index;
+	zend_long mtime, flags = 0;
+
+	if (!this) {
+		RETURN_FALSE;
+	}
+
+	ZIP_FROM_OBJECT(intern, this);
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ll|l",
+			&index, &mtime, &flags) == FAILURE) {
+		return;
+	}
+
+	if (zip_file_set_mtime(intern, (zip_uint64_t)index,
+			(time_t)mtime, (zip_uint32_t)flags) != 0) {
+		RETURN_FALSE;
+	}
+	RETURN_TRUE;
+}
+/* }}} */
+#endif
+
 /* {{{ proto bool ZipArchive::deleteIndex(int index)
 Delete a file using its index */
 static ZIPARCHIVE_METHOD(deleteIndex)
@@ -3093,6 +3162,20 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setencryption_index, 0, 0, 2)
 ZEND_END_ARG_INFO()
 #endif
 
+#ifdef HAVE_SET_MTIME
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setmtimename, 0, 0, 2)
+	ZEND_ARG_INFO(0, name)
+	ZEND_ARG_INFO(0, timestamp)
+	ZEND_ARG_INFO(0, flags)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setmtimeindex, 0, 0, 2)
+	ZEND_ARG_INFO(0, index)
+	ZEND_ARG_INFO(0, timestamp)
+	ZEND_ARG_INFO(0, flags)
+ZEND_END_ARG_INFO()
+#endif
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setcompname, 0, 0, 2)
 	ZEND_ARG_INFO(0, name)
 	ZEND_ARG_INFO(0, method)
@@ -3143,6 +3226,10 @@ static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(setExternalAttributesIndex,	arginfo_ziparchive_setextattrindex, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getExternalAttributesName,	arginfo_ziparchive_getextattrname, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getExternalAttributesIndex,	arginfo_ziparchive_getextattrindex, ZEND_ACC_PUBLIC)
+#ifdef HAVE_SET_MTIME
+	ZIPARCHIVE_ME(setMtimeName,			    arginfo_ziparchive_setmtimename, ZEND_ACC_PUBLIC)
+	ZIPARCHIVE_ME(setMtimeIndex,		    arginfo_ziparchive_setmtimeindex, ZEND_ACC_PUBLIC)
+#endif
 	ZIPARCHIVE_ME(setCompressionName,		arginfo_ziparchive_setcompname, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(setCompressionIndex,		arginfo_ziparchive_setcompindex, ZEND_ACC_PUBLIC)
 #ifdef HAVE_ENCRYPTION
@@ -3294,6 +3381,12 @@ static PHP_MINIT_FUNCTION(zip)
 	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_128",				ZIP_EM_AES_128);
 	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_192",				ZIP_EM_AES_192);
 	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_256",				ZIP_EM_AES_256);
+#endif
+
+#if HAVE_LIBZIP_VERSION
+	zend_declare_class_constant_string(zip_class_entry, "LIBZIP_VERSION", sizeof("LIBZIP_VERSION")-1, zip_libzip_version());
+#else
+	zend_declare_class_constant_string(zip_class_entry, "LIBZIP_VERSION", sizeof("LIBZIP_VERSION")-1, LIBZIP_VERSION);
 #endif
 
 	php_register_url_stream_wrapper("zip", &php_stream_zip_wrapper);

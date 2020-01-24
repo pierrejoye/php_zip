@@ -18,8 +18,8 @@
   </lead>
   <date>2019-09-09</date>
   <version>
-    <release>1.15.6dev</release>
-    <api>2.4.0</api>
+    <release>1.16.0dev</release>
+    <api>2.5.0</api>
   </version>
   <stability>
     <release>stable</release>
@@ -28,6 +28,8 @@
   <license>PHP 3.01</license>
   <notes>
 - add ZipArchive::CM_LZMA2 constant (since libzip 1.6.0)
+- add ZipArchive::setMtimeName and ZipArchive::setMtimeIndex
+- add ZipArchive::LIBZIP_VERSION constant
   </notes>
   <contents>
     <dir name="/">
@@ -91,7 +93,9 @@
         <file name="oo_properties.phpt" role="test"/>
         <file name="oo_rename.phpt" role="test"/>
         <file name="oo_setcomment.phpt" role="test"/>
+        <file name="oo_setcomment_error.phpt" role="test"/>
         <file name="oo_setcompression.phpt" role="test"/>
+        <file name="oo_setmtime.phpt" role="test"/>
         <file name="oo_stream.phpt" role="test"/>
         <file name="pecl12414.phpt" role="test"/>
         <file name="pecl12414.zip" role="test"/>
