@@ -18,7 +18,7 @@
   </lead>
   <date>2019-09-09</date>
   <version>
-    <release>1.15.5</release>
+    <release>1.15.6dev</release>
     <api>2.4.0</api>
   </version>
   <stability>
@@ -27,9 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fix build with PHP 7.4
-- Remove dead code
-- Replace deprecated libzip functions
+-
   </notes>
   <contents>
     <dir name="/">
@@ -174,6 +172,23 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2019-09-09</date>
+      <version>
+        <release>1.15.5</release>
+        <api>2.4.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fix build with PHP 7.4
+- Remove dead code
+- Replace deprecated libzip functions
+      </notes>
+    </release>
     <release>
       <date>2018-10-03</date>
       <version>
