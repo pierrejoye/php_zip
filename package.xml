@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- add ZipArchive::CM_LZMA2 constant (since libzip 1.6.0)
   </notes>
   <contents>
     <dir name="/">
