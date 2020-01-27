@@ -16,7 +16,7 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2019-09-09</date>
+  <date>2020-01-27</date>
   <version>
     <release>1.16.0dev</release>
     <api>2.5.0</api>
@@ -27,6 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
+- fix #78641 addGlob can modify given remove_path value
 - add ZipArchive::CM_LZMA2 constant (since libzip 1.6.0)
 - add ZipArchive::setMtimeName and ZipArchive::setMtimeIndex
 - add ZipArchive::LIBZIP_VERSION constant
@@ -65,6 +66,7 @@
         <file name="bug72434.phpt" role="test"/>
         <file name="bug72660.phpt" role="test"/>
         <file name="bug76524.phpt" role="test"/>
+        <file name="bug78641.phpt" role="test"/>
         <file name="bug7658.odt" role="test"/>
         <file name="bug7658.phpt" role="test"/>
         <file name="bug7658.xml" role="test"/>

@@ -509,9 +509,9 @@ static char * php_zipobj_get_zip_comment(struct zip *za, int *len) /* {{{ */
 int php_zip_glob(char *pattern, int pattern_len, zend_long flags, zval *return_value) /* {{{ */
 {
 #ifdef HAVE_GLOB
-	char cwd[MAXPATHLEN];
 	int cwd_skip = 0;
 #ifdef ZTS
+	char cwd[MAXPATHLEN];
 	char work_pattern[MAXPATHLEN];
 	char *result;
 #endif
@@ -574,8 +574,7 @@ int php_zip_glob(char *pattern, int pattern_len, zend_long flags, zval *return_v
 
 	/* we assume that any glob pattern will match files from one directory only
 	   so checking the dirname of the first match should be sufficient */
-	strncpy(cwd, globbuf.gl_pathv[0], MAXPATHLEN);
-	if (ZIP_OPENBASEDIR_CHECKPATH(cwd)) {
+	if (ZIP_OPENBASEDIR_CHECKPATH(globbuf.gl_pathv[0])) {
 		return -1;
 	}
 
@@ -1645,7 +1644,7 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 	struct zip *intern;
 	zval *self = ZEND_THIS;
 	char *path = ".";
-	char *remove_path = NULL;
+	char *remove_path = NULL, *save_remove_path;
 	char *add_path = NULL;
 	size_t  add_path_len, remove_path_len = 0, path_len = 1;
 	zend_long remove_all_path = 0;
@@ -1677,10 +1676,11 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 		RETURN_FALSE;
 	}
 
+	save_remove_path = remove_path;
 	if (remove_path && remove_path_len > 1) {
 		size_t real_len = strlen(remove_path);
 		if ((real_len > 1) && ((remove_path[real_len - 1] == '/') || (remove_path[real_len - 1] == '\\'))) {
-			remove_path[real_len - 1] = '\0';
+			remove_path = estrndup(remove_path, real_len - 1);
 		}
 	}
 
@@ -1739,6 +1739,9 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 				}
 			}
 		}
+	}
+	if (remove_path != save_remove_path) {
+		efree(remove_path);
 	}
 }
 /* }}} */
