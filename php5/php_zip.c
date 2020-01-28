@@ -672,7 +672,6 @@ int php_zip_pcre(char *regexp, int regexp_len, char *path, int path_len, zval *r
 {
 #ifdef ZTS
 	char cwd[MAXPATHLEN];
-	int cwd_skip = 0;
 	char work_path[MAXPATHLEN];
 	char *result;
 #endif
@@ -690,8 +689,6 @@ int php_zip_pcre(char *regexp, int regexp_len, char *path, int path_len, zval *r
 			cwd[2] = '\0';
 		}
 #endif
-		cwd_skip = strlen(cwd)+1;
-
 		snprintf(work_path, MAXPATHLEN, "%s%c%s", cwd, DEFAULT_SLASH, path);
 		path = work_path;
 	}
@@ -2639,13 +2636,13 @@ static ZIPARCHIVE_METHOD(setMtimeName)
 
 	ZIP_FROM_OBJECT(intern, this);
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl|l",
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl|l",
 			&name, &name_len, &mtime,  &flags) == FAILURE) {
 		return;
 	}
 
 	if (name_len < 1) {
-		php_error_docref(NULL, E_NOTICE, "Empty string as entry name");
+		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "Empty string as entry name");
 	}
 
 	idx = zip_name_locate(intern, name, 0);
@@ -2676,7 +2673,7 @@ static ZIPARCHIVE_METHOD(setMtimeIndex)
 
 	ZIP_FROM_OBJECT(intern, this);
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ll|l",
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ll|l",
 			&index, &mtime, &flags) == FAILURE) {
 		return;
 	}
