@@ -18,7 +18,7 @@
   </lead>
   <date>2020-01-28</date>
   <version>
-    <release>1.16.0</release>
+    <release>1.16.1dev</release>
     <api>2.5.0</api>
   </version>
   <stability>
@@ -27,10 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- fix #78641 addGlob can modify given remove_path value
-- add ZipArchive::CM_LZMA2 constant (since libzip 1.6.0)
-- add ZipArchive::setMtimeName and ZipArchive::setMtimeIndex
-- add ZipArchive::LIBZIP_VERSION constant
+-
   </notes>
   <contents>
     <dir name="/">
@@ -178,6 +175,24 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2020-01-28</date>
+      <version>
+        <release>1.16.0</release>
+        <api>2.5.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- fix #78641 addGlob can modify given remove_path value
+- add ZipArchive::CM_LZMA2 constant (since libzip 1.6.0)
+- add ZipArchive::setMtimeName and ZipArchive::setMtimeIndex
+- add ZipArchive::LIBZIP_VERSION constant
+      </notes>
+    </release>
     <release>
       <date>2019-09-09</date>
       <version>
