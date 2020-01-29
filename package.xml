@@ -27,7 +27,8 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- add ZipArchive::CM_XZ constant (since libzip 1.6.0)
+- add ZipArchive::ER_* missing constants
   </notes>
   <contents>
     <dir name="/">
