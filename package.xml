@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2020-01-28</date>
+  <date>2020-01-29</date>
   <version>
-    <release>1.16.1dev</release>
+    <release>1.16.1</release>
     <api>2.5.0</api>
   </version>
   <stability>
@@ -29,6 +29,7 @@
   <notes>
 - add ZipArchive::CM_XZ constant (since libzip 1.6.0)
 - add ZipArchive::ER_* missing constants
+- fix Windows build
   </notes>
   <contents>
     <dir name="/">
