@@ -52,6 +52,7 @@ typedef zip_rsrc * zip_rsrc_ptr;
 typedef struct _ze_zip_read_rsrc {
 	struct zip_file *zf;
 	struct zip_stat sb;
+
 } zip_read_rsrc;
 
 #define ZIPARCHIVE_ME(name, arg_info, flags) {#name, c_ziparchive_ ##name, arg_info,(uint32_t) (sizeof(arg_info)/sizeof(struct _zend_arg_info)-1), flags },
@@ -66,6 +67,12 @@ typedef struct _ze_zip_object {
 	int filename_len;
 	int buffers_cnt;
 	zend_object zo;
+#ifdef HAVE_PROGRESS_CALLBACK
+	zval progress_callback;
+#endif
+#ifdef HAVE_CANCEL_CALLBACK
+	zval cancel_callback;
+#endif
 } ze_zip_object;
 
 static inline ze_zip_object *php_zip_fetch_object(zend_object *obj) {

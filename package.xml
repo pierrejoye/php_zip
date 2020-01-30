@@ -16,7 +16,7 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2020-01-29</date>
+  <date>2020-01-30</date>
   <version>
     <release>1.17.0dev</release>
     <api>2.6.0</api>
@@ -27,7 +27,8 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- add ZipArchive::registerProgressCallback() method (since libzip 1.3.0)
+- add ZipArchive::registerCancelCallback() method (since libzip 1.6.0)
   </notes>
   <contents>
     <dir name="/">
@@ -77,6 +78,7 @@
         <file name="oo_addfile.phpt" role="test"/>
         <file name="oo_addglob.phpt" role="test"/>
         <file name="oo_addpattern.phpt" role="test"/>
+        <file name="oo_cancel.phpt" role="test"/>
         <file name="oo_close.phpt" role="test"/>
         <file name="oo_count.phpt" role="test"/>
         <file name="oo_delete.phpt" role="test"/>
@@ -89,6 +91,7 @@
         <file name="oo_getstatusstring.phpt" role="test"/>
         <file name="oo_namelocate.phpt" role="test"/>
         <file name="oo_open.phpt" role="test"/>
+        <file name="oo_progress.phpt" role="test"/>
         <file name="oo_properties.phpt" role="test"/>
         <file name="oo_rename.phpt" role="test"/>
         <file name="oo_setcomment.phpt" role="test"/>

@@ -1122,6 +1122,34 @@ static HashTable *php_zip_get_properties(zval *object TSRMLS_DC)/* {{{ */
 }
 /* }}} */
 
+#ifdef HAVE_PROGRESS_CALLBACK
+static void _php_zip_progress_callback_free(void *ptr)
+{
+	ze_zip_object *obj = ptr;
+	TSRMLS_FETCH();
+
+	if (obj->progress_callback) {
+		zval_dtor(obj->progress_callback);
+		FREE_ZVAL(obj->progress_callback);
+		obj->progress_callback = NULL;
+	}
+}
+#endif
+
+#ifdef HAVE_CANCEL_CALLBACK
+static void _php_zip_cancel_callback_free(void *ptr)
+{
+	ze_zip_object *obj = ptr;
+	TSRMLS_FETCH();
+
+	if (obj->cancel_callback) {
+		zval_dtor(obj->cancel_callback);
+		FREE_ZVAL(obj->cancel_callback);
+		obj->cancel_callback = NULL;
+	}
+}
+#endif
+
 static void php_zip_object_free_storage(void *object TSRMLS_DC) /* {{{ */
 {
 	ze_zip_object * intern = (ze_zip_object *) object;
@@ -1164,6 +1192,16 @@ static void php_zip_object_free_storage(void *object TSRMLS_DC) /* {{{ */
 	}
 #endif
 
+#ifdef HAVE_PROGRESS_CALLBACK
+	/* if not properly called by libzip */
+	_php_zip_progress_callback_free(intern);
+#endif
+
+#ifdef HAVE_CANCEL_CALLBACK
+	/* if not properly called by libzip */
+	_php_zip_cancel_callback_free(intern);
+#endif
+
 	if (intern->filename) {
 		efree(intern->filename);
 	}
@@ -1180,12 +1218,9 @@ static zend_object_value php_zip_object_new(zend_class_entry *class_type TSRMLS_
 	zend_object_value retval;
 
 	intern = emalloc(sizeof(ze_zip_object));
+	memset(intern, 0, sizeof(ze_zip_object));
 	memset(&intern->zo, 0, sizeof(zend_object));
 
-	intern->za = NULL;
-	intern->buffers = NULL;
-	intern->filename = NULL;
-	intern->buffers_cnt = 0;
 	intern->prop_handler = &zip_prop_handlers;
 
 #if ((PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 1) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION == 1 && PHP_RELEASE_VERSION > 2))
@@ -3133,6 +3168,142 @@ static ZIPARCHIVE_METHOD(getStream)
 }
 /* }}} */
 
+#ifdef HAVE_PROGRESS_CALLBACK
+static void _php_zip_progress_callback(zip_t *arch, double state, void *ptr)
+{
+	zval *cb_state;
+	zval **cb_args[1];
+	zval *cb_retval;
+	ze_zip_object *obj = ptr;
+	TSRMLS_FETCH();
+
+	MAKE_STD_ZVAL(cb_state);
+	ZVAL_DOUBLE(cb_state, state);
+	cb_args[0] = &cb_state;
+	if (call_user_function_ex(EG(function_table), NULL, obj->progress_callback, &cb_retval, 1, cb_args, 0, NULL TSRMLS_CC) == SUCCESS && cb_retval) {
+		zval_ptr_dtor(&cb_retval);
+	}
+}
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_registerprogresscallback, 0, 0, 2)
+	ZEND_ARG_INFO(0, rate)
+	ZEND_ARG_INFO(0, callback)
+ZEND_END_ARG_INFO()
+
+/* {{{ proto bool ZipArchive::registerProgressCallback(double rate, callable callback)
+register a progression callback: void callback(double state); */
+static ZIPARCHIVE_METHOD(registerProgressCallback)
+{
+	struct zip *intern;
+	zval *self = getThis();
+	double rate;
+	zval *callback;
+	ze_zip_object *obj;
+	char *callback_name;
+
+	if (!self) {
+		RETURN_FALSE;
+	}
+
+	ZIP_FROM_OBJECT(intern, self);
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "dz", &rate, &callback) == FAILURE) {
+		return;
+	}
+
+	/* callable? */
+	if (!zend_is_callable(callback, 0, &callback_name TSRMLS_CC)) {
+		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid callback '%s'", callback_name);
+		efree(callback_name);
+		RETURN_FALSE;
+	}
+	efree(callback_name);
+
+	obj = (ze_zip_object*) zend_object_store_get_object(self TSRMLS_CC);
+
+	/* free if called twice */
+	_php_zip_progress_callback_free(obj);
+
+	/* register */
+	ALLOC_ZVAL(obj->progress_callback);
+	*obj->progress_callback = *callback;
+	zval_copy_ctor(obj->progress_callback);
+	if (zip_register_progress_callback_with_state(intern, rate, _php_zip_progress_callback, _php_zip_progress_callback_free, obj)) {
+		RETURN_FALSE;
+	}
+
+	RETURN_TRUE;
+}
+/* }}} */
+#endif
+
+#ifdef HAVE_CANCEL_CALLBACK
+static int _php_zip_cancel_callback(zip_t *arch, void *ptr)
+{
+	zval *cb_retval;
+	int retval = 0;
+	ze_zip_object *obj = ptr;
+	TSRMLS_FETCH();
+
+	if (call_user_function_ex(EG(function_table), NULL, obj->cancel_callback, &cb_retval, 0, NULL, 0, NULL TSRMLS_CC) == SUCCESS && cb_retval) {
+		convert_to_long_ex(&cb_retval);
+		retval = Z_LVAL_P(cb_retval);
+		zval_ptr_dtor(&cb_retval);
+	}
+
+	return retval;
+}
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_registercancelcallback, 0, 0, 1)
+	ZEND_ARG_INFO(0, callback)
+ZEND_END_ARG_INFO()
+
+/* {{{ proto bool ZipArchive::registerCancelCallback(callable callback)
+register a progression callback: int callback(double state); */
+static ZIPARCHIVE_METHOD(registerCancelCallback)
+{
+	struct zip *intern;
+	zval *self = getThis();
+	zval *callback;
+	ze_zip_object *obj;
+	char *callback_name;
+
+	if (!self) {
+		RETURN_FALSE;
+	}
+
+	ZIP_FROM_OBJECT(intern, self);
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "z", &callback) == FAILURE) {
+		return;
+	}
+
+	/* callable? */
+	if (!zend_is_callable(callback, 0, &callback_name TSRMLS_CC)) {
+		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid callback '%s'", callback_name);
+		efree(callback_name);
+		RETURN_FALSE;
+	}
+	efree(callback_name);
+
+	obj = (ze_zip_object*) zend_object_store_get_object(self TSRMLS_CC);
+
+	/* free if called twice */
+	_php_zip_cancel_callback_free(obj);
+
+	/* register */
+	ALLOC_ZVAL(obj->cancel_callback);
+	*obj->cancel_callback = *callback;
+	zval_copy_ctor(obj->cancel_callback);
+	if (zip_register_cancel_callback_with_state(intern, _php_zip_cancel_callback, _php_zip_cancel_callback_free, obj)) {
+		RETURN_FALSE;
+	}
+
+	RETURN_TRUE;
+}
+/* }}} */
+#endif
+
 /* {{{ arginfo */
 ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_open, 0, 0, 1)
 	ZEND_ARG_INFO(0, filename)
@@ -3371,6 +3542,12 @@ static const zend_function_entry zip_class_functions[] = {
 #ifdef HAVE_ENCRYPTION
 	ZIPARCHIVE_ME(setEncryptionName,		arginfo_ziparchive_setencryption_name, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(setEncryptionIndex,		arginfo_ziparchive_setencryption_index, ZEND_ACC_PUBLIC)
+#endif
+#ifdef HAVE_PROGRESS_CALLBACK
+	ZIPARCHIVE_ME(registerProgressCallback,	arginfo_ziparchive_registerprogresscallback, ZEND_ACC_PUBLIC)
+#endif
+#ifdef HAVE_CANCEL_CALLBACK
+	ZIPARCHIVE_ME(registerCancelCallback,	arginfo_ziparchive_registercancelcallback, ZEND_ACC_PUBLIC)
 #endif
 	{NULL, NULL, NULL}
 };

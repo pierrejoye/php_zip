@@ -100,6 +100,22 @@ if test "$PHP_ZIP" != "no"; then
       -L$LIBZIP_LIBDIR
     ])
 
+    PHP_CHECK_LIBRARY(zip, zip_register_progress_callback_with_state,
+    [
+      AC_DEFINE(HAVE_PROGRESS_CALLBACK, 1, [Libzip >= 1.3.0 with zip_register_progress_callback_with_state function])
+    ], [
+    ], [
+      -L$LIBZIP_LIBDIR
+    ])
+
+    PHP_CHECK_LIBRARY(zip, zip_register_cancel_callback_with_state,
+    [
+      AC_DEFINE(HAVE_CANCEL_CALLBACK, 1, [Libzip >= 1.6.0 with zip_register_cancel_callback_with_state function])
+    ], [
+    ], [
+      -L$LIBZIP_LIBDIR
+    ])
+
     AC_DEFINE(HAVE_ZIP,1,[ ])
     PHP_NEW_EXTENSION(zip, $PHP_ZIP_SOURCES, $ext_shared,, $LIBZIP_CFLAGS)
   else
