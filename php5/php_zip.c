@@ -53,15 +53,9 @@ static PHP_NAMED_FUNCTION(zif_zip_entry_close);
 #endif
 #endif
 
-#if PHP_VERSION_ID < 50400
-#define ARG_PATH "s"
-#define KEY_ARG_DC
-#define KEY_ARG_CC
-#else
 #define ARG_PATH "p"
 #define KEY_ARG_DC , const zend_literal *key
 #define KEY_ARG_CC , key
-#endif
 
 #if PHP_VERSION_ID < 50500
 #define TYPE_ARG_DC
@@ -152,8 +146,6 @@ static char * php_zip_make_relative_path(char *path, int path_len) /* {{{ */
 }
 /* }}} */
 
-#ifdef PHP_ZIP_USE_OO
-
 #if PHP_VERSION_ID < 50600
 # define CWD_STATE_ALLOC(l) malloc(l)
 # define CWD_STATE_FREE(s)  free(s)
@@ -227,17 +219,6 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 	/* let see if the path already exists */
 	if (php_stream_stat_path_ex(file_dirname_fullpath, PHP_STREAM_URL_STAT_QUIET, &ssb, NULL) < 0) {
 
-#if defined(PHP_WIN32) && (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION == 1)
-		char *e;
-		e = file_dirname_fullpath;
-		while (*e) {
-			   if (*e == '/') {
-					   *e = DEFAULT_SLASH;
-			   }
-			   e++;
-		}
-#endif
-
 		ret = php_stream_mkdir(file_dirname_fullpath, 0777,  PHP_STREAM_MKDIR_RECURSIVE|REPORT_ERRORS, NULL);
 		if (!ret) {
 			efree(file_dirname_fullpath);
@@ -288,12 +269,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 		goto done;
 	}
 
-#if PHP_API_VERSION < 20100412
-	stream = php_stream_open_wrapper(fullpath, "w+b", REPORT_ERRORS|ENFORCE_SAFE_MODE, NULL);
-#else
 	stream = php_stream_open_wrapper(fullpath, "w+b", REPORT_ERRORS, NULL);
-#endif
-
 	if (stream == NULL) {
 		n = -1;
 		zip_fclose(zf);
@@ -764,8 +740,6 @@ int php_zip_pcre(char *regexp, int regexp_len, char *path, int path_len, zval *r
 }
 /* }}} */
 
-#endif
-
 /* {{{ arginfo */
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zip_open, 0, 0, 1)
 	ZEND_ARG_INFO(0, filename)
@@ -823,16 +797,11 @@ static const zend_function_entry zip_functions[] = {
 	PHP_FE(zip_entry_name,		arginfo_zip_entry_name)
 	PHP_FE(zip_entry_compressedsize,		arginfo_zip_entry_compressedsize)
 	PHP_FE(zip_entry_compressionmethod,		arginfo_zip_entry_compressionmethod)
-#ifdef  PHP_FE_END
 	PHP_FE_END
-#else
-	{NULL,NULL,NULL}
-#endif
 };
 /* }}} */
 
 /* {{{ ZE2 OO definitions */
-#ifdef PHP_ZIP_USE_OO
 static zend_class_entry *zip_class_entry;
 static zend_object_handlers zip_object_handlers;
 
@@ -849,10 +818,8 @@ typedef struct _zip_prop_handler {
 
 	int type;
 } zip_prop_handler;
-#endif
 /* }}} */
 
-#ifdef PHP_ZIP_USE_OO
 static void php_zip_register_prop_handler(HashTable *prop_handler, char *name, zip_read_int_t read_int_func, zip_read_const_char_t read_char_func, zip_read_const_char_from_ze_t read_char_from_obj_func, int rettype TSRMLS_DC) /* {{{ */
 {
 	zip_prop_handler hnd;
@@ -934,21 +901,18 @@ static zval **php_zip_get_property_ptr_ptr(zval *object, zval *member TYPE_ARG_D
 		zval_copy_ctor(&tmp_member);
 		convert_to_string(&tmp_member);
 		member = &tmp_member;
-#if PHP_VERSION_ID >= 50400
 		key = NULL;
-#endif
 	}
 
 	ret = FAILURE;
 	obj = (ze_zip_object *)zend_objects_get_address(object TSRMLS_CC);
 
 	if (obj->prop_handler != NULL) {
-#if PHP_VERSION_ID >= 50400
 		if (key) {
 			ret = zend_hash_quick_find(obj->prop_handler, Z_STRVAL_P(member), Z_STRLEN_P(member)+1, key->hash_value, (void **) &hnd);
-		} else
-#endif
+		} else {
 			ret = zend_hash_find(obj->prop_handler, Z_STRVAL_P(member), Z_STRLEN_P(member)+1, (void **) &hnd);
+		}
 	}
 
 
@@ -978,21 +942,18 @@ static zval* php_zip_read_property(zval *object, zval *member, int type KEY_ARG_
 		zval_copy_ctor(&tmp_member);
 		convert_to_string(&tmp_member);
 		member = &tmp_member;
-#if PHP_VERSION_ID >= 50400
 		key = NULL;
-#endif
 	}
 
 	ret = FAILURE;
 	obj = (ze_zip_object *)zend_objects_get_address(object TSRMLS_CC);
 
 	if (obj->prop_handler != NULL) {
-#if PHP_VERSION_ID >= 50400
 		if (key) {
 			ret = zend_hash_quick_find(obj->prop_handler, Z_STRVAL_P(member), Z_STRLEN_P(member)+1, key->hash_value, (void **) &hnd);
-		} else
-#endif
+		} else {
 			ret = zend_hash_find(obj->prop_handler, Z_STRVAL_P(member), Z_STRLEN_P(member)+1, (void **) &hnd);
+		}
 	}
 
 	if (ret == SUCCESS) {
@@ -1028,21 +989,18 @@ static int php_zip_has_property(zval *object, zval *member, int type KEY_ARG_DC 
 		zval_copy_ctor(&tmp_member);
 		convert_to_string(&tmp_member);
 		member = &tmp_member;
-#if PHP_VERSION_ID >= 50400
 		key = NULL;
-#endif
 	}
 
 	ret = FAILURE;
 	obj = (ze_zip_object *)zend_objects_get_address(object TSRMLS_CC);
 
 	if (obj->prop_handler != NULL) {
-#if PHP_VERSION_ID >= 50400
 		if (key) {
 			ret = zend_hash_quick_find(obj->prop_handler, Z_STRVAL_P(member), Z_STRLEN_P(member)+1, key->hash_value, (void **) &hnd);
-		} else
-#endif
+		} else {
 			ret = zend_hash_find(obj->prop_handler, Z_STRVAL_P(member), Z_STRLEN_P(member)+1, (void **) &hnd);
+		}
 	}
 
 	if (ret == SUCCESS) {
@@ -1078,7 +1036,6 @@ static int php_zip_has_property(zval *object, zval *member, int type KEY_ARG_DC 
 }
 /* }}} */
 
-#if PHP_VERSION_ID >= 50400
 static HashTable *php_zip_get_gc(zval *object, zval ***gc_data, int *gc_data_count TSRMLS_DC) /* {{{ */
 {
 	*gc_data = NULL;
@@ -1086,7 +1043,6 @@ static HashTable *php_zip_get_gc(zval *object, zval ***gc_data, int *gc_data_cou
 	return zend_std_get_properties(object TSRMLS_CC);
 }
 /* }}} */
-#endif
 
 static HashTable *php_zip_get_properties(zval *object TSRMLS_DC)/* {{{ */
 {
@@ -1178,19 +1134,7 @@ static void php_zip_object_free_storage(void *object TSRMLS_DC) /* {{{ */
 
 	intern->za = NULL;
 
-#if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION == 1 && PHP_RELEASE_VERSION > 2) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 1) || (PHP_MAJOR_VERSION > 5)
 	zend_object_std_dtor(&intern->zo TSRMLS_CC);
-#else
-	if (intern->zo.guards) {
-		zend_hash_destroy(intern->zo.guards);
-		FREE_HASHTABLE(intern->zo.guards);
-	}
-
-	if (intern->zo.properties) {
-		zend_hash_destroy(intern->zo.properties);
-		FREE_HASHTABLE(intern->zo.properties);
-	}
-#endif
 
 #ifdef HAVE_PROGRESS_CALLBACK
 	/* if not properly called by libzip */
@@ -1211,9 +1155,6 @@ static void php_zip_object_free_storage(void *object TSRMLS_DC) /* {{{ */
 
 static zend_object_value php_zip_object_new(zend_class_entry *class_type TSRMLS_DC) /* {{{ */
 {
-#if PHP_VERSION_ID < 50400
-	zval *tmp;
-#endif
 	ze_zip_object *intern;
 	zend_object_value retval;
 
@@ -1223,21 +1164,8 @@ static zend_object_value php_zip_object_new(zend_class_entry *class_type TSRMLS_
 
 	intern->prop_handler = &zip_prop_handlers;
 
-#if ((PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 1) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION == 1 && PHP_RELEASE_VERSION > 2))
 	zend_object_std_init(&intern->zo, class_type TSRMLS_CC);
-#else
-	ALLOC_HASHTABLE(intern->zo.properties);
-  	zend_hash_init(intern->zo.properties, 0, NULL, ZVAL_PTR_DTOR, 0);
-	intern->zo.ce = class_type;
-#endif
-
-
-#if PHP_VERSION_ID < 50400
-	zend_hash_copy(intern->zo.properties, &class_type->default_properties, (copy_ctor_func_t) zval_add_ref,
-					(void *) &tmp, sizeof(zval *));
-#else
 	object_properties_init(&intern->zo, class_type);
-#endif
 	retval.handle = zend_objects_store_put(intern,
 						NULL,
 						(zend_objects_free_object_storage_t) php_zip_object_free_storage,
@@ -1248,7 +1176,6 @@ static zend_object_value php_zip_object_new(zend_class_entry *class_type TSRMLS_
 	return retval;
 }
 /* }}} */
-#endif
 
 /* {{{ Resource dtors */
 
@@ -1584,7 +1511,6 @@ static PHP_NAMED_FUNCTION(zif_zip_entry_compressionmethod)
 }
 /* }}} */
 
-#ifdef PHP_ZIP_USE_OO
 /* {{{ proto mixed ZipArchive::open(string source [, int flags])
 Create new zip using source uri for output, return TRUE on success or the error code */
 static ZIPARCHIVE_METHOD(open)
@@ -3552,21 +3478,17 @@ static const zend_function_entry zip_class_functions[] = {
 	{NULL, NULL, NULL}
 };
 /* }}} */
-#endif
 
 /* {{{ PHP_MINIT_FUNCTION */
 static PHP_MINIT_FUNCTION(zip)
 {
-#ifdef PHP_ZIP_USE_OO
 	zend_class_entry ce;
 
 	memcpy(&zip_object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
 	zip_object_handlers.clone_obj		= NULL;
 	zip_object_handlers.get_property_ptr_ptr = php_zip_get_property_ptr_ptr;
 
-#if PHP_VERSION_ID >= 50400
 	zip_object_handlers.get_gc          = php_zip_get_gc;
-#endif
 	zip_object_handlers.get_properties = php_zip_get_properties;
 	zip_object_handlers.read_property	= php_zip_read_property;
 	zip_object_handlers.has_property	= php_zip_has_property;
@@ -3724,7 +3646,6 @@ static PHP_MINIT_FUNCTION(zip)
 #endif
 
 	php_register_url_stream_wrapper("zip", &php_stream_zip_wrapper TSRMLS_CC);
-#endif /* ifdef PHP_ZIP_USE_OO */
 
 	le_zip_dir   = zend_register_list_destructors_ex(php_zip_free_dir,   NULL, le_zip_dir_name,   module_number);
 	le_zip_entry = zend_register_list_destructors_ex(php_zip_free_entry, NULL, le_zip_entry_name, module_number);
@@ -3737,10 +3658,9 @@ static PHP_MINIT_FUNCTION(zip)
  */
 static PHP_MSHUTDOWN_FUNCTION(zip)
 {
-#ifdef PHP_ZIP_USE_OO
 	zend_hash_destroy(&zip_prop_handlers);
 	php_unregister_url_stream_wrapper("zip" TSRMLS_CC);
-#endif
+
 	return SUCCESS;
 }
 /* }}} */
