@@ -27,7 +27,8 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- add ZipArchive::RDONLY constant (since libzip 1.0.0)
+- fix #73119 Wrong return for ZipArchive::addEmptyDir method
   </notes>
   <contents>
     <dir name="/">
@@ -74,6 +75,7 @@
         <file name="compression_methods.zip" role="test"/>
         <file name="doubleclose.phpt" role="test"/>
         <file name="oo_addemptydir.phpt" role="test"/>
+        <file name="oo_addemptydir_error.phpt" role="test"/>
         <file name="oo_addfile.phpt" role="test"/>
         <file name="oo_addglob.phpt" role="test"/>
         <file name="oo_addpattern.phpt" role="test"/>
