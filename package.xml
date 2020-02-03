@@ -18,7 +18,7 @@
   </lead>
   <date>2020-02-03</date>
   <version>
-    <release>1.17.1</release>
+    <release>1.17.2dev</release>
     <api>2.6.0</api>
   </version>
   <stability>
@@ -27,8 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- add ZipArchive::RDONLY constant (since libzip 1.0.0)
-- fix #73119 Wrong return for ZipArchive::addEmptyDir method
+-
   </notes>
   <contents>
     <dir name="/">
@@ -179,6 +178,22 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2020-02-03</date>
+      <version>
+        <release>1.17.1</release>
+        <api>2.6.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- add ZipArchive::RDONLY constant (since libzip 1.0.0)
+- fix #73119 Wrong return for ZipArchive::addEmptyDir method
+      </notes>
+    </release>
     <release>
       <date>2020-01-31</date>
       <version>
