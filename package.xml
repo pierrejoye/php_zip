@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2020-01-30</date>
+  <date>2020-01-31</date>
   <version>
-    <release>1.17.0dev</release>
+    <release>1.17.1dev</release>
     <api>2.6.0</api>
   </version>
   <stability>
@@ -27,9 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- add ZipArchive::registerProgressCallback() method (since libzip 1.3.0)
-- add ZipArchive::registerCancelCallback() method (since libzip 1.6.0)
-- drop support for old PHP versions
+-
   </notes>
   <contents>
     <dir name="/">
@@ -179,6 +177,23 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2020-01-31</date>
+      <version>
+        <release>1.17.0</release>
+        <api>2.6.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- add ZipArchive::registerProgressCallback() method (since libzip 1.3.0)
+- add ZipArchive::registerCancelCallback() method (since libzip 1.6.0)
+- drop support for old PHP versions
+      </notes>
+    </release>
     <release>
       <date>2020-01-29</date>
       <version>
