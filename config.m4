@@ -116,6 +116,14 @@ if test "$PHP_ZIP" != "no"; then
       -L$LIBZIP_LIBDIR
     ])
 
+    PHP_CHECK_LIBRARY(zip, zip_compression_method_supported,
+    [
+      AC_DEFINE(HAVE_METHOD_SUPPORTED, 1, [Libzip >= 1.? with zip_compression_method_supported function])
+    ], [
+    ], [
+      -L$LIBZIP_LIBDIR
+    ])
+
     AC_DEFINE(HAVE_ZIP,1,[ ])
     PHP_NEW_EXTENSION(zip, $PHP_ZIP_SOURCES, $ext_shared,, $LIBZIP_CFLAGS)
   else

@@ -1050,12 +1050,8 @@ static void php_zip_object_free_storage(zend_object *object) /* {{{ */
 	}
 	if (intern->za) {
 		if (zip_close(intern->za) != 0) {
-#if LIBZIP_VERSION_MAJOR == 1 && LIBZIP_VERSION_MINOR == 3 && LIBZIP_VERSION_MICRO == 1
-			php_error_docref(NULL, E_WARNING, "Cannot destroy the zip context: zip_close have failed");
-#else
 			php_error_docref(NULL, E_WARNING, "Cannot destroy the zip context: %s", zip_strerror(intern->za));
 			zip_discard(intern->za);
-#endif
 		}
 	}
 
@@ -1563,12 +1559,8 @@ static ZIPARCHIVE_METHOD(close)
 	ze_obj = Z_ZIP_P(self);
 
 	if ((err = zip_close(intern))) {
-#if LIBZIP_VERSION_MAJOR == 1 && LIBZIP_VERSION_MINOR == 3 && LIBZIP_VERSION_MICRO == 1
-		php_error_docref(NULL, E_WARNING, "zip_close have failed");
-#else
 		php_error_docref(NULL, E_WARNING, "%s", zip_strerror(intern));
 		zip_discard(intern);
-#endif
 	}
 
 	efree(ze_obj->filename);
@@ -3158,6 +3150,41 @@ static ZIPARCHIVE_METHOD(registerCancelCallback)
 /* }}} */
 #endif
 
+#ifdef HAVE_METHOD_SUPPORTED
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_method_supported, 0, 0, 1)
+	ZEND_ARG_INFO(0, method)
+	ZEND_ARG_INFO(0, encode)
+ZEND_END_ARG_INFO()
+
+/* {{{ proto bool ZipArchive::isCompressionMethodSupported(int method, bool enc)
+check if a compression method is available in used libzip */
+static ZIPARCHIVE_METHOD(isCompressionMethodSupported)
+{
+	zend_long method;
+	zend_bool enc = 1;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "l|b", &method, &enc) == FAILURE) {
+		return;
+	}
+	RETVAL_BOOL(zip_compression_method_supported((zip_int32_t)method, enc));
+}
+/* }}} */
+
+/* {{{ proto bool ZipArchive::isEncryptionMethodSupported(int method, bool enc)
+check if a encryption method is available in used libzip */
+static ZIPARCHIVE_METHOD(isEncryptionMethodSupported)
+{
+	zend_long method;
+	zend_bool enc = 1;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "l|b", &method, &enc) == FAILURE) {
+		return;
+	}
+	RETVAL_BOOL(zip_encryption_method_supported((zip_uint16_t)method, enc));
+}
+/* }}} */
+#endif
+
 /* {{{ arginfo */
 ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_open, 0, 0, 1)
 	ZEND_ARG_INFO(0, filename)
@@ -3403,6 +3430,10 @@ static const zend_function_entry zip_class_functions[] = {
 #ifdef HAVE_CANCEL_CALLBACK
 	ZIPARCHIVE_ME(registerCancelCallback,	arginfo_ziparchive_registercancelcallback, ZEND_ACC_PUBLIC)
 #endif
+#ifdef HAVE_METHOD_SUPPORTED
+	ZIPARCHIVE_ME(isCompressionMethodSupported,	arginfo_ziparchive_method_supported, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+	ZIPARCHIVE_ME(isEncryptionMethodSupported,	arginfo_ziparchive_method_supported, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+#endif
 	PHP_FE_END
 };
 /* }}} */
@@ -3572,6 +3603,7 @@ static PHP_MINIT_FUNCTION(zip)
 
 #ifdef HAVE_ENCRYPTION
 	REGISTER_ZIP_CLASS_CONST_LONG("EM_NONE",				ZIP_EM_NONE);
+	REGISTER_ZIP_CLASS_CONST_LONG("EM_TRAD_PKWARE",			ZIP_EM_TRAD_PKWARE);
 	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_128",				ZIP_EM_AES_128);
 	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_192",				ZIP_EM_AES_192);
 	REGISTER_ZIP_CLASS_CONST_LONG("EM_AES_256",				ZIP_EM_AES_256);
@@ -3616,7 +3648,18 @@ static PHP_MINFO_FUNCTION(zip)
 #else
 	php_info_print_table_row(2, "Libzip version", LIBZIP_VERSION);
 #endif
-
+#ifdef HAVE_METHOD_SUPPORTED
+	php_info_print_table_row(2, "BZIP2 compression",
+		zip_compression_method_supported(ZIP_CM_BZIP2, 1) ? "Yes" : "No");
+	php_info_print_table_row(2, "XZ compression",
+		zip_compression_method_supported(ZIP_CM_XZ, 1) ? "Yes" : "No");
+	php_info_print_table_row(2, "AES-128 encryption",
+		zip_encryption_method_supported(ZIP_EM_AES_128, 1) ? "Yes" : "No");
+	php_info_print_table_row(2, "AES-192 encryption",
+		zip_encryption_method_supported(ZIP_EM_AES_128, 1) ? "Yes" : "No");
+	php_info_print_table_row(2, "AES-256 encryption",
+		zip_encryption_method_supported(ZIP_EM_AES_128, 1) ? "Yes" : "No");
+#endif
 	php_info_print_table_end();
 }
 /* }}} */
