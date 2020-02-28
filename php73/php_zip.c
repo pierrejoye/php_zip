@@ -1848,7 +1848,7 @@ static ZIPARCHIVE_METHOD(addFile)
 	ZIP_FROM_OBJECT(intern, self);
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "P|slll",
-			&filename, &entry_name, &entry_name_len, &offset_start, &offset_len) == FAILURE) {
+			&filename, &entry_name, &entry_name_len, &offset_start, &offset_len, &flags) == FAILURE) {
 		return;
 	}
 
