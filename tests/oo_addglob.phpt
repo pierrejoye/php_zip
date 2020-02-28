@@ -25,13 +25,24 @@ if (!$zip->open($file)) {
 }
 $options = array('add_path' => 'baz/', 'remove_all_path' => TRUE);
 if (!$zip->addGlob($dirname . '*.{txt,baz}', GLOB_BRACE, $options)) {
-        echo "failed1\n";
+        echo "failed 1\n";
+}
+if (!$zip->addGlob($dirname . '*.{txt,baz}', GLOB_BRACE, $options)) {
+        echo "failed 1\n";
+}
+$options['flags'] = 0; // clean FL_OVERWRITE
+if (!$zip->addGlob($dirname . '*.{txt,baz}', GLOB_BRACE, $options)) {
+	var_dump($zip->getStatusString());
+}
+$options['flags'] = ZipArchive::FL_OVERWRITE;
+if (!$zip->addGlob($dirname . '*.{txt,baz}', GLOB_BRACE, $options)) {
+        echo "failed 2\n";
 }
 if ($zip->status == ZIPARCHIVE::ER_OK) {
         dump_entries_name($zip);
         $zip->close();
 } else {
-        echo "failed2\n";
+        echo "failed 3\n";
 }
 ?>
 --CLEAN--
@@ -42,6 +53,7 @@ unlink($dirname . 'foo.txt');
 unlink($dirname . 'bar.baz');
 ?>
 --EXPECTF--
+string(19) "File already exists"
 0 bar
 1 foobar/
 2 foobar/baz
