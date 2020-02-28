@@ -1910,7 +1910,7 @@ static ZIPARCHIVE_METHOD(addFile)
 	}
 
 	if (php_zip_add_file(intern, filename, filename_len,
-		entry_name, entry_name_len, 0, 0 TSRMLS_CC) < 0) {
+			entry_name, entry_name_len, offset_start, offset_len TSRMLS_CC) < 0) {
 		RETURN_FALSE;
 	} else {
 		RETURN_TRUE;

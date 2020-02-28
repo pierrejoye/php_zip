@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- fix #79315 ZipArchive::addFile doen't honor start/length parameters
   </notes>
   <contents>
     <dir name="/">
