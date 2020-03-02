@@ -9,8 +9,10 @@ if(!extension_loaded('zip')) die('skip');
 <?php
 
 include __DIR__ . '/utils.inc';
-$file = __DIR__ . '/' . basename(__FILE__, ".php") . '.zip';
+$dirname = __DIR__ . '/oo_add_encoding_dir/';
+$file = $dirname . 'tmp.zip';
 
+@mkdir($dirname);
 $zip = new ZipArchive;
 if (!$zip->open($file, ZipArchive::CREATE)) {
 	exit('failed');
@@ -30,7 +32,12 @@ if ($zip->status == ZIPARCHIVE::ER_OK) {
 } else {
 	echo "failed\n";
 }
-@unlink($file);
+?>
+--CLEAN--
+<?php
+$dirname = __DIR__ . '/oo_add_encoding_dir/';
+unlink($dirname . 'tmp.zip');
+rmdir($dirname);
 ?>
 --EXPECTF--
 0 foo/
