@@ -37,7 +37,7 @@ extern zend_module_entry zip_module_entry;
 #define ZIP_OVERWRITE ZIP_TRUNCATE
 #endif
 
-#define PHP_ZIP_VERSION "1.17.3-dev"
+#define PHP_ZIP_VERSION "1.18.0-dev"
 
 /* {{{ ZIP_OPENBASEDIR_CHECKPATH(filename) */
 #define ZIP_OPENBASEDIR_CHECKPATH(filename) \

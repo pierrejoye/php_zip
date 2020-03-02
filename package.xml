@@ -18,8 +18,8 @@
   </lead>
   <date>2020-02-28</date>
   <version>
-    <release>1.17.3dev</release>
-    <api>2.6.0</api>
+    <release>1.18.0dev</release>
+    <api>2.7.0</api>
   </version>
   <stability>
     <release>stable</release>
@@ -27,7 +27,13 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- add ZipArchive::FL_RECOMPRESS, FL_ENCRYPTED, FL_OVERWRITE, FL_LOCAL,
+  FL_CENTRAL constants
+- add optional "flags" parameter to ZipArchive::addEmptyDir, addFile and
+  addFromString methods
+- add "flags" options to ZipArchive::addGlob and addPattern methods,
+  keeping previous behavior having FL_OVERWRITE by default
+- add ZipArchive::replaceFile() method
   </notes>
   <contents>
     <dir name="/">
@@ -75,7 +81,9 @@
         <file name="doubleclose.phpt" role="test"/>
         <file name="oo_addemptydir.phpt" role="test"/>
         <file name="oo_addemptydir_error.phpt" role="test"/>
+        <file name="oo_add_encoding.phpt" role="test"/>
         <file name="oo_addfile.phpt" role="test"/>
+        <file name="oo_add_from_string.phpt" role="test"/>
         <file name="oo_addglob.phpt" role="test"/>
         <file name="oo_addpattern.phpt" role="test"/>
         <file name="oo_cancel.phpt" role="test"/>
@@ -94,6 +102,7 @@
         <file name="oo_progress.phpt" role="test"/>
         <file name="oo_properties.phpt" role="test"/>
         <file name="oo_rename.phpt" role="test"/>
+        <file name="oo_replacefile.phpt" role="test"/>
         <file name="oo_setcomment.phpt" role="test"/>
         <file name="oo_setcomment_error.phpt" role="test"/>
         <file name="oo_setcompression.phpt" role="test"/>
