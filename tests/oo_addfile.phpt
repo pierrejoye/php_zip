@@ -18,12 +18,15 @@ $zip = new ZipArchive;
 if (!$zip->open($file)) {
 	exit('failed');
 }
+var_dump($zip->lastId);
 if (!$zip->addFile($dirname . 'utils.inc', 'test.php')) {
 	echo "failed\n";
 }
+var_dump($zip->lastId);
 if (!$zip->addFile($dirname . 'utils.inc', 'mini.txt', 12, 34)) {
 	echo "failed\n";
 }
+var_dump($zip->lastId);
 if ($zip->status == ZIPARCHIVE::ER_OK) {
 	dump_entries_name($zip);
 	$zip->close();
@@ -38,6 +41,9 @@ var_dump(strlen($zip->getFromName('mini.txt')) == 34);
 @unlink($file);
 ?>
 --EXPECTF--
+int(-1)
+int(4)
+int(5)
 0 bar
 1 foobar/
 2 foobar/baz

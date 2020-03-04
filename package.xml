@@ -34,6 +34,7 @@
 - add "flags" options to ZipArchive::addGlob and addPattern methods,
   keeping previous behavior having FL_OVERWRITE by default
 - add ZipArchive::replaceFile() method
+- add lastId property to ZipArchive
   </notes>
   <contents>
     <dir name="/">

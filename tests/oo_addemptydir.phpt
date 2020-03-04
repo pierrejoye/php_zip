@@ -19,8 +19,14 @@ if (!$zip->open($file)) {
 	exit('failed');
 }
 
+var_dump($zip->lastId); // -1 (nothing added)
 $zip->addEmptyDir('emptydir');
-if ($zip->status == ZIPARCHIVE::ER_OK) {
+var_dump($zip->lastId); // 4
+$zip->addEmptyDir('emptydir');
+var_dump($zip->lastId); // -1 (already exists)
+$zip->addEmptyDir('emptydir', ZipArchive::FL_OVERWRITE);
+var_dump($zip->lastId); // 4
+if ($zip->status == ZipArchive::ER_OK) {
 	dump_entries_name($zip);
 	$zip->close();
 } else {
@@ -29,6 +35,10 @@ if ($zip->status == ZIPARCHIVE::ER_OK) {
 @unlink($file);
 ?>
 --EXPECTF--
+int(-1)
+int(4)
+int(-1)
+int(4)
 0 bar
 1 foobar/
 2 foobar/baz
