@@ -27,17 +27,13 @@ extern zend_module_entry zip_module_entry;
 #include "TSRM.h"
 #endif
 
-#if defined(HAVE_LIBZIP)
 #include <zip.h>
-#else
-#include "lib/zip.h"
-#endif
 
 #ifndef ZIP_OVERWRITE
 #define ZIP_OVERWRITE ZIP_TRUNCATE
 #endif
 
-#define PHP_ZIP_VERSION "1.18.0RC1"
+#define PHP_ZIP_VERSION "1.18.0RC2"
 
 /* {{{ ZIP_OPENBASEDIR_CHECKPATH(filename) */
 #define ZIP_OPENBASEDIR_CHECKPATH(filename) \
