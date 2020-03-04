@@ -1954,7 +1954,7 @@ static ZIPARCHIVE_METHOD(replaceFile)
 	char *filename;
 	int filename_len;
 	long offset_start = 0, offset_len = 0;
-	long flags = ZIP_FL_OVERWRITE;
+	long flags = 0;
 
 	if (!this) {
 		RETURN_FALSE;
