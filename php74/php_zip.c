@@ -1652,6 +1652,7 @@ static ZIPARCHIVE_METHOD(getStatusString)
 	} else {
 		len = zip_error_to_str(error_string, 128, ze_obj->err_zip, ze_obj->err_sys);
 	}
+	RETVAL_STRINGL(error_string, len);
 #else
 	if (ze_obj->za) {
 		zip_error_t *err;
