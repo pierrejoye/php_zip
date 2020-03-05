@@ -37,6 +37,7 @@
 - add lastId property to ZipArchive
 - make status, statusSys properties and ZipArchive::getStatusString() method
   available after archive is closed
+- Fixed bug #72374 remove_path option strips first char of filename
   </notes>
   <contents>
     <dir name="/">
@@ -68,7 +69,7 @@
         <file name="bug7214.phpt" role="test"/>
         <file name="bug72258.phpt" role="test"/>
         <file name="bug72258.zip" role="test"/>
-        <file name="bug72434.phpt" role="test"/>
+        <file name="bug72374.phpt" role="test"/>
         <file name="bug72434.phpt" role="test"/>
         <file name="bug72660.phpt" role="test"/>
         <file name="bug76524.phpt" role="test"/>
