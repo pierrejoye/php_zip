@@ -35,6 +35,8 @@
   keeping previous behavior having FL_OVERWRITE by default
 - add ZipArchive::replaceFile() method
 - add lastId property to ZipArchive
+- make status, statusSys properties and ZipArchive::getStatusString() method
+  available after archive is closed
   </notes>
   <contents>
     <dir name="/">

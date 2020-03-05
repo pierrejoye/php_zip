@@ -327,7 +327,7 @@ static int php_zip_add_file(ze_zip_object *obj, const char *filename, size_t fil
 	if (!zs) {
 		return -1;
 	}
-	// Replace
+	/* Replace */
 	if (replace >= 0) {
 		if (zip_file_replace(obj->za, replace, zs, flags) < 0) {
 			zip_source_free(zs);
@@ -336,7 +336,7 @@ static int php_zip_add_file(ze_zip_object *obj, const char *filename, size_t fil
 		zip_error_clear(obj->za);
 		return 1;
 	}
-	// Add
+	/* Add */
 	obj->last_id = zip_file_add(obj->za, entry_name, zs, flags);
 	if (obj->last_id < 0) {
 		zip_source_free(zs);
@@ -469,18 +469,21 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 
 static long php_zip_status(ze_zip_object *obj TSRMLS_DC) /* {{{ */
 {
+	int zep = obj->err_zip; /* saved err if closed */
+
+	if (obj->za) {
 #if LIBZIP_VERSION_MAJOR < 1
-	int zep, syp;
+		int syp;
 
-	zip_error_get(obj->za, &zep, &syp);
+		zip_error_get(obj->za, &zep, &syp);
 #else
-	int zep;
-	zip_error_t *err;
+		zip_error_t *err;
 
-	err = zip_get_error(obj->za);
-	zep = zip_error_code_zip(err);
-	zip_error_fini(err);
+		err = zip_get_error(obj->za);
+		zep = zip_error_code_zip(err);
+		zip_error_fini(err);
 #endif
+	}
 	return zep;
 }
 /* }}} */
@@ -493,26 +496,32 @@ static long php_zip_last_id(ze_zip_object *obj TSRMLS_DC) /* {{{ */
 
 static long php_zip_status_sys(ze_zip_object *obj TSRMLS_DC) /* {{{ */
 {
+	int syp = obj->err_sys;  /* saved err if closed */
+
+	if (obj->za) {
 #if LIBZIP_VERSION_MAJOR < 1
-	int zep, syp;
+		int zep;
 
-	zip_error_get(obj->za, &zep, &syp);
+		zip_error_get(obj->za, &zep, &syp);
 #else
-	int syp;
-	zip_error_t *err;
+		zip_error_t *err;
 
-	err = zip_get_error(obj->za);
-	syp = zip_error_code_system(err);
-	zip_error_fini(err);
+		err = zip_get_error(obj->za);
+		syp = zip_error_code_system(err);
+		zip_error_fini(err);
 #endif
+	}
 	return syp;
 }
 /* }}} */
 
 static long php_zip_get_num_files(ze_zip_object *obj TSRMLS_DC) /* {{{ */
 {
-	zip_int64_t num = zip_get_num_entries(obj->za, 0);
-	return MIN(num, LONG_MAX);
+	if (obj->za) {
+		zip_int64_t num = zip_get_num_entries(obj->za, 0);
+		return MIN(num, LONG_MAX);
+	}
+	return 0;
 }
 /* }}} */
 
@@ -866,12 +875,10 @@ static int php_zip_property_reader(ze_zip_object *obj, zip_prop_handler *hnd, zv
 	long retint = 0;
 	int len = 0;
 
-	if (obj && obj->za != NULL) {
-		if (hnd->read_const_char_func) {
-			retchar = hnd->read_const_char_func(obj, &len TSRMLS_CC);
-		} else if (hnd->read_int_func) {
-			retint = hnd->read_int_func(obj TSRMLS_CC);
-		}
+	if (hnd->read_const_char_func) {
+		retchar = hnd->read_const_char_func(obj, &len TSRMLS_CC);
+	} else if (hnd->read_int_func) {
+		retint = hnd->read_int_func(obj TSRMLS_CC);
 	}
 
 	if (newzval) {
@@ -1637,7 +1644,23 @@ static ZIPARCHIVE_METHOD(close)
 
 	ze_obj = (ze_zip_object*) zend_object_store_get_object(this TSRMLS_CC);
 
-	if ((err = zip_close(intern))) {
+	err = zip_close(intern);
+
+	/* Save error for property reader */
+#if LIBZIP_VERSION_MAJOR < 1
+	zip_error_get(obj->za, &ze_obj->err_zip, &ze_obj->err_sys);
+#else
+	{
+	zip_error_t *ziperr;
+
+	ziperr = zip_get_error(intern);
+	ze_obj->err_zip = zip_error_code_zip(ziperr);
+	ze_obj->err_sys = zip_error_code_system(ziperr);
+	zip_error_fini(ziperr);
+	}
+#endif
+
+	if (err) {
 #if LIBZIP_VERSION_MAJOR == 1 && LIBZIP_VERSION_MINOR == 3 && LIBZIP_VERSION_MICRO == 1
 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "%s", "zip_close have failed");
 #else
@@ -1682,30 +1705,42 @@ static ZIPARCHIVE_METHOD(count)
  * Returns the status error message, system and/or zip messages */
 static ZIPARCHIVE_METHOD(getStatusString)
 {
-	struct zip *intern;
 	zval *this = getThis();
 #if LIBZIP_VERSION_MAJOR < 1
 	int zep, syp, len;
 	char error_string[128];
-#else
-	zip_error_t *err;
 #endif
+	ze_zip_object *ze_obj;
 
 	if (!this) {
 		RETURN_FALSE;
 	}
 
-	ZIP_FROM_OBJECT(intern, this);
+	ze_obj = Z_ZIP_P(this); /* not ZIP_FROM_OBJECT as we can use saved error after close */
 
 #if LIBZIP_VERSION_MAJOR < 1
-	zip_error_get(intern, &zep, &syp);
-
-	len = zip_error_to_str(error_string, 128, zep, syp);
+	if (ze_obj->za) {
+		zip_error_get(ze_obj->za, &zep, &syp);
+		len = zip_error_to_str(error_string, 128, zep, syp);
+	} else {
+		len = zip_error_to_str(error_string, 128, ze_obj->err_zip, ze_obj->err_sys);
+	}
 	RETVAL_STRINGL(error_string, len, 1);
 #else
-	err = zip_get_error(intern);
-	RETVAL_STRING(zip_error_strerror(err), 1);
-	zip_error_fini(err);
+	if (ze_obj->za) {
+		zip_error_t *err;
+
+		err = zip_get_error(ze_obj->za);
+		RETVAL_STRING(zip_error_strerror(err), 1);
+		zip_error_fini(err);
+	} else {
+		zip_error_t err;
+
+		zip_error_init_with_code(&err, ze_obj->err_zip);
+		err.sys_err = ze_obj->err_sys; /* missing setter */
+		RETVAL_STRING(zip_error_strerror(&err), 1);
+		zip_error_fini(&err);
+	}
 #endif
 }
 /* }}} */
@@ -3664,7 +3699,7 @@ static PHP_MINIT_FUNCTION(zip)
 	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_OS_2",				ZIP_OPSYS_OS_2);
 	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_MACINTOSH",		ZIP_OPSYS_MACINTOSH);
 	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_Z_SYSTEM",			ZIP_OPSYS_Z_SYSTEM);
-	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_Z_CPM",			ZIP_OPSYS_CPM); // typo kept for BC
+	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_Z_CPM",			ZIP_OPSYS_CPM); /* typo kept for BC */
 	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_CPM",				ZIP_OPSYS_CPM);
 	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_WINDOWS_NTFS",		ZIP_OPSYS_WINDOWS_NTFS);
 	REGISTER_ZIP_CLASS_CONST_LONG("OPSYS_MVS",				ZIP_OPSYS_MVS);

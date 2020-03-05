@@ -66,6 +66,8 @@ typedef struct _ze_zip_object {
 	char *filename;
 	int filename_len;
 	zip_int64_t last_id;
+	int err_zip;
+	int err_sys;
 #ifdef HAVE_PROGRESS_CALLBACK
 	zval *progress_callback;
 #endif
