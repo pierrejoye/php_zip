@@ -38,6 +38,7 @@
 - make status, statusSys properties and ZipArchive::getStatusString() method
   available after archive is closed
 - Fixed bug #72374 remove_path option strips first char of filename
+- Fixed bug #50678 files extracted lost their original modified time
   </notes>
   <contents>
     <dir name="/">
@@ -55,6 +56,7 @@
         <file name="bug47667.phpt" role="test"/>
         <file name="bug49072.phpt" role="test"/>
         <file name="bug49072.zip" role="test"/>
+        <file name="bug50678.phpt" role="test"/>
         <file name="bug51353.phpt" role="test"/>
         <file name="bug53579.phpt" role="test"/>
         <file name="bug53603.phpt" role="test"/>
