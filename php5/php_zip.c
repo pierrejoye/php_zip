@@ -285,7 +285,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 		struct utimbuf ut;
 
 		ut.modtime = ut.actime = sb.mtime;
-		stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_TOUCH, &ut, NULL);
+		stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_TOUCH, &ut, NULL TSRMLS_CC);
 	}
 
 	php_stream_close(stream);
@@ -1878,7 +1878,7 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 				if (add_path) {
 					if ((add_path_len + file_stripped_len) > MAXPATHLEN) {
 						php_error_docref(NULL TSRMLS_CC, E_WARNING, "Entry name too long (max: %d, %ld given)",
-						MAXPATHLEN - 1, (add_path_len + file_stripped_len));
+						MAXPATHLEN - 1, (long)(add_path_len + file_stripped_len));
 						zval_dtor(return_value);
 						RETURN_FALSE;
 					}
