@@ -4,6 +4,8 @@ Bug #50678 (files extracted by ZipArchive class lost their original modified tim
 <?php
 if (!extension_loaded('zip')) die('skip zip extension not available');
 ?>
+--INI--
+date.timezone=UTC
 --FILE--
 <?php
 $filename = __DIR__ . '/test.zip';
