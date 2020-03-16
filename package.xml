@@ -18,7 +18,7 @@
   </lead>
   <date>2020-03-16</date>
   <version>
-    <release>1.18.0</release>
+    <release>1.18.1dev</release>
     <api>2.7.0</api>
   </version>
   <stability>
@@ -27,18 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- add ZipArchive::FL_RECOMPRESS, FL_ENCRYPTED, FL_OVERWRITE, FL_LOCAL,
-  FL_CENTRAL constants
-- add optional "flags" parameter to ZipArchive::addEmptyDir, addFile and
-  addFromString methods
-- add "flags" options to ZipArchive::addGlob and addPattern methods,
-  keeping previous behavior having FL_OVERWRITE by default
-- add ZipArchive::replaceFile() method
-- add lastId property to ZipArchive
-- make status, statusSys properties and ZipArchive::getStatusString() method
-  available after archive is closed
-- Fixed bug #72374 remove_path option strips first char of filename
-- Fixed bug #50678 files extracted lost their original modified time
+-
   </notes>
   <contents>
     <dir name="/">
@@ -193,6 +182,32 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2020-03-16</date>
+      <version>
+        <release>1.18.0</release>
+        <api>2.7.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- add ZipArchive::FL_RECOMPRESS, FL_ENCRYPTED, FL_OVERWRITE, FL_LOCAL,
+  FL_CENTRAL constants
+- add optional "flags" parameter to ZipArchive::addEmptyDir, addFile and
+  addFromString methods
+- add "flags" options to ZipArchive::addGlob and addPattern methods,
+  keeping previous behavior having FL_OVERWRITE by default
+- add ZipArchive::replaceFile() method
+- add lastId property to ZipArchive
+- make status, statusSys properties and ZipArchive::getStatusString() method
+  available after archive is closed
+- Fixed bug #72374 remove_path option strips first char of filename
+- Fixed bug #50678 files extracted lost their original modified time
+      </notes>
+    </release>
     <release>
       <date>2020-02-28</date>
       <version>
