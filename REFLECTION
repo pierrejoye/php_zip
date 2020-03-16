@@ -1,4 +1,4 @@
-Extension [ <persistent> extension #102 zip version 1.18.0RC6 ] {
+Extension [ <persistent> extension #15 zip version 1.18.0 ] {
 
   - Functions {
     Function [ <internal:zip> function zip_open ] {
