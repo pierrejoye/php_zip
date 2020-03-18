@@ -354,13 +354,34 @@ static int php_zip_add_file(ze_zip_object *obj, const char *filename, size_t fil
 }
 /* }}} */
 
-static int php_zip_parse_options(zval *options, long *remove_all_path,
-	char **remove_path, int *remove_path_len,
-	char **add_path, int *add_path_len,
-	long *flags
-	TSRMLS_DC) /* {{{ */
+typedef struct {
+	long         remove_all_path;
+	char        *remove_path;
+	int          remove_path_len;
+	char        *add_path;
+	int          add_path_len;
+	zip_flags_t  flags;
+	zip_int32_t  comp_method;
+	zip_uint32_t comp_flags;
+#ifdef HAVE_ENCRYPTION
+	zip_int16_t  enc_method;
+	char        *enc_password;
+#endif
+} zip_options;
+
+static int php_zip_parse_options(zval *options, zip_options *opts TSRMLS_DC)
+/* {{{ */
 {
 	zval **option;
+
+	/* default values */
+	memset(opts, 0, sizeof(zip_options));
+	opts->flags = ZIP_FL_OVERWRITE;
+#ifdef HAVE_ENCRYPTION
+	opts->enc_method = -1;  /* -1 to not change default */
+#endif
+	opts->comp_method = -1; /* -1 to not change default */
+
 	if (zend_hash_find(HASH_OF(options), "remove_all_path", sizeof("remove_all_path"), (void **)&option) == SUCCESS) {
 		long opt;
 		if (Z_TYPE_PP(option) != IS_LONG) {
@@ -371,10 +392,58 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 		} else {
 			opt = Z_LVAL_PP(option);
 		}
-		*remove_all_path = opt;
+		opts->remove_all_path = opt;
 	}
 
-	/* If I add more options, it would make sense to create a nice static struct and loop over it. */
+	if (zend_hash_find(HASH_OF(options), "comp_method", sizeof("comp_method"), (void **)&option) == SUCCESS) {
+		long opt;
+		if (Z_TYPE_PP(option) != IS_LONG) {
+			zval tmp = **option;
+			zval_copy_ctor(&tmp);
+			convert_to_long(&tmp);
+			opt = Z_LVAL(tmp);
+		} else {
+			opt = Z_LVAL_PP(option);
+		}
+		opts->comp_method = opt;
+
+		if (zend_hash_find(HASH_OF(options), "comp_flags", sizeof("comp_flags"), (void **)&option) == SUCCESS) {
+			long opt;
+			if (Z_TYPE_PP(option) != IS_LONG) {
+				zval tmp = **option;
+				zval_copy_ctor(&tmp);
+				convert_to_long(&tmp);
+				opt = Z_LVAL(tmp);
+			} else {
+				opt = Z_LVAL_PP(option);
+			}
+			opts->comp_flags = opt;
+		}
+	}
+
+#ifdef HAVE_ENCRYPTION
+	if (zend_hash_find(HASH_OF(options), "enc_method", sizeof("enc_method"), (void **)&option) == SUCCESS) {
+		long opt;
+		if (Z_TYPE_PP(option) != IS_LONG) {
+			zval tmp = **option;
+			zval_copy_ctor(&tmp);
+			convert_to_long(&tmp);
+			opt = Z_LVAL(tmp);
+		} else {
+			opt = Z_LVAL_PP(option);
+		}
+		opts->enc_method = opt;
+
+		if (zend_hash_find(HASH_OF(options), "enc_password", sizeof("enc_password"), (void **)&option) == SUCCESS) {
+			if (Z_TYPE_PP(option) != IS_STRING) {
+				php_error_docref(NULL TSRMLS_CC, E_WARNING, "remove_path option expected to be a string");
+				return -1;
+			}
+			opts->enc_password = Z_STRVAL_PP(option);
+		}
+	}
+#endif
+
 	if (zend_hash_find(HASH_OF(options), "remove_path", sizeof("remove_path"), (void **)&option) == SUCCESS) {
 		if (Z_TYPE_PP(option) != IS_STRING) {
 			php_error_docref(NULL TSRMLS_CC, E_WARNING, "remove_path option expected to be a string");
@@ -391,8 +460,8 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 						MAXPATHLEN - 1, Z_STRLEN_PP(option));
 			return -1;
 		}
-		*remove_path_len = Z_STRLEN_PP(option);
-		*remove_path = Z_STRVAL_PP(option);
+		opts->remove_path_len = Z_STRLEN_PP(option);
+		opts->remove_path = Z_STRVAL_PP(option);
 	}
 
 	if (zend_hash_find(HASH_OF(options), "add_path", sizeof("add_path"), (void **)&option) == SUCCESS) {
@@ -411,8 +480,8 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 						MAXPATHLEN - 1, Z_STRLEN_PP(option));
 			return -1;
 		}
-		*add_path_len = Z_STRLEN_PP(option);
-		*add_path = Z_STRVAL_PP(option);
+		opts->add_path_len = Z_STRLEN_PP(option);
+		opts->add_path = Z_STRVAL_PP(option);
 	}
 
 	if (zend_hash_find(HASH_OF(options), "flags", sizeof("flags"), (void **)&option) == SUCCESS) {
@@ -420,7 +489,7 @@ static int php_zip_parse_options(zval *options, long *remove_all_path,
 			php_error_docref(NULL TSRMLS_CC, E_WARNING, "flags option expected to be a integer");
 			return -1;
 		}
-		*flags = Z_LVAL_PP(option);
+		opts->flags = Z_LVAL_PP(option);
 	}
 	return 1;
 }
@@ -1806,13 +1875,10 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 	zval *this = getThis();
 	char *pattern;
 	char *path = ".";
-	char *remove_path = NULL;
-	char *add_path = NULL;
-	int pattern_len, add_path_len, remove_path_len = 0, path_len = 1;
-	long remove_all_path = 0;
+	int pattern_len, path_len = 1;
 	long glob_flags = 0;
-	long zip_flags = ZIP_FL_OVERWRITE;
 	zval *options = NULL;
+	zip_options opts;
 	int found;
 
 	if (!this) {
@@ -1836,8 +1902,7 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "Empty string as pattern");
 		RETURN_FALSE;
 	}
-	if (options && (php_zip_parse_options(options, &remove_all_path, &remove_path, &remove_path_len,
-			&add_path, &add_path_len, &zip_flags TSRMLS_CC) < 0)) {
+	if (options && (php_zip_parse_options(options, &opts TSRMLS_CC) < 0)) {
 		RETURN_FALSE;
 	}
 
@@ -1850,6 +1915,9 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 	if (found > 0) {
 		int i;
 		zval **zval_file = NULL;
+		ze_zip_object *ze_obj = NULL;
+
+		ze_obj = Z_ZIP_P(this);
 
 		for (i = 0; i < found; i++) {
 			char *file_stripped, *entry_name;
@@ -1858,32 +1926,32 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 			char *basename = NULL;
 
 			if (zend_hash_index_find(Z_ARRVAL_P(return_value), i, (void **) &zval_file) == SUCCESS) {
-				if (remove_all_path) {
+				if (opts.remove_all_path) {
 					php_basename(Z_STRVAL_PP(zval_file), Z_STRLEN_PP(zval_file), NULL, 0,
 									&basename, (size_t *)&file_stripped_len TSRMLS_CC);
 					file_stripped = basename;
-				} else if (remove_path && strstr(Z_STRVAL_PP(zval_file), remove_path) != NULL) {
-					if (IS_SLASH(Z_STRVAL_PP(zval_file)[remove_path_len])) {
-						file_stripped = Z_STRVAL_PP(zval_file) + remove_path_len + 1;
-						file_stripped_len = Z_STRLEN_PP(zval_file) - remove_path_len - 1;
+				} else if (opts.remove_path && strstr(Z_STRVAL_PP(zval_file), opts.remove_path) != NULL) {
+					if (IS_SLASH(Z_STRVAL_PP(zval_file)[opts.remove_path_len])) {
+						file_stripped = Z_STRVAL_PP(zval_file) + opts.remove_path_len + 1;
+						file_stripped_len = Z_STRLEN_PP(zval_file) - opts.remove_path_len - 1;
 					} else {
-						file_stripped = Z_STRVAL_PP(zval_file) + remove_path_len;
-						file_stripped_len = Z_STRLEN_PP(zval_file) - remove_path_len;
+						file_stripped = Z_STRVAL_PP(zval_file) + opts.remove_path_len;
+						file_stripped_len = Z_STRLEN_PP(zval_file) - opts.remove_path_len;
 					}
 				} else {
 					file_stripped = Z_STRVAL_PP(zval_file);
 					file_stripped_len = Z_STRLEN_PP(zval_file);
 				}
 
-				if (add_path) {
-					if ((add_path_len + file_stripped_len) > MAXPATHLEN) {
+				if (opts.add_path) {
+					if ((opts.add_path_len + file_stripped_len) > MAXPATHLEN) {
 						php_error_docref(NULL TSRMLS_CC, E_WARNING, "Entry name too long (max: %d, %ld given)",
-						MAXPATHLEN - 1, (long)(add_path_len + file_stripped_len));
+						MAXPATHLEN - 1, (long)(opts.add_path_len + file_stripped_len));
 						zval_dtor(return_value);
 						RETURN_FALSE;
 					}
 
-					snprintf(entry_name_buf, MAXPATHLEN, "%s%s", add_path, file_stripped);
+					snprintf(entry_name_buf, MAXPATHLEN, "%s%s", opts.add_path, file_stripped);
 				} else {
 					snprintf(entry_name_buf, MAXPATHLEN, "%s", file_stripped);
 				}
@@ -1894,11 +1962,25 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 					efree(basename);
 					basename = NULL;
 				}
-				if (php_zip_add_file(Z_ZIP_P(this), Z_STRVAL_PP(zval_file), Z_STRLEN_PP(zval_file),
-					entry_name, entry_name_len, 0, 0, -1, zip_flags TSRMLS_CC) < 0) {
+				if (php_zip_add_file(ze_obj, Z_STRVAL_PP(zval_file), Z_STRLEN_PP(zval_file),
+					entry_name, entry_name_len, 0, 0, -1, opts.flags TSRMLS_CC) < 0) {
 					zval_dtor(return_value);
 					RETURN_FALSE;
 				}
+				if (opts.comp_method >= 0) {
+					if (zip_set_file_compression(ze_obj->za, ze_obj->last_id, opts.comp_method, opts.comp_flags)) {
+						zval_dtor(return_value);
+						RETURN_FALSE;
+					}
+				}
+#ifdef HAVE_ENCRYPTION
+				if (opts.enc_method >= 0) {
+					if (zip_file_set_encryption(ze_obj->za, ze_obj->last_id, opts.enc_method, opts.enc_password)) {
+						zval_dtor(return_value);
+						RETURN_FALSE;
+					}
+				}
+#endif
 			}
 		}
 	}

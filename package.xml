@@ -27,7 +27,9 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- Implement #77960 add compression / encryption in ZipArchive::addGlob and
+  ZipArchive::addPattern options parameter which now accepts:
+  comp_method, comp_flags, enc_method and enc_password
   </notes>
   <contents>
     <dir name="/">
@@ -80,6 +82,7 @@
         <file name="oo_addfile.phpt" role="test"/>
         <file name="oo_add_from_string.phpt" role="test"/>
         <file name="oo_addglob.phpt" role="test"/>
+        <file name="oo_addglob2.phpt" role="test"/>
         <file name="oo_addpattern.phpt" role="test"/>
         <file name="oo_cancel.phpt" role="test"/>
         <file name="oo_close.phpt" role="test"/>
