@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2020-03-16</date>
+  <date>2020-03-19</date>
   <version>
-    <release>1.18.1dev</release>
+    <release>1.18.1</release>
     <api>2.7.0</api>
   </version>
   <stability>
@@ -169,6 +169,7 @@
         <file name="addpattern.php" role="doc"/>
         <file name="set_compression.php" role="doc"/>
         <file name="encryption.php" role="doc"/>
+        <file name="zipcmd.php" role="doc"/>
       </dir> <!-- examples -->
     </dir>
   </contents>
