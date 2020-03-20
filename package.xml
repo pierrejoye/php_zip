@@ -27,9 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Implement #77960 add compression / encryption in ZipArchive::addGlob and
-  ZipArchive::addPattern options parameter which now accepts:
-  comp_method, comp_flags, enc_method and enc_password
+-
   </notes>
   <contents>
     <dir name="/">
@@ -44,6 +42,7 @@
         <file name="bug38944.phpt" role="test"/>
         <file name="bug40228.phpt" role="test"/>
         <file name="bug40228.zip" role="test"/>
+        <file name="bug40228-mb.phpt" role="test"/>
         <file name="bug47667.phpt" role="test"/>
         <file name="bug49072.phpt" role="test"/>
         <file name="bug49072.zip" role="test"/>
@@ -55,6 +54,8 @@
         <file name="bug53885.phpt" role="test"/>
         <file name="bug64342_0.phpt" role="test"/>
         <file name="bug64342_1.phpt" role="test"/>
+        <file name="bug64342_1-mb.phpt" role="test"/>
+        <file name="bug70103.phpt" role="test"/>
         <file name="bug70322.phpt" role="test"/>
         <file name="bug70350.phpt" role="test"/>
         <file name="bug70752.phpt" role="test"/>
@@ -106,6 +107,8 @@
         <file name="oo_setcompression.phpt" role="test"/>
         <file name="oo_setmtime.phpt" role="test"/>
         <file name="oo_stream.phpt" role="test"/>
+        <file name="oo_unchangeIndex.phpt" role="test"/>
+        <file name="oo_unchangeName.phpt" role="test"/>
         <file name="pecl12414.phpt" role="test"/>
         <file name="pecl12414.zip" role="test"/>
         <file name="stream_meta_data.phpt" role="test"/>
