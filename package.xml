@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- Fixed Bug #79296 ZipArchive::open fails on empty file with libzip 1.6.0.
   </notes>
   <contents>
     <dir name="/">
