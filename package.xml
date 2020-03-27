@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- add ZipArchive::EM_TRAD_PKWARE constant
   </notes>
   <contents>
     <dir name="/">
