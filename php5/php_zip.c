@@ -748,8 +748,9 @@ int php_zip_glob(char *pattern, int pattern_len, long flags, zval *return_value 
 		add_next_index_string(return_value, globbuf.gl_pathv[n]+cwd_skip, 1);
 	}
 
+	ret = globbuf.gl_pathc;
 	globfree(&globbuf);
-	return globbuf.gl_pathc;
+	return ret;
 #else
 	php_error_docref(NULL TSRMLS_CC, E_ERROR, "Glob support is not available");
 	return 0;

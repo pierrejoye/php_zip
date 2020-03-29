@@ -28,6 +28,7 @@
   <license>PHP 3.01</license>
   <notes>
 - add ZipArchive::EM_TRAD_PKWARE and ZipArchive::EM_UNKNOWN constants
+- Fix #79424 don't use gl_pathc after call to globfree (Max Rees)
   </notes>
   <contents>
     <dir name="/">
