@@ -21,9 +21,12 @@ if test "$PHP_ZIP" != "no"; then
   elif test $PHP_VERSION -lt 70400; then
     AC_MSG_RESULT(7.3)
     subdir=php73
-  else
+  elif test $PHP_VERSION -lt 80000; then
     AC_MSG_RESULT(7.4)
     subdir=php74
+  else
+    AC_MSG_RESULT(8.0)
+    subdir=php8
   fi
   PHP_ZIP_SOURCES="$subdir/php_zip.c $subdir/zip_stream.c"
 
