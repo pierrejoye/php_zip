@@ -1121,12 +1121,8 @@ static void php_zip_object_free_storage(zend_object *object) /* {{{ */
 	}
 	if (intern->za) {
 		if (zip_close(intern->za) != 0) {
-#if LIBZIP_VERSION_MAJOR == 1 && LIBZIP_VERSION_MINOR == 3 && LIBZIP_VERSION_MICRO == 1
-			php_error_docref(NULL, E_WARNING, "Cannot destroy the zip context: zip_close have failed");
-#else
 			php_error_docref(NULL, E_WARNING, "Cannot destroy the zip context: %s", zip_strerror(intern->za));
 			zip_discard(intern->za);
-#endif
 		}
 	}
 
@@ -1651,9 +1647,6 @@ static ZIPARCHIVE_METHOD(close)
 
 	err = zip_close(intern);
 	if (err) {
-#if LIBZIP_VERSION_MAJOR == 1 && LIBZIP_VERSION_MINOR == 3 && LIBZIP_VERSION_MICRO == 1
-		php_error_docref(NULL, E_WARNING, "zip_close have failed");
-#else
 		php_error_docref(NULL, E_WARNING, "%s", zip_strerror(intern));
 		/* Save error for property reader */
 		#if LIBZIP_VERSION_MAJOR < 1
@@ -1669,7 +1662,6 @@ static ZIPARCHIVE_METHOD(close)
 			}
 		#endif
 		zip_discard(intern);
-#endif
 	} else {
 		ze_obj->err_zip = 0;
 		ze_obj->err_sys = 0;
