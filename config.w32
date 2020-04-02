@@ -25,6 +25,8 @@ if (PHP_ZIP != "no") {
 				configure_module_dirname = configure_module_dirname + "\\php73";
 			} else if (PHP_VERSION == 7 && PHP_MINOR_VERSION == 4) {
 				configure_module_dirname = configure_module_dirname + "\\php74";
+			} else if (PHP_VERSION == 8) {
+				configure_module_dirname = configure_module_dirname + "\\php8";
 			} else {
 				ERROR("PHP " + PHP_VERSION + "." + PHP_MINOR_VERSION + " not supported");
 			}
