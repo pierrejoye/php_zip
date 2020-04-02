@@ -29,6 +29,8 @@
   <notes>
 - add ZipArchive::EM_TRAD_PKWARE and ZipArchive::EM_UNKNOWN constants
 - Fix #79424 don't use gl_pathc after call to globfree (Max Rees)
+- add ZipArchive::isCompressionMethodSupported() method (libzip 1.7.0)
+- add ZipArchive::isEncryptionMethodSupported() method (libzip 1.7.0)
   </notes>
   <contents>
     <dir name="/">
@@ -108,6 +110,7 @@
         <file name="oo_setcompression.phpt" role="test"/>
         <file name="oo_setmtime.phpt" role="test"/>
         <file name="oo_stream.phpt" role="test"/>
+        <file name="oo_supported.phpt" role="test"/>
         <file name="oo_unchangeIndex.phpt" role="test"/>
         <file name="oo_unchangeName.phpt" role="test"/>
         <file name="pecl12414.phpt" role="test"/>
