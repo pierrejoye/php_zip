@@ -6,17 +6,14 @@ Birgitte Kvarme <bitta@redpill-linpro.com>
 --SKIPIF--
 <?php
 if(!extension_loaded('zip')) die('skip');
-if (PHP_VERSION_ID >= 80000) die('skip PHP < 8 only');
+if (PHP_VERSION_ID < 80000) die('skip PHP 8 only');
 ?>
 --FILE--
 <?php
 echo "Test case 1:";
 $zip = zip_open("");
 
-echo "Test case 2:";
-$zip = zip_open("i_dont_care_about_this_parameter", "this_is_one_to_many");
-
-echo "Test case 3:\n";
+echo "Test case 2:\n";
 $zip = zip_open("/non_exisitng_directory/test_procedural.zip");
 echo is_resource($zip) ? "OK" : "Failure";
 ?>
@@ -24,6 +21,4 @@ echo is_resource($zip) ? "OK" : "Failure";
 Test case 1:
 Warning: zip_open(): Empty string as source in %s on line %d
 Test case 2:
-Warning: zip_open() expects exactly 1 parameter, 2 given in %s on line %d
-Test case 3:
 Failure

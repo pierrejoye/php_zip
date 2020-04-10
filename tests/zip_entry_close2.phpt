@@ -3,22 +3,24 @@ zip_entry_close() function: simple and double call
 --SKIPIF--
 <?php
 if(!extension_loaded('zip')) die('skip');
-if (PHP_VERSION_ID >= 80000) die('skip PHP < 8 only');
+if (PHP_VERSION_ID < 80000) die('skip PHP 8 only');
 ?>
 --FILE--
 <?php
-$zip    = zip_open(dirname(__FILE__)."/test_procedural.zip");
+$zip    = zip_open(__DIR__."/test_procedural.zip");
 $entry  = zip_read($zip);
 echo "entry_open:  "; var_dump(zip_entry_open($zip, $entry, "r"));
 echo "entry_close: "; var_dump(zip_entry_close($entry));
-echo "entry_close: "; var_dump(zip_entry_close($entry));
+try {
+    echo "entry_close: "; var_dump(zip_entry_close($entry));
+} catch (TypeError $e) {
+    echo $e->getMessage(), "\n";
+}
 zip_close($zip);
 ?>
 Done
---EXPECTF--
+--EXPECT--
 entry_open:  bool(true)
 entry_close: bool(true)
-entry_close: 
-Warning: zip_entry_close(): %s is not a valid Zip Entry resource in %s
-bool(false)
+entry_close: zip_entry_close(): supplied resource is not a valid Zip Entry resource
 Done

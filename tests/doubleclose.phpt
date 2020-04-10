@@ -3,6 +3,7 @@ close() called twice
 --SKIPIF--
 <?php
 if(!extension_loaded('zip')) die('skip');
+if (PHP_VERSION_ID >= 80000) die('skip PHP < 8 only');
 ?>
 --FILE--
 <?php

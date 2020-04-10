@@ -81,6 +81,7 @@
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
         <file name="doubleclose.phpt" role="test"/>
+        <file name="doubleclose2.phpt" role="test"/>
         <file name="oo_addemptydir.phpt" role="test"/>
         <file name="oo_addemptydir_error.phpt" role="test"/>
         <file name="oo_add_encoding.phpt" role="test"/>
@@ -98,12 +99,14 @@
         <file name="oo_ext_zip.phpt" role="test"/>
         <file name="oo_externalattributes.phpt" role="test"/>
         <file name="oo_getcomment.phpt" role="test"/>
+        <file name="oo_getcomment2.phpt" role="test"/>
         <file name="oo_getnameindex.phpt" role="test"/>
         <file name="oo_getstatusstring.phpt" role="test"/>
         <file name="oo_namelocate.phpt" role="test"/>
         <file name="oo_open.phpt" role="test"/>
         <file name="oo_progress.phpt" role="test"/>
         <file name="oo_properties.phpt" role="test"/>
+        <file name="oo_properties2.phpt" role="test"/>
         <file name="oo_rename.phpt" role="test"/>
         <file name="oo_replacefile.phpt" role="test"/>
         <file name="oo_setcomment.phpt" role="test"/>
@@ -123,6 +126,7 @@
         <file name="utils.inc" role="test"/>
         <file name="zip_close.phpt" role="test"/>
         <file name="zip_entry_close.phpt" role="test"/>
+        <file name="zip_entry_close2.phpt" role="test"/>
         <file name="zip_entry_compressedsize.phpt" role="test"/>
         <file name="zip_entry_compressionmethod.phpt" role="test"/>
         <file name="zip_entry_filesize.phpt" role="test"/>
@@ -130,6 +134,7 @@
         <file name="zip_entry_open.phpt" role="test"/>
         <file name="zip_entry_read.phpt" role="test"/>
         <file name="zip_open_error.phpt" role="test"/>
+        <file name="zip_entry_close2.phpt" role="test"/>
         <file name="zip_open.phpt" role="test"/>
         <file name="zip_read.phpt" role="test"/>
       </dir><!-- tests -->
