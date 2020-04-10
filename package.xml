@@ -16,7 +16,7 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2020-03-20</date>
+  <date>2020-04-10</date>
   <version>
     <release>1.19.0dev</release>
     <api>2.8.0</api>
