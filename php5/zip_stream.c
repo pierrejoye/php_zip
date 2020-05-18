@@ -20,7 +20,7 @@
 #   include "config.h"
 #endif
 #include "php.h"
-#if HAVE_ZIP
+#ifdef HAVE_ZIP
 #ifdef ZEND_ENGINE_2
 
 #include "php_streams.h"

@@ -20,7 +20,7 @@
 #   include "config.h"
 #endif
 #include "php.h"
-#if HAVE_ZIP
+#ifdef HAVE_ZIP
 
 #include "php_streams.h"
 #include "ext/standard/file.h"
