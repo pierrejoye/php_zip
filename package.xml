@@ -18,7 +18,7 @@
   </lead>
   <date>2020-06-05</date>
   <version>
-    <release>1.19.0</release>
+    <release>1.19.1dev</release>
     <api>2.8.0</api>
   </version>
   <stability>
@@ -27,11 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- add ZipArchive::EM_TRAD_PKWARE and ZipArchive::EM_UNKNOWN constants
-- Fix #79424 don't use gl_pathc after call to globfree (Max Rees)
-- add ZipArchive::isCompressionMethodSupported() method (libzip 1.7.0)
-- add ZipArchive::isEncryptionMethodSupported() method (libzip 1.7.0)
-- initial PHP 8 support
+- encode parameter is optional (PHP 8)
   </notes>
   <contents>
     <dir name="/">
@@ -207,6 +203,25 @@
   <extsrcrelease/>
   <changelog>
     <release>
+      <date>2020-06-05</date>
+      <version>
+        <release>1.19.0</release>
+        <api>2.8.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- add ZipArchive::EM_TRAD_PKWARE and ZipArchive::EM_UNKNOWN constants
+- Fix #79424 don't use gl_pathc after call to globfree (Max Rees)
+- add ZipArchive::isCompressionMethodSupported() method (libzip 1.7.0)
+- add ZipArchive::isEncryptionMethodSupported() method (libzip 1.7.0)
+- initial PHP 8 support
+      </notes>
+    </release>
+    <release>
       <date>2020-03-20</date>
       <version>
         <release>1.18.2</release>
@@ -218,7 +233,7 @@
       </stability>
       <license>PHP 3.01</license>
       <notes>
-    - Fixed Bug #79296 ZipArchive::open fails on empty file with libzip 1.6.0.
+- Fixed Bug #79296 ZipArchive::open fails on empty file with libzip 1.6.0.
       </notes>
     </release>
     <release>
