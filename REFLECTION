@@ -1,4 +1,4 @@
-Extension [ <persistent> extension #15 zip version 1.18.1 ] {
+Extension [ <persistent> extension #103 zip version 1.19.0 ] {
 
   - Functions {
     Function [ <internal:zip> function zip_open ] {
@@ -69,7 +69,7 @@ Extension [ <persistent> extension #15 zip version 1.18.1 ] {
   - Classes [1] {
     Class [ <internal:zip> class ZipArchive implements Countable ] {
 
-      - Constants [98] {
+      - Constants [100] {
         Constant [ public int CREATE ] { 1 }
         Constant [ public int EXCL ] { 2 }
         Constant [ public int CHECKCONS ] { 4 }
@@ -164,16 +164,33 @@ Extension [ <persistent> extension #15 zip version 1.18.1 ] {
         Constant [ public int OPSYS_OS_X ] { 19 }
         Constant [ public int OPSYS_DEFAULT ] { 3 }
         Constant [ public int EM_NONE ] { 0 }
+        Constant [ public int EM_TRAD_PKWARE ] { 1 }
         Constant [ public int EM_AES_128 ] { 257 }
         Constant [ public int EM_AES_192 ] { 258 }
         Constant [ public int EM_AES_256 ] { 259 }
-        Constant [ public string LIBZIP_VERSION ] { 1.6.1 }
+        Constant [ public int EM_UNKNOWN ] { 65535 }
+        Constant [ public string LIBZIP_VERSION ] { 1.7.0 }
       }
 
       - Static properties [0] {
       }
 
-      - Static methods [0] {
+      - Static methods [2] {
+        Method [ <internal:zip> static public method isCompressionMethodSupported ] {
+
+          - Parameters [2] {
+            Parameter #0 [ <required> $method ]
+            Parameter #1 [ <optional> $encode ]
+          }
+        }
+
+        Method [ <internal:zip> static public method isEncryptionMethodSupported ] {
+
+          - Parameters [2] {
+            Parameter #0 [ <required> $method ]
+            Parameter #1 [ <optional> $encode ]
+          }
+        }
       }
 
       - Properties [6] {
