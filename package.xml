@@ -28,6 +28,7 @@
   <license>PHP 3.01</license>
   <notes>
 - encode parameter is optional (PHP 8)
+- Fixed bug #79678 Build fails due to undeclared ZIP_RDONLY
   </notes>
   <contents>
     <dir name="/">
@@ -52,6 +53,7 @@
         <file name="bug53603.phpt" role="test"/>
         <file name="bug53854.phpt" role="test"/>
         <file name="bug53885.phpt" role="test"/>
+        <file name="bug53885_php8.phpt" role="test"/>
         <file name="bug64342_0.phpt" role="test"/>
         <file name="bug64342_1.phpt" role="test"/>
         <file name="bug64342_1-mb.phpt" role="test"/>
