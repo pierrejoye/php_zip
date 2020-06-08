@@ -1575,7 +1575,7 @@ static ZIPARCHIVE_METHOD(open)
 	}
 
 #if LIBZIP_VERSION_MAJOR > 1 || LIBZIP_VERSION_MAJOR == 1 && LIBZIP_VERSION_MINOR >= 6
-	/* reduce BC break introduce in libzip 1.6.0
+	/* reduce BC break introduced in libzip 1.6.0
 	   "Do not accept empty files as valid zip archives any longer" */
 
 	/* open for write without option to empty the archive */
