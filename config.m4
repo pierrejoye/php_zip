@@ -41,11 +41,19 @@ if test "$PHP_ZIP" != "no"; then
       AC_MSG_RESULT(from option: found in $PHP_LIBZIP)
 
     elif test -x "$PKG_CONFIG" && $PKG_CONFIG --exists libzip; then
-      if $PKG_CONFIG libzip --atleast-version 0.11; then
+
+      if $PKG_CONFIG libzip --exact-version 1.3.1]; then
+        AC_MSG_ERROR(system libzip 1.3.1 is broken please update)
+
+      elif $PKG_CONFIG libzip --exact-version 1.7.0]; then
+        AC_MSG_ERROR(system libzip 1.7.0 is broken please update)
+
+      elif $PKG_CONFIG libzip --atleast-version 0.11; then
         LIBZIP_CFLAGS=`$PKG_CONFIG libzip --cflags`
         LIBZIP_LIBDIR=`$PKG_CONFIG libzip --variable=libdir`
         LIBZIP_VERSON=`$PKG_CONFIG libzip --modversion`
         AC_MSG_RESULT(from pkgconfig: version $LIBZIP_VERSON found in $LIBZIP_LIBDIR)
+
       else
         AC_MSG_ERROR(system libzip must be upgraded to version >= 0.11)
       fi
