@@ -5,6 +5,8 @@ setCompressionName and setCompressionIndex methods
 /* $Id$ */
 if (!extension_loaded('zip')) die('skip');
 ?>
+--INI--
+error_reporting=24575
 --FILE--
 <?php
 $tmpfile = dirname(__FILE__) . '/__tmp_oo_set_compression.zip';

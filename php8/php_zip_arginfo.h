@@ -1,4 +1,5 @@
-/* This is a generated file, edit the .stub.php file instead. */
+/* This is a generated file, edit the .stub.php file instead.
+ * Stub hash: 95608dd1d6c2ad80ada990a9e939b76dba705d48 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zip_open, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, filename, IS_STRING, 0)
@@ -366,16 +367,16 @@ ZEND_METHOD(ZipArchive, isEncryptionMethodSupported);
 
 
 static const zend_function_entry ext_functions[] = {
-	ZEND_FE(zip_open, arginfo_zip_open)
-	ZEND_FE(zip_close, arginfo_zip_close)
-	ZEND_FE(zip_read, arginfo_zip_read)
-	ZEND_FE(zip_entry_open, arginfo_zip_entry_open)
-	ZEND_FE(zip_entry_close, arginfo_zip_entry_close)
-	ZEND_FE(zip_entry_read, arginfo_zip_entry_read)
-	ZEND_FE(zip_entry_name, arginfo_zip_entry_name)
-	ZEND_FE(zip_entry_compressedsize, arginfo_zip_entry_compressedsize)
-	ZEND_FE(zip_entry_filesize, arginfo_zip_entry_filesize)
-	ZEND_FE(zip_entry_compressionmethod, arginfo_zip_entry_compressionmethod)
+	ZEND_DEP_FE(zip_open, arginfo_zip_open)
+	ZEND_DEP_FE(zip_close, arginfo_zip_close)
+	ZEND_DEP_FE(zip_read, arginfo_zip_read)
+	ZEND_DEP_FE(zip_entry_open, arginfo_zip_entry_open)
+	ZEND_DEP_FE(zip_entry_close, arginfo_zip_entry_close)
+	ZEND_DEP_FE(zip_entry_read, arginfo_zip_entry_read)
+	ZEND_DEP_FE(zip_entry_name, arginfo_zip_entry_name)
+	ZEND_DEP_FE(zip_entry_compressedsize, arginfo_zip_entry_compressedsize)
+	ZEND_DEP_FE(zip_entry_filesize, arginfo_zip_entry_filesize)
+	ZEND_DEP_FE(zip_entry_compressionmethod, arginfo_zip_entry_compressionmethod)
 	ZEND_FE_END
 };
 

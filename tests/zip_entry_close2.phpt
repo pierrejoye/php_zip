@@ -5,6 +5,8 @@ zip_entry_close() function: simple and double call
 if(!extension_loaded('zip')) die('skip');
 if (PHP_VERSION_ID < 80000) die('skip PHP 8 only');
 ?>
+--INI--
+error_reporting=24575
 --FILE--
 <?php
 $zip    = zip_open(__DIR__."/test_procedural.zip");

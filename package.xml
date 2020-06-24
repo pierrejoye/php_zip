@@ -29,6 +29,7 @@
   <notes>
 - encode parameter is optional (PHP 8)
 - Fixed bug #79678 Build fails due to undeclared ZIP_RDONLY
+- deprecate procedural API with PHP 8
   </notes>
   <contents>
     <dir name="/">

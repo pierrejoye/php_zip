@@ -5,6 +5,8 @@ Bug #7214 (zip_entry_read() binary safe)
 /* $Id$ */
 if(!extension_loaded('zip')) die('skip');
  ?>
+--INI--
+error_reporting=24575
 --FILE--
 <?php
 $zip = zip_open(dirname(__FILE__)."/binarynull.zip");
