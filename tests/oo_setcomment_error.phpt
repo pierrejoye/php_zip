@@ -3,6 +3,7 @@ setComment error behavior
 --SKIPIF--
 <?php
 if(!extension_loaded('zip')) die('skip zip extension not available');
+if (PHP_VERSION_ID >= 80000) die('skip PHP < 8 only');
 ?>
 --FILE--
 <?php

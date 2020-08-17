@@ -8,12 +8,14 @@ Birgitte Kvarme <bitta@redpill-linpro.com>
 if(!extension_loaded('zip')) die('skip');
 if (PHP_VERSION_ID < 80000) die('skip PHP 8 only');
 ?>
---INI--
-error_reporting=24575
 --FILE--
 <?php
 echo "Test case 1:";
-$zip = zip_open("");
+try {
+    $zip = zip_open("");
+} catch (\ValueError $e) {
+    echo $e->getMessage() . \PHP_EOL;
+}
 
 echo "Test case 2:\n";
 $zip = zip_open("/non_exisitng_directory/test_procedural.zip");
@@ -21,6 +23,9 @@ echo is_resource($zip) ? "OK" : "Failure";
 ?>
 --EXPECTF--
 Test case 1:
-Warning: zip_open(): Empty string as source in %s on line %d
+Deprecated: Function zip_open() is deprecated in %s on line %d
+zip_open(): Argument #1 ($filename) cannot be empty
 Test case 2:
+
+Deprecated: Function zip_open() is deprecated in %s on line %d
 Failure

@@ -16,7 +16,7 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2020-06-05</date>
+  <date>2020-08-17</date>
   <version>
     <release>1.19.1dev</release>
     <api>2.8.0</api>
@@ -28,8 +28,9 @@
   <license>PHP 3.01</license>
   <notes>
 - encode parameter is optional (PHP 8)
-- Fixed bug #79678 Build fails due to undeclared ZIP_RDONLY
 - deprecate procedural API with PHP 8
+- promote warning to exception (PHP 8)
+- Fixed bug #79678 Build fails due to undeclared ZIP_RDONLY
 - add ZipArchive::CM_ZSTD constant (since libzip 1.8.0)
   </notes>
   <contents>
@@ -104,6 +105,7 @@
         <file name="oo_getstatusstring.phpt" role="test"/>
         <file name="oo_namelocate.phpt" role="test"/>
         <file name="oo_open.phpt" role="test"/>
+        <file name="oo_open2.phpt" role="test"/>
         <file name="oo_progress.phpt" role="test"/>
         <file name="oo_properties.phpt" role="test"/>
         <file name="oo_properties2.phpt" role="test"/>
@@ -111,6 +113,7 @@
         <file name="oo_replacefile.phpt" role="test"/>
         <file name="oo_setcomment.phpt" role="test"/>
         <file name="oo_setcomment_error.phpt" role="test"/>
+        <file name="oo_setcomment_error2.phpt" role="test"/>
         <file name="oo_setcompression.phpt" role="test"/>
         <file name="oo_setmtime.phpt" role="test"/>
         <file name="oo_stream.phpt" role="test"/>
