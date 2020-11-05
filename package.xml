@@ -28,6 +28,7 @@
   <license>PHP 3.01</license>
   <notes>
 - only display libzip both headers/library versions if they differ
+- report about ZSTD compression availability
   </notes>
   <contents>
     <dir name="/">
