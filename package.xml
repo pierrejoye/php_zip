@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- only display libzip both headers/library versions if they differ
   </notes>
   <contents>
     <dir name="/">
