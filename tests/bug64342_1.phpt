@@ -18,7 +18,7 @@ $zip = new ZipArchive;
 if (!$zip->open($file)) {
 	exit('failed');
 }
-if (!$zip->addFile($dirname . 'cant_find_me.txt', 'test.php')) {
+if (!@$zip->addFile($dirname . 'cant_find_me.txt', 'test.php')) {
 	echo "failed\n";
 }
 if ($zip->status == ZIPARCHIVE::ER_OK) {

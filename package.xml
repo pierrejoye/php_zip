@@ -29,6 +29,7 @@
   <notes>
 - only display libzip both headers/library versions if they differ
 - report about ZSTD compression availability
+- Raise E_WARNING on PHP related errors
   </notes>
   <contents>
     <dir name="/">
