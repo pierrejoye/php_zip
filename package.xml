@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2020-09-30</date>
+  <date>2020-11-23</date>
   <version>
-    <release>1.19.2dev</release>
+    <release>1.19.2</release>
     <api>2.8.0</api>
   </version>
   <stability>
@@ -29,7 +29,7 @@
   <notes>
 - only display libzip both headers/library versions if they differ
 - report about ZSTD compression availability
-- Raise E_WARNING on PHP related errors
+- Raise E_WARNING on PHP related errors (PHP 8)
   </notes>
   <contents>
     <dir name="/">
