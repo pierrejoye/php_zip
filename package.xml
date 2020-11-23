@@ -18,7 +18,7 @@
   </lead>
   <date>2020-11-23</date>
   <version>
-    <release>1.19.2</release>
+    <release>1.19.3dev</release>
     <api>2.8.0</api>
   </version>
   <stability>
@@ -208,6 +208,23 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2020-11-23</date>
+      <version>
+        <release>1.19.2</release>
+        <api>2.8.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- only display libzip both headers/library versions if they differ
+- report about ZSTD compression availability
+- Raise E_WARNING on PHP related errors (PHP 8)
+      </notes>
+    </release>
     <release>
       <date>2020-09-30</date>
       <version>
