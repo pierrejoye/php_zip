@@ -27,9 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- only display libzip both headers/library versions if they differ
-- report about ZSTD compression availability
-- Raise E_WARNING on PHP related errors (PHP 8)
+- Fix #80648 Fix for bug 79296 should be based on runtime version (cmb, Remi)
   </notes>
   <contents>
     <dir name="/">
