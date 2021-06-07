@@ -1,10 +1,8 @@
 --TEST--
-#38943, properties in extended class cannot be set (5.3)
+#38943, properties in extended class cannot be set (>8.1)
 --SKIPIF--
 <?php
-/* $Id: bug38943_2.phpt 271800 2008-12-24 11:28:25Z pajoye $ */
-if(!extension_loaded('zip')) die('skip');
-if (version_compare(PHP_VERSION, "5.3", "<")) die('skip test for5.3+ only');
+if (version_compare(PHP_VERSION, "8.1", "<")) die('skip test for 8.1+ only');
 ?>
 --FILE--
 <?php
@@ -16,15 +14,6 @@ array(1) {
   int(1)
 }
 object(myZip)#1 (%d) {
-  ["test":"myZip":private]=>
-  int(0)
-  ["testp"]=>
-  string(6) "foobar"
-  ["testarray":"myZip":private]=>
-  array(1) {
-    [0]=>
-    int(1)
-  }
   ["lastId"]=>
   int(-1)
   ["status"]=>
@@ -37,4 +26,13 @@ object(myZip)#1 (%d) {
   string(0) ""
   ["comment"]=>
   string(0) ""
+  ["test":"myZip":private]=>
+  int(0)
+  ["testp"]=>
+  string(6) "foobar"
+  ["testarray":"myZip":private]=>
+  array(1) {
+    [0]=>
+    int(1)
+  }
 }

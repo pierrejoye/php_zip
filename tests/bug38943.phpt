@@ -1,26 +1,12 @@
 --TEST--
-#38943, properties in extended class cannot be set (5.3+)
+#38943, properties in extended class cannot be set (<8.1)
 --SKIPIF--
 <?php
-if(!extension_loaded('zip')) die('skip');
+if (version_compare(PHP_VERSION, "8.1", ">")) die('skip test for <8.1 only');
 ?>
 --FILE--
 <?php
-class myZip extends ZipArchive {
-	private $test = 0;
-	public $testp = 1;
-	private $testarray = array();
-
-	public function __construct() {
-		$this->testarray[] = 1;
-		var_dump($this->testarray);
-	}
-}
-
-$z = new myZip;
-$z->testp = "foobar";
-var_dump($z);
-
+include 'bug38943.inc';
 ?>
 --EXPECTF--
 array(1) {
