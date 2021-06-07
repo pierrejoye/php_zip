@@ -18,7 +18,7 @@
   </lead>
   <date>2021-06-07</date>
   <version>
-    <release>1.19.3</release>
+    <release>1.19.4dev</release>
     <api>2.8.0</api>
   </version>
   <stability>
@@ -27,8 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fix #80648 Fix for bug 79296 should be based on runtime version (cmb, Remi)
-- Fix #80863 ZipArchive::extractTo() ignores references. (cmb)
+-
   </notes>
   <contents>
     <dir name="/">
@@ -216,6 +215,22 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2021-06-07</date>
+      <version>
+        <release>1.19.3</release>
+        <api>2.8.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fix #80648 Fix for bug 79296 should be based on runtime version (cmb, Remi)
+- Fix #80863 ZipArchive::extractTo() ignores references. (cmb)
+      </notes>
+    </release>
     <release>
       <date>2020-11-23</date>
       <version>
