@@ -28,6 +28,7 @@
   <license>PHP 3.01</license>
   <notes>
 - Fix #80648 Fix for bug 79296 should be based on runtime version (cmb, Remi)
+- Fix #80863 ZipArchive::extractTo() ignores references. (cmb)
   </notes>
   <contents>
     <dir name="/">
@@ -75,6 +76,7 @@
         <file name="bug8009.phpt" role="test"/>
         <file name="bug8009.zip" role="test"/>
         <file name="bug8700.phpt" role="test"/>
+        <file name="bug80863.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
         <file name="doubleclose.phpt" role="test"/>

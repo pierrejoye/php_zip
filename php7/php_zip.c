@@ -2963,7 +2963,6 @@ static ZIPARCHIVE_METHOD(extractTo)
 
 	zval *self = getThis();
 	zval *zval_files = NULL;
-	zval *zval_file = NULL;
 	php_stream_statbuf ssb;
 	char *pathto;
 	size_t pathto_len;
@@ -3004,7 +3003,9 @@ static ZIPARCHIVE_METHOD(extractTo)
 					RETURN_FALSE;
 				}
 				for (i = 0; i < nelems; i++) {
+					zval *zval_file;
 					if ((zval_file = zend_hash_index_find(Z_ARRVAL_P(zval_files), i)) != NULL) {
+						ZVAL_DEREF(zval_file);
 						switch (Z_TYPE_P(zval_file)) {
 							case IS_LONG:
 								break;
