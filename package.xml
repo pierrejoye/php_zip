@@ -75,6 +75,7 @@
         <file name="bug8009.phpt" role="test"/>
         <file name="bug8009.zip" role="test"/>
         <file name="bug8700.phpt" role="test"/>
+        <file name="bug80833.phpt" role="test"/>
         <file name="bug80863.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
