@@ -3137,7 +3137,6 @@ static ZIPARCHIVE_METHOD(getStream)
 	char *mode = "rb";
 	zend_string *filename;
 	php_stream *stream;
-	ze_zip_object *obj;
 
 	if (!self) {
 		RETURN_FALSE;
@@ -3153,9 +3152,7 @@ static ZIPARCHIVE_METHOD(getStream)
 		RETURN_FALSE;
 	}
 
-	obj = Z_ZIP_P(self);
-
-	stream = php_stream_zip_open(obj->filename, ZSTR_VAL(filename), mode STREAMS_CC);
+	stream = php_stream_zip_open(intern, ZSTR_VAL(filename), mode STREAMS_CC);
 	if (stream) {
 		php_stream_to_zval(stream, return_value);
 	} else {

@@ -32,12 +32,14 @@ config.cache
 config.guess
 config.h
 config.h.in
+config.h.in~
 config.log
 config.nice
 config.status
 config.sub
 configure
 configure.in
+configure.ac
 conftest
 conftest.c
 Makefile
@@ -58,3 +60,10 @@ modules
 run-tests.php
 run-tests.log
 tmp-php.ini
+
+# Failed Test results
+tests/*.diff
+tests/*.exp
+tests/*.log
+tests/*.php
+tests/*.sh
