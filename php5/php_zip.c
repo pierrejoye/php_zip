@@ -3250,7 +3250,7 @@ static ZIPARCHIVE_METHOD(getStream)
 		RETURN_FALSE;
 	}
 
-	stream = php_stream_zip_open(intern, filename, mode STREAMS_CC);
+	stream = php_stream_zip_open(intern, filename, mode STREAMS_CC TSRMLS_CC);
 	if (stream) {
 		php_stream_to_zval(stream, return_value);
 	}

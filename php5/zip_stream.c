@@ -208,7 +208,7 @@ php_stream_ops php_stream_zipio_ops = {
 };
 
 /* {{{ php_stream_zip_open */
-php_stream *php_stream_zip_open(struct zip *arch, const char *path, const char *mode STREAMS_DC)
+php_stream *php_stream_zip_open(struct zip *arch, const char *path, const char *mode STREAMS_DC TSRMLS_DC)
 {
 	struct zip_file *zf = NULL;
 	php_stream *stream = NULL;
