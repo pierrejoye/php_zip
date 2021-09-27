@@ -90,7 +90,7 @@ static char * php_zip_make_relative_path(char *path, size_t path_len) /* {{{ */
 		return NULL;
 	}
 
-	if (IS_SLASH(path[0])) {
+	if (IS_ABSOLUTE_PATH(path, path_len)) {
 		return path + 1;
 	}
 
