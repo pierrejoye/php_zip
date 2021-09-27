@@ -119,7 +119,7 @@ static char * php_zip_make_relative_path(char *path, int path_len) /* {{{ */
 	}
 
 	if (IS_ABSOLUTE_PATH(path, path_len)) {
-		return path + 1;
+		return path + COPY_WHEN_ABSOLUTE(path) + 1;
 	}
 
 	i = path_len;
