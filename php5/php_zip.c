@@ -133,8 +133,8 @@ static char * php_zip_make_relative_path(char *path, int path_len) /* {{{ */
 			return path;
 		}
 
-		if (i >= 2 && (path[i -1] == '.' || path[i -1] == ':')) {
-			/* i is the position of . or :, add 1 for / */
+		if (i >= 2 && path[i -1] == '.') {
+			/* i is the position of ., add 1 for / */
 			path_begin = path + i + 1;
 			break;
 		}
