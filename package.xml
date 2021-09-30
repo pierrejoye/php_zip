@@ -18,7 +18,7 @@
   </lead>
   <date>2021-09-27</date>
   <version>
-    <release>1.19.5</release>
+    <release>1.19.6dev</release>
     <api>2.8.0</api>
   </version>
   <stability>
@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fix #81420 ZipArchive::extractTo extracts outside of destination (CVE-2021-21706) (cmb)
+-
   </notes>
   <contents>
     <dir name="/">
@@ -218,6 +218,21 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2021-09-27</date>
+      <version>
+        <release>1.19.5</release>
+        <api>2.8.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fix #81420 ZipArchive::extractTo extracts outside of destination (CVE-2021-21706) (cmb)
+      </notes>
+    </release>
     <release>
       <date>2021-09-01</date>
       <version>
