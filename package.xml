@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- Fix #81490 ZipArchive::extractTo() may leak memory. (cmb, Remi)
   </notes>
   <contents>
     <dir name="/">
@@ -79,6 +79,7 @@
         <file name="bug80863.phpt" role="test"/>
         <file name="bug81420.phpt" role="test"/>
         <file name="bug81420.zip" role="test"/>
+        <file name="bug81490.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
         <file name="doubleclose.phpt" role="test"/>
