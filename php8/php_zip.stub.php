@@ -81,6 +81,8 @@ class ZipArchive
     /** @return string */
     public function getStatusString() {}
 
+    public function clearError(): void {}
+
     /** @return bool */
     public function addEmptyDir(string $dirname, int $flags = 0) {}
 
@@ -171,6 +173,15 @@ class ZipArchive
     public function getFromIndex(int $index, int $len = 0, int $flags = 0) {}
 
     /** @return resource|false */
+    public function getStreamIndex(int $index, int $flags = 0) {}
+
+    /** @return resource|false */
+    public function getStreamName(string $name, int $flags = 0) {}
+
+	/**
+	 * @return resource|false
+	 * @alias ZipArchive::getStreamName
+	 */
     public function getStream(string $name) {}
 
 #ifdef ZIP_OPSYS_DEFAULT

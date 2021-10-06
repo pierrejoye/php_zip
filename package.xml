@@ -16,10 +16,10 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2021-09-27</date>
+  <date>2021-10-06</date>
   <version>
-    <release>1.19.6dev</release>
-    <api>2.8.0</api>
+    <release>1.20.0dev</release>
+    <api>2.9.0</api>
   </version>
   <stability>
     <release>stable</release>
@@ -29,6 +29,8 @@
   <notes>
 - Fix #81490 ZipArchive::extractTo() may leak memory. (cmb, Remi)
 - Fix #77978 Dirname ending in colon unzips to wrong dir. (cmb)
+- add ZipArchive::clearError() method (Remi)
+- add ZipArchive::getStreamName() and getStreamIndex methods (Remi)
   </notes>
   <contents>
     <dir name="/">
@@ -105,6 +107,7 @@
         <file name="oo_getcomment2.phpt" role="test"/>
         <file name="oo_getnameindex.phpt" role="test"/>
         <file name="oo_getstatusstring.phpt" role="test"/>
+        <file name="oo_getstreamindex.phpt" role="test"/>
         <file name="oo_namelocate.phpt" role="test"/>
         <file name="oo_open.phpt" role="test"/>
         <file name="oo_open2.phpt" role="test"/>

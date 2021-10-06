@@ -33,7 +33,7 @@ extern zend_module_entry zip_module_entry;
 #define ZIP_OVERWRITE ZIP_TRUNCATE
 #endif
 
-#define PHP_ZIP_VERSION "1.19.6-dev"
+#define PHP_ZIP_VERSION "1.20.0-dev"
 
 /* {{{ ZIP_OPENBASEDIR_CHECKPATH(filename) */
 #define ZIP_OPENBASEDIR_CHECKPATH(filename) \
@@ -53,8 +53,8 @@ typedef struct _ze_zip_read_rsrc {
 	struct zip_stat sb;
 } zip_read_rsrc;
 
-#define ZIPARCHIVE_ME(name, arg_info, flags) {#name, c_ziparchive_ ##name, arg_info,(zend_uint) (sizeof(arg_info)/sizeof(struct _zend_arg_info)-1), flags },
-#define ZIPARCHIVE_METHOD(name)	ZEND_NAMED_FUNCTION(c_ziparchive_ ##name)
+#define ZIPARCHIVE_ME(name, arg_info, flags) ZEND_ME(ZipArchive, name, arg_info, flags)
+#define ZIPARCHIVE_METHOD(name)	ZEND_METHOD(ZipArchive, name)
 
 /* Extends zend object */
 typedef struct _ze_zip_object {
@@ -81,7 +81,7 @@ php_stream *php_stream_zip_opener(php_stream_wrapper *wrapper,       char *path,
 #else
 php_stream *php_stream_zip_opener(php_stream_wrapper *wrapper, const char *path, const char *mode, int options, char **opened_path, php_stream_context *context STREAMS_DC TSRMLS_DC);
 #endif
-php_stream *php_stream_zip_open(struct zip *arch, const char *path, const char *mode STREAMS_DC TSRMLS_DC);
+php_stream *php_stream_zip_open(struct zip *arch, struct zip_stat *sb, const char *mode, zip_flags_t flags STREAMS_DC TSRMLS_DC);
 
 extern php_stream_wrapper php_stream_zip_wrapper;
 

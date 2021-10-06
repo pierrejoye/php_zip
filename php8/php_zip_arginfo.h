@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 095084d2a2df557398191af5dd6c8bea6bb7c338 */
+ * Stub hash: af00d1fa686ac427cbaff8a8f1a86f11c68b76f4 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zip_open, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, filename, IS_STRING, 0)
@@ -55,6 +55,9 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_ZipArchive_count arginfo_class_ZipArchive_close
 
 #define arginfo_class_ZipArchive_getStatusString arginfo_class_ZipArchive_close
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ZipArchive_clearError, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_ZipArchive_addEmptyDir, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, dirname, IS_STRING, 0)
@@ -190,6 +193,10 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_class_ZipArchive_getFromIndex, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, flags, IS_LONG, 0, "0")
 ZEND_END_ARG_INFO()
 
+#define arginfo_class_ZipArchive_getStreamIndex arginfo_class_ZipArchive_getCommentIndex
+
+#define arginfo_class_ZipArchive_getStreamName arginfo_class_ZipArchive_getCommentName
+
 #define arginfo_class_ZipArchive_getStream arginfo_class_ZipArchive_deleteName
 
 #if defined(ZIP_OPSYS_DEFAULT)
@@ -296,6 +303,7 @@ ZEND_METHOD(ZipArchive, setPassword);
 ZEND_METHOD(ZipArchive, close);
 ZEND_METHOD(ZipArchive, count);
 ZEND_METHOD(ZipArchive, getStatusString);
+ZEND_METHOD(ZipArchive, clearError);
 ZEND_METHOD(ZipArchive, addEmptyDir);
 ZEND_METHOD(ZipArchive, addFromString);
 ZEND_METHOD(ZipArchive, addFile);
@@ -329,7 +337,8 @@ ZEND_METHOD(ZipArchive, unchangeName);
 ZEND_METHOD(ZipArchive, extractTo);
 ZEND_METHOD(ZipArchive, getFromName);
 ZEND_METHOD(ZipArchive, getFromIndex);
-ZEND_METHOD(ZipArchive, getStream);
+ZEND_METHOD(ZipArchive, getStreamIndex);
+ZEND_METHOD(ZipArchive, getStreamName);
 #if defined(ZIP_OPSYS_DEFAULT)
 ZEND_METHOD(ZipArchive, setExternalAttributesName);
 #endif
@@ -385,6 +394,7 @@ static const zend_function_entry class_ZipArchive_methods[] = {
 	ZEND_ME(ZipArchive, close, arginfo_class_ZipArchive_close, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, count, arginfo_class_ZipArchive_count, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, getStatusString, arginfo_class_ZipArchive_getStatusString, ZEND_ACC_PUBLIC)
+	ZEND_ME(ZipArchive, clearError, arginfo_class_ZipArchive_clearError, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, addEmptyDir, arginfo_class_ZipArchive_addEmptyDir, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, addFromString, arginfo_class_ZipArchive_addFromString, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, addFile, arginfo_class_ZipArchive_addFile, ZEND_ACC_PUBLIC)
@@ -418,7 +428,9 @@ static const zend_function_entry class_ZipArchive_methods[] = {
 	ZEND_ME(ZipArchive, extractTo, arginfo_class_ZipArchive_extractTo, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, getFromName, arginfo_class_ZipArchive_getFromName, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, getFromIndex, arginfo_class_ZipArchive_getFromIndex, ZEND_ACC_PUBLIC)
-	ZEND_ME(ZipArchive, getStream, arginfo_class_ZipArchive_getStream, ZEND_ACC_PUBLIC)
+	ZEND_ME(ZipArchive, getStreamIndex, arginfo_class_ZipArchive_getStreamIndex, ZEND_ACC_PUBLIC)
+	ZEND_ME(ZipArchive, getStreamName, arginfo_class_ZipArchive_getStreamName, ZEND_ACC_PUBLIC)
+	ZEND_MALIAS(ZipArchive, getStream, getStreamName, arginfo_class_ZipArchive_getStream, ZEND_ACC_PUBLIC)
 #if defined(ZIP_OPSYS_DEFAULT)
 	ZEND_ME(ZipArchive, setExternalAttributesName, arginfo_class_ZipArchive_setExternalAttributesName, ZEND_ACC_PUBLIC)
 #endif
