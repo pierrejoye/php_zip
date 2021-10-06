@@ -1613,26 +1613,6 @@ PHP_METHOD(ZipArchive, clearError)
 }
 /* }}} */
 
-/* {{{ clear the internal status */
-PHP_METHOD(ZipArchive, clearError)
-{
-	zval *self = ZEND_THIS;
-	ze_zip_object *ze_obj;
-
-	if (zend_parse_parameters_none() == FAILURE) {
-		RETURN_THROWS();
-	}
-
-	ze_obj = Z_ZIP_P(self); /* not ZIP_FROM_OBJECT as we can use saved error after close */
-	if (ze_obj->za) {
-		zip_error_clear(ze_obj->za);
-	} else {
-		ze_obj->err_zip = 0;
-		ze_obj->err_sys = 0;
-	}
-}
-/* }}} */
-
 /* {{{ Returns the status error message, system and/or zip messages */
 PHP_METHOD(ZipArchive, getStatusString)
 {

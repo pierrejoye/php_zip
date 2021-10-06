@@ -1715,26 +1715,6 @@ PHP_METHOD(ZipArchive, clearError)
 }
 /* }}} */
 
-/* {{{ clear the internal status */
-PHP_METHOD(ZipArchive, clearError)
-{
-	zval *self = getThis();
-	ze_zip_object *ze_obj;
-
-	if (zend_parse_parameters_none() == FAILURE) {
-		return;
-	}
-
-	ze_obj = Z_ZIP_P(self); /* not ZIP_FROM_OBJECT as we can use saved error after close */
-	if (ze_obj->za) {
-		zip_error_clear(ze_obj->za);
-	} else {
-		ze_obj->err_zip = 0;
-		ze_obj->err_sys = 0;
-	}
-}
-/* }}} */
-
 /* {{{ proto string ZipArchive::getStatusString()
  * Returns the status error message, system and/or zip messages */
 static ZIPARCHIVE_METHOD(getStatusString)
@@ -3508,6 +3488,10 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setcommentname, 0, 0, 2)
 	ZEND_ARG_INFO(0, comment)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_getstream, 0, 0, 1)
+	ZEND_ARG_INFO(0, entryname)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_getstreamname, 0, 0, 1)
 	ZEND_ARG_INFO(0, entryname)
 	ZEND_ARG_INFO(0, flags)
@@ -3626,7 +3610,7 @@ static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(getFromIndex,			arginfo_ziparchive_getfromindex, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getStreamName,		arginfo_ziparchive_getstreamname, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getStreamIndex,		arginfo_ziparchive_getstreamindex, ZEND_ACC_PUBLIC)
-	ZEND_MALIAS(ZipArchive, getStream, getStreamName, arginfo_ziparchive_getstreamname, ZEND_ACC_PUBLIC)
+	ZEND_MALIAS(ZipArchive, getStream, getStreamName, arginfo_ziparchive_getstream, ZEND_ACC_PUBLIC)
 #ifdef ZIP_OPSYS_DEFAULT
 	ZIPARCHIVE_ME(setExternalAttributesName,	arginfo_ziparchive_setextattrname, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(setExternalAttributesIndex,	arginfo_ziparchive_setextattrindex, ZEND_ACC_PUBLIC)
