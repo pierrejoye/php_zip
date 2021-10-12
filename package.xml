@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2021-10-06</date>
+  <date>2021-10-12</date>
   <version>
-    <release>1.20.0dev</release>
+    <release>1.20.0</release>
     <api>2.9.0</api>
   </version>
   <stability>
@@ -30,7 +30,7 @@
 - Fix #81490 ZipArchive::extractTo() may leak memory. (cmb, Remi)
 - Fix #77978 Dirname ending in colon unzips to wrong dir. (cmb)
 - add ZipArchive::clearError() method (Remi)
-- add ZipArchive::getStreamName() and getStreamIndex methods (Remi)
+- add ZipArchive::getStreamName() and ZipArchive::getStreamIndex methods (Remi)
   </notes>
   <contents>
     <dir name="/">
