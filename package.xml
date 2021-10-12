@@ -18,7 +18,7 @@
   </lead>
   <date>2021-10-12</date>
   <version>
-    <release>1.20.0</release>
+    <release>1.20.1dev</release>
     <api>2.9.0</api>
   </version>
   <stability>
@@ -27,10 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fix #81490 ZipArchive::extractTo() may leak memory. (cmb, Remi)
-- Fix #77978 Dirname ending in colon unzips to wrong dir. (cmb)
-- add ZipArchive::clearError() method (Remi)
-- add ZipArchive::getStreamName() and ZipArchive::getStreamIndex methods (Remi)
+-
   </notes>
   <contents>
     <dir name="/">
@@ -223,6 +220,24 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2021-10-12</date>
+      <version>
+        <release>1.20.0</release>
+        <api>2.9.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fix #81490 ZipArchive::extractTo() may leak memory. (cmb, Remi)
+- Fix #77978 Dirname ending in colon unzips to wrong dir. (cmb)
+- add ZipArchive::clearError() method (Remi)
+- add ZipArchive::getStreamName() and ZipArchive::getStreamIndex methods (Remi)
+      </notes>
+    </release>
     <release>
       <date>2021-09-27</date>
       <version>
