@@ -191,10 +191,7 @@ class ZipArchive implements Countable
     /** @return resource|false */
     public function getStreamName(string $name, int $flags = 0) {}
 
-	/**
-	 * @return resource|false
-	 * @alias ZipArchive::getStreamName
-	 */
+	/** @return resource|false */
     public function getStream(string $name) {}
 
 #ifdef ZIP_OPSYS_DEFAULT

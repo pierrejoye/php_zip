@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: af00d1fa686ac427cbaff8a8f1a86f11c68b76f4 */
+ * Stub hash: 3b02c47a676cb8be5cb7d5bc8f302f5030c3ef43 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zip_open, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, filename, IS_STRING, 0)
@@ -339,6 +339,7 @@ ZEND_METHOD(ZipArchive, getFromName);
 ZEND_METHOD(ZipArchive, getFromIndex);
 ZEND_METHOD(ZipArchive, getStreamIndex);
 ZEND_METHOD(ZipArchive, getStreamName);
+ZEND_METHOD(ZipArchive, getStream);
 #if defined(ZIP_OPSYS_DEFAULT)
 ZEND_METHOD(ZipArchive, setExternalAttributesName);
 #endif
@@ -430,7 +431,7 @@ static const zend_function_entry class_ZipArchive_methods[] = {
 	ZEND_ME(ZipArchive, getFromIndex, arginfo_class_ZipArchive_getFromIndex, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, getStreamIndex, arginfo_class_ZipArchive_getStreamIndex, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, getStreamName, arginfo_class_ZipArchive_getStreamName, ZEND_ACC_PUBLIC)
-	ZEND_MALIAS(ZipArchive, getStream, getStreamName, arginfo_class_ZipArchive_getStream, ZEND_ACC_PUBLIC)
+	ZEND_ME(ZipArchive, getStream, arginfo_class_ZipArchive_getStream, ZEND_ACC_PUBLIC)
 #if defined(ZIP_OPSYS_DEFAULT)
 	ZEND_ME(ZipArchive, setExternalAttributesName, arginfo_class_ZipArchive_setExternalAttributesName, ZEND_ACC_PUBLIC)
 #endif

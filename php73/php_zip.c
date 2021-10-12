@@ -3149,7 +3149,7 @@ static ZIPARCHIVE_METHOD(getFromIndex)
 }
 /* }}} */
 
-static void php_zip_get_stream(INTERNAL_FUNCTION_PARAMETERS, int type) /* {{{ */
+static void php_zip_get_stream(INTERNAL_FUNCTION_PARAMETERS, int type, int accept_flags) /* {{{ */
 {
 	struct zip *intern;
 	zval *self = getThis();
@@ -3167,8 +3167,14 @@ static void php_zip_get_stream(INTERNAL_FUNCTION_PARAMETERS, int type) /* {{{ */
 	ZIP_FROM_OBJECT(intern, self);
 
 	if (type) {
-		if (zend_parse_parameters(ZEND_NUM_ARGS(), "P|l", &filename, &flags) == FAILURE) {
-			return;
+		if (accept_flags) {
+			if (zend_parse_parameters(ZEND_NUM_ARGS(), "P|l", &filename, &flags) == FAILURE) {
+				return;
+			}
+		} else {
+			if (zend_parse_parameters(ZEND_NUM_ARGS(), "P", &filename) == FAILURE) {
+				return;
+			}
 		}
 	} else {
 		if (zend_parse_parameters(ZEND_NUM_ARGS(), "l|l", &index, &flags) == FAILURE) {
@@ -3193,16 +3199,21 @@ static void php_zip_get_stream(INTERNAL_FUNCTION_PARAMETERS, int type) /* {{{ */
 /* {{{ get a stream for an entry using its name */
 PHP_METHOD(ZipArchive, getStreamName)
 {
-	php_zip_get_stream(INTERNAL_FUNCTION_PARAM_PASSTHRU, 1);
+	php_zip_get_stream(INTERNAL_FUNCTION_PARAM_PASSTHRU, 1, /* accept_flags */ 1);
 }
 /* }}} */
 
 /* {{{ get a stream for an entry using its index */
 PHP_METHOD(ZipArchive, getStreamIndex)
 {
-	php_zip_get_stream(INTERNAL_FUNCTION_PARAM_PASSTHRU, 0);
+	php_zip_get_stream(INTERNAL_FUNCTION_PARAM_PASSTHRU, 0, /* accept_flags */ 1);
 }
 /* }}} */
+
+PHP_METHOD(ZipArchive, getStream)
+{
+	php_zip_get_stream(INTERNAL_FUNCTION_PARAM_PASSTHRU, 1, /* accept_flags */ 0);
+}
 
 #ifdef HAVE_PROGRESS_CALLBACK
 static void _php_zip_progress_callback(zip_t *arch, double state, void *ptr)
@@ -3610,7 +3621,7 @@ static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(getFromIndex,			arginfo_ziparchive_getfromindex, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getStreamName,		arginfo_ziparchive_getstreamname, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(getStreamIndex,		arginfo_ziparchive_getstreamindex, ZEND_ACC_PUBLIC)
-	ZEND_MALIAS(ZipArchive, getStream, getStreamName, arginfo_ziparchive_getstream, ZEND_ACC_PUBLIC)
+	ZIPARCHIVE_ME(getStream,			arginfo_ziparchive_getstream, ZEND_ACC_PUBLIC)
 #ifdef ZIP_OPSYS_DEFAULT
 	ZIPARCHIVE_ME(setExternalAttributesName,	arginfo_ziparchive_setextattrname, ZEND_ACC_PUBLIC)
 	ZIPARCHIVE_ME(setExternalAttributesIndex,	arginfo_ziparchive_setextattrindex, ZEND_ACC_PUBLIC)
