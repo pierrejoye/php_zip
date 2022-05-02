@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- Fixed type for index in ZipArchive::replaceFile. (Martin Rehberger)
   </notes>
   <contents>
     <dir name="/">
