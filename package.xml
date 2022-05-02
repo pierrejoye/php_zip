@@ -18,7 +18,7 @@
   </lead>
   <date>2022-05-02</date>
   <version>
-    <release>1.20.1</release>
+    <release>1.20.2dev</release>
     <api>2.9.0</api>
   </version>
   <stability>
@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
-- Fixed type for index in ZipArchive::replaceFile. (Martin Rehberger)
+-
   </notes>
   <contents>
     <dir name="/">
@@ -220,6 +220,21 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2022-05-02</date>
+      <version>
+        <release>1.20.1</release>
+        <api>2.9.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license>PHP 3.01</license>
+      <notes>
+- Fixed type for index in ZipArchive::replaceFile. (Martin Rehberger)
+      </notes>
+    </release>
     <release>
       <date>2021-10-12</date>
       <version>
