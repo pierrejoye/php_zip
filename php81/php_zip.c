@@ -993,7 +993,11 @@ static HashTable *php_zip_get_properties(zend_object *object)/* {{{ */
 		return NULL;
 	}
 
+#if PHP_VERSION_ID < 80200
 	ZEND_HASH_FOREACH_STR_KEY_PTR(obj->prop_handler, key, hnd) {
+#else
+	ZEND_HASH_MAP_FOREACH_STR_KEY_PTR(obj->prop_handler, key, hnd) {
+#endif
 		zval *ret, val;
 		ret = php_zip_property_reader(obj, hnd, &val);
 		if (ret == NULL) {

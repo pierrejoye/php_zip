@@ -27,5 +27,5 @@ bool(false)
 --CLEAN--
 <?php
 $filename =  __DIR__ . DIRECTORY_SEPARATOR . 'bug70752.txt';
-unlink($filename);
+@unlink($filename);
 ?>
