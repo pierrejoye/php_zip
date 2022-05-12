@@ -140,7 +140,6 @@
         <file name="zip_entry_read.phpt" role="test"/>
         <file name="zip_open_error.phpt" role="test"/>
         <file name="zip_open_error2.phpt" role="test"/>
-        <file name="zip_entry_close2.phpt" role="test"/>
         <file name="zip_open.phpt" role="test"/>
         <file name="zip_read.phpt" role="test"/>
       </dir><!-- tests -->
