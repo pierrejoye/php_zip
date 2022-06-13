@@ -737,7 +737,7 @@ int php_zip_glob(char *pattern, int pattern_len, long flags, zval *return_value 
 		 * able to filter directories out.
 		 */
 		if (flags & GLOB_ONLYDIR) {
-			struct stat s;
+			struct stat s = {0};
 
 			if (0 != VCWD_STAT(globbuf.gl_pathv[n], &s)) {
 				continue;
@@ -807,7 +807,7 @@ int php_zip_pcre(char *regexp, int regexp_len, char *path, int path_len, zval *r
 
 		/* only the files, directories are ignored */
 		for (i = 0; i < files_cnt; i++) {
-			struct stat s;
+			struct stat s = {0};
 			char   fullpath[MAXPATHLEN];
 			int    ovector[3];
 			int    matches;
@@ -1664,7 +1664,7 @@ static ZIPARCHIVE_METHOD(open)
 #else
 	if ((flags & ZIP_TRUNCATE) == 0) {
 #endif
-		struct stat st;
+		struct stat st = {0};
 
 		/* exists and is empty */
 		if (VCWD_STAT(resolved_path, &st) == 0 && st.st_size == 0) {
