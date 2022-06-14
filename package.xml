@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2022-05-02</date>
+  <date>2022-06-28</date>
   <version>
-    <release>1.20.2dev</release>
+    <release>1.21.0dev</release>
     <api>2.9.0</api>
   </version>
   <stability>
@@ -28,6 +28,7 @@
   <license>PHP 3.01</license>
   <notes>
 - Fix GH-8781 #ZipArchive deletes zip file with no contents and doesn't update stat cache
+- implement fseek for zip stream when possible with libzip 1.10
 - Allow 8.2
   </notes>
   <contents>
@@ -76,6 +77,7 @@
         <file name="bug8009.phpt" role="test"/>
         <file name="bug8009.zip" role="test"/>
         <file name="bug8700.phpt" role="test"/>
+        <file name="bug77978.phpt" role="test"/>
         <file name="bug80833.phpt" role="test"/>
         <file name="bug80863.phpt" role="test"/>
         <file name="bug81420.phpt" role="test"/>
@@ -121,6 +123,7 @@
         <file name="oo_setcompression.phpt" role="test"/>
         <file name="oo_setmtime.phpt" role="test"/>
         <file name="oo_stream.phpt" role="test"/>
+        <file name="oo_stream_seek.phpt" role="test"/>
         <file name="oo_supported.phpt" role="test"/>
         <file name="oo_unchangeIndex.phpt" role="test"/>
         <file name="oo_unchangeName.phpt" role="test"/>

@@ -48,7 +48,7 @@ array(8) {
   ["unread_bytes"]=>
   int(0)
   ["seekable"]=>
-  bool(false)
+  bool(%s)
   ["uri"]=>
   string(3) "foo"
 }
@@ -68,7 +68,7 @@ array(9) {
   ["unread_bytes"]=>
   int(0)
   ["seekable"]=>
-  bool(false)
+  bool(%s)
   ["uri"]=>
   string(%d) "zip://%stest_with_comment.zip#foo"
 }
