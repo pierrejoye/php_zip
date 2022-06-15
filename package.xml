@@ -27,7 +27,8 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- Fix GH-8781 #ZipArchive deletes zip file with no contents and doesn't update stat cache
+- Allow 8.2
   </notes>
   <contents>
     <dir name="/">
@@ -80,6 +81,7 @@
         <file name="bug81420.phpt" role="test"/>
         <file name="bug81420.zip" role="test"/>
         <file name="bug81490.phpt" role="test"/>
+        <file name="tests/bug_gh8781.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
         <file name="doubleclose.phpt" role="test"/>
