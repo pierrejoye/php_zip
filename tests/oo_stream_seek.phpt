@@ -3,7 +3,7 @@ getStream and seek
 --SKIPIF--
 <?php
 if(!extension_loaded('zip')) die('skip');
-if(version_compare(ZipArchive::LIBZIP_VERSION, '1.9.0', '<')) die('skip libzip < 1.9.1');
+if(version_compare(ZipArchive::LIBZIP_VERSION, '1.9.1', '<')) die('skip libzip < 1.9.1');
 ?>
 --FILE--
 <?php

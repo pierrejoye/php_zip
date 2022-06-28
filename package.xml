@@ -28,7 +28,7 @@
   <license>PHP 3.01</license>
   <notes>
 - Fix GH-8781 #ZipArchive deletes zip file with no contents and doesn't update stat cache
-- implement fseek for zip stream when possible with libzip 1.10
+- implement fseek for zip stream when possible with libzip 1.9.1
 - Allow 8.2
   </notes>
   <contents>
