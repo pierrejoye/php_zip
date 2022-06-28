@@ -83,7 +83,7 @@
         <file name="bug81420.phpt" role="test"/>
         <file name="bug81420.zip" role="test"/>
         <file name="bug81490.phpt" role="test"/>
-        <file name="tests/bug_gh8781.phpt" role="test"/>
+        <file name="bug_gh8781.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
         <file name="doubleclose.phpt" role="test"/>
