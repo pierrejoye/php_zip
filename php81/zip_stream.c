@@ -263,7 +263,6 @@ php_stream *php_stream_zip_open(struct zip *arch, struct zip_stat *sb, const cha
 			} else
 #endif
 			{
-
 				stream = php_stream_alloc(&php_stream_zipio_ops, self, NULL, mode);
 			}
 			stream->orig_path = estrdup(sb->name);
