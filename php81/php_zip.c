@@ -29,9 +29,6 @@
 #include "zend_attributes.h"
 #include "zend_interfaces.h"
 #include "php_zip.h"
-#if PHP_VERSION_ID < 80200
-#define zend_mark_function_parameter_as_sensitive(a,b,c)
-#endif
 #include "php_zip_arginfo.h"
 
 #ifdef HAVE_GLOB
