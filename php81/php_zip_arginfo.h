@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1cfc8683e6d290b371095276781831f0df55f022 */
+ * Stub hash: a781885e60f51d944c1ca4ec0643ca0049df0811 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zip_open, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, filename, IS_STRING, 0)
@@ -1153,6 +1153,13 @@ static zend_class_entry *register_class_ZipArchive(zend_class_entry *class_entry
 	zend_string *const_EM_UNKNOWN_name = zend_string_init_interned("EM_UNKNOWN", sizeof("EM_UNKNOWN") - 1, 1);
 	zend_declare_class_constant_ex(class_entry, const_EM_UNKNOWN_name, &const_EM_UNKNOWN_value, ZEND_ACC_PUBLIC, NULL);
 	zend_string_release(const_EM_UNKNOWN_name);
+
+	zval const_LIBZIP_VERSION_value;
+	zend_string *const_LIBZIP_VERSION_value_str = zend_string_init(LIBZIP_VERSION_STR, strlen(LIBZIP_VERSION_STR), 1);
+	ZVAL_STR(&const_LIBZIP_VERSION_value, const_LIBZIP_VERSION_value_str);
+	zend_string *const_LIBZIP_VERSION_name = zend_string_init_interned("LIBZIP_VERSION", sizeof("LIBZIP_VERSION") - 1, 1);
+	zend_declare_class_constant_ex(class_entry, const_LIBZIP_VERSION_name, &const_LIBZIP_VERSION_value, ZEND_ACC_PUBLIC, NULL);
+	zend_string_release(const_LIBZIP_VERSION_name);
 
 	zval property_lastId_default_value;
 	ZVAL_UNDEF(&property_lastId_default_value);
