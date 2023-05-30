@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: a781885e60f51d944c1ca4ec0643ca0049df0811 */
+ * Stub hash: c6f2cf316f13c6ed9da2b7e80a1944a8493c63b1 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zip_open, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, filename, IS_STRING, 0)
@@ -1196,18 +1196,22 @@ static zend_class_entry *register_class_ZipArchive(zend_class_entry *class_entry
 	zend_string *property_comment_name = zend_string_init("comment", sizeof("comment") - 1, 1);
 	zend_declare_typed_property(class_entry, property_comment_name, &property_comment_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_STRING));
 	zend_string_release(property_comment_name);
-#if (PHP_VERSION_ID >= 80200)
 
 
-	zend_add_parameter_attribute(zend_hash_str_find_ptr(&class_entry->function_table, "setpassword", sizeof("setpassword") - 1), 0, ZSTR_KNOWN(ZEND_STR_SENSITIVEPARAMETER), 0);
+	zend_string *attribute_name_SensitiveParameter_ZipArchive_setPassword_arg0 = zend_string_init_interned("SensitiveParameter", sizeof("SensitiveParameter") - 1, 1);
+	zend_add_parameter_attribute(zend_hash_str_find_ptr(&class_entry->function_table, "setpassword", sizeof("setpassword") - 1), 0, attribute_name_SensitiveParameter_ZipArchive_setPassword_arg0, 0);
+	zend_string_release(attribute_name_SensitiveParameter_ZipArchive_setPassword_arg0);
 #if defined(HAVE_ENCRYPTION)
 
-	zend_add_parameter_attribute(zend_hash_str_find_ptr(&class_entry->function_table, "setencryptionname", sizeof("setencryptionname") - 1), 2, ZSTR_KNOWN(ZEND_STR_SENSITIVEPARAMETER), 0);
+	zend_string *attribute_name_SensitiveParameter_ZipArchive_setEncryptionName_arg2 = zend_string_init_interned("SensitiveParameter", sizeof("SensitiveParameter") - 1, 1);
+	zend_add_parameter_attribute(zend_hash_str_find_ptr(&class_entry->function_table, "setencryptionname", sizeof("setencryptionname") - 1), 2, attribute_name_SensitiveParameter_ZipArchive_setEncryptionName_arg2, 0);
+	zend_string_release(attribute_name_SensitiveParameter_ZipArchive_setEncryptionName_arg2);
 #endif
 #if defined(HAVE_ENCRYPTION)
 
-	zend_add_parameter_attribute(zend_hash_str_find_ptr(&class_entry->function_table, "setencryptionindex", sizeof("setencryptionindex") - 1), 2, ZSTR_KNOWN(ZEND_STR_SENSITIVEPARAMETER), 0);
-#endif
+	zend_string *attribute_name_SensitiveParameter_ZipArchive_setEncryptionIndex_arg2 = zend_string_init_interned("SensitiveParameter", sizeof("SensitiveParameter") - 1, 1);
+	zend_add_parameter_attribute(zend_hash_str_find_ptr(&class_entry->function_table, "setencryptionindex", sizeof("setencryptionindex") - 1), 2, attribute_name_SensitiveParameter_ZipArchive_setEncryptionIndex_arg2, 0);
+	zend_string_release(attribute_name_SensitiveParameter_ZipArchive_setEncryptionIndex_arg2);
 #endif
 
 	return class_entry;

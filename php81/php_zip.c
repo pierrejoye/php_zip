@@ -39,6 +39,10 @@
 #endif
 #endif
 
+#if PHP_VERSION_ID < 80300
+#define zend_zval_value_name(opt) zend_zval_type_name(opt)
+#endif
+
 /* {{{ Resource le */
 static int le_zip_dir;
 #define le_zip_dir_name "Zip Directory"
@@ -354,7 +358,7 @@ static int php_zip_parse_options(HashTable *options, zip_options *opts)
 	if ((option = zend_hash_str_find(options, "remove_all_path", sizeof("remove_all_path") - 1)) != NULL) {
 		if (Z_TYPE_P(option) != IS_FALSE && Z_TYPE_P(option) != IS_TRUE) {
 			php_error_docref(NULL, E_WARNING, "Option \"remove_all_path\" must be of type bool, %s given",
-				zend_zval_type_name(option));
+				zend_zval_value_name(option));
 		}
 		opts->remove_all_path = zval_get_long(option);
 	}
@@ -362,14 +366,14 @@ static int php_zip_parse_options(HashTable *options, zip_options *opts)
 	if ((option = zend_hash_str_find(options, "comp_method", sizeof("comp_method") - 1)) != NULL) {
 		if (Z_TYPE_P(option) != IS_LONG) {
 			php_error_docref(NULL, E_WARNING, "Option \"comp_method\" must be of type int, %s given",
-				zend_zval_type_name(option));
+				zend_zval_value_name(option));
 		}
 		opts->comp_method = zval_get_long(option);
 
 		if ((option = zend_hash_str_find(options, "comp_flags", sizeof("comp_flags") - 1)) != NULL) {
 			if (Z_TYPE_P(option) != IS_LONG) {
 				php_error_docref(NULL, E_WARNING, "Option \"comp_flags\" must be of type int, %s given",
-					zend_zval_type_name(option));
+					zend_zval_value_name(option));
 			}
 			opts->comp_flags = zval_get_long(option);
 		}
@@ -379,14 +383,14 @@ static int php_zip_parse_options(HashTable *options, zip_options *opts)
 	if ((option = zend_hash_str_find(options, "enc_method", sizeof("enc_method") - 1)) != NULL) {
 		if (Z_TYPE_P(option) != IS_LONG) {
 			php_error_docref(NULL, E_WARNING, "Option \"enc_method\" must be of type int, %s given",
-				zend_zval_type_name(option));
+				zend_zval_value_name(option));
 		}
 		opts->enc_method = zval_get_long(option);
 
 		if ((option = zend_hash_str_find(options, "enc_password", sizeof("enc_password") - 1)) != NULL) {
 			if (Z_TYPE_P(option) != IS_STRING) {
 				zend_type_error("Option \"enc_password\" must be of type string, %s given",
-					zend_zval_type_name(option));
+					zend_zval_value_name(option));
 				return -1;
 			}
 			opts->enc_password = Z_STRVAL_P(option);
@@ -397,7 +401,7 @@ static int php_zip_parse_options(HashTable *options, zip_options *opts)
 	if ((option = zend_hash_str_find(options, "remove_path", sizeof("remove_path") - 1)) != NULL) {
 		if (Z_TYPE_P(option) != IS_STRING) {
 			zend_type_error("Option \"remove_path\" must be of type string, %s given",
-				zend_zval_type_name(option));
+				zend_zval_value_name(option));
 			return -1;
 		}
 
@@ -417,7 +421,7 @@ static int php_zip_parse_options(HashTable *options, zip_options *opts)
 	if ((option = zend_hash_str_find(options, "add_path", sizeof("add_path") - 1)) != NULL) {
 		if (Z_TYPE_P(option) != IS_STRING) {
 			zend_type_error("Option \"add_path\" must be of type string, %s given",
-				zend_zval_type_name(option));
+				zend_zval_value_name(option));
 			return -1;
 		}
 
@@ -437,7 +441,7 @@ static int php_zip_parse_options(HashTable *options, zip_options *opts)
 	if ((option = zend_hash_str_find(options, "flags", sizeof("flags") - 1)) != NULL) {
 		if (Z_TYPE_P(option) != IS_LONG) {
 			zend_type_error("Option \"flags\" must be of type int, %s given",
-				zend_zval_type_name(option));
+				zend_zval_value_name(option));
 			return -1;
 		}
 		opts->flags = Z_LVAL_P(option);
@@ -1079,7 +1083,9 @@ static zend_object *php_zip_object_new(zend_class_entry *class_type) /* {{{ */
 	intern->prop_handler = &zip_prop_handlers;
 	zend_object_std_init(&intern->zo, class_type);
 	object_properties_init(&intern->zo, class_type);
+#if PHP_VERSION_ID < 80300
 	intern->zo.handlers = &zip_object_handlers;
+#endif
 	intern->last_id = -1;
 
 	return &intern->zo;
@@ -3105,6 +3111,9 @@ static PHP_MINIT_FUNCTION(zip)
 
 	zip_class_entry = register_class_ZipArchive(zend_ce_countable);
 	zip_class_entry->create_object = php_zip_object_new;
+#if PHP_VERSION_ID >= 80300
+	zip_class_entry->default_object_handlers = &zip_object_handlers;
+#endif
 
 	zend_hash_init(&zip_prop_handlers, 0, NULL, php_zip_free_prop_handler, 1);
 	php_zip_register_prop_handler(&zip_prop_handlers, "lastId",    php_zip_last_id, NULL, IS_LONG);
