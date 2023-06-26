@@ -2093,6 +2093,40 @@ PHP_METHOD(ZipArchive, getArchiveComment)
 }
 /* }}} */
 
+PHP_METHOD(ZipArchive, setArchiveFlag)
+{
+	struct zip *intern;
+	zval *self = ZEND_THIS;
+	zend_long flag, value;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ll", &flag, &value) == FAILURE) {
+		RETURN_THROWS();
+	}
+
+	ZIP_FROM_OBJECT(intern, self);
+
+	if (zip_set_archive_flag(intern, flag, (int)value)) {
+		RETURN_FALSE;
+	} else {
+		RETURN_TRUE;
+	}
+}
+
+PHP_METHOD(ZipArchive, getArchiveFlag)
+{
+	struct zip *intern;
+	zval *self = ZEND_THIS;
+	zend_long flag, flags = 0;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "l|l", &flag, &flags) == FAILURE) {
+		RETURN_THROWS();
+	}
+
+	ZIP_FROM_OBJECT(intern, self);
+
+	RETURN_LONG(zip_get_archive_flag(intern, flag, flags));
+}
+
 /* {{{ Set or remove (NULL/'') the comment of an entry using its Name */
 PHP_METHOD(ZipArchive, setCommentName)
 {
@@ -3205,6 +3239,25 @@ static PHP_MINIT_FUNCTION(zip)
 #endif
 #ifdef ZIP_ER_CANCELLED
 	REGISTER_ZIP_CLASS_CONST_LONG("ER_CANCELLED",	ZIP_ER_CANCELLED);	/* N Operation cancelled */
+#endif
+/* since 1.10.0 */
+#ifdef ZIP_ER_DATA_LENGTH
+	REGISTER_ZIP_CLASS_CONST_LONG("ER_DATA_LENGTH",	ZIP_ER_DATA_LENGTH);	/* N Unexpected length of data */
+#endif
+#ifdef ZIP_ER_NOT_ALLOWED
+	REGISTER_ZIP_CLASS_CONST_LONG("ER_NOT_ALLOWED",	ZIP_ER_NOT_ALLOWED);	/* Not allowed in torrentzip */
+#endif
+#ifdef ZIP_AFL_RDONLY
+	REGISTER_ZIP_CLASS_CONST_LONG("AFL_RDONLY",	ZIP_AFL_RDONLY);			/* read only -- cannot be cleared */
+#endif
+#ifdef ZIP_AFL_IS_TORRENTZIP
+	REGISTER_ZIP_CLASS_CONST_LONG("AFL_IS_TORRENTZIP",	ZIP_AFL_IS_TORRENTZIP);	/* current archive is torrentzipped */
+#endif
+#ifdef ZIP_AFL_WANT_TORRENTZIP
+	REGISTER_ZIP_CLASS_CONST_LONG("AFL_WANT_TORRENTZIP",	ZIP_AFL_WANT_TORRENTZIP);	/* write archive in torrentzip format */
+#endif
+#ifdef ZIP_AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE
+	REGISTER_ZIP_CLASS_CONST_LONG("AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE",	ZIP_AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE);	/* don't remove file if archive is empty */
 #endif
 
 #ifdef ZIP_OPSYS_DEFAULT

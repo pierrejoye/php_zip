@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2022-09-16</date>
+  <date>2023-06-26</date>
   <version>
-    <release>1.21.2dev</release>
+    <release>1.22.0</release>
     <api>2.9.0</api>
   </version>
   <stability>
@@ -28,6 +28,9 @@
   <license>PHP 3.01</license>
   <notes>
 - compatibility with 8.3
+- add new error macros (ER_DATA_LENGTH and ER_NOT_ALLOWED) with libzip >= 1.10.0
+- add new archive global flags (ER_AFL_*) with libzip >= 1.10.0
+- add ZipArchive::setArchiveFlag and ZipArchive::getArchiveFlag methods
   </notes>
   <contents>
     <dir name="/">
@@ -94,6 +97,7 @@
         <file name="oo_addglob.phpt" role="test"/>
         <file name="oo_addglob2.phpt" role="test"/>
         <file name="oo_addpattern.phpt" role="test"/>
+        <file name="oo_archive_flag.phpt" role="test"/>
         <file name="oo_cancel.phpt" role="test"/>
         <file name="oo_close.phpt" role="test"/>
         <file name="oo_count.phpt" role="test"/>

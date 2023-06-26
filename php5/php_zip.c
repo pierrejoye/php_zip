@@ -2350,6 +2350,40 @@ static ZIPARCHIVE_METHOD(getArchiveComment)
 }
 /* }}} */
 
+PHP_METHOD(ZipArchive, setArchiveFlag)
+{
+	struct zip *intern;
+	zval *self = getThis();
+	long flag, value;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ll", &flag, &value) == FAILURE) {
+		return;
+	}
+
+	ZIP_FROM_OBJECT(intern, self);
+
+	if (zip_set_archive_flag(intern, flag, (int)value)) {
+		RETURN_FALSE;
+	} else {
+		RETURN_TRUE;
+	}
+}
+
+PHP_METHOD(ZipArchive, getArchiveFlag)
+{
+	struct zip *intern;
+	zval *self = getThis();
+	long flag, flags = 0;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l|l", &flag, &flags) == FAILURE) {
+		return;
+	}
+
+	ZIP_FROM_OBJECT(intern, self);
+
+	RETURN_LONG(zip_get_archive_flag(intern, flag, flags));
+}
+
 /* {{{ proto bool ZipArchive::setCommentName(string name, string comment)
 Set or remove (NULL/'') the comment of an entry using its Name */
 static ZIPARCHIVE_METHOD(setCommentName)
@@ -3695,6 +3729,16 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setcompindex, 0, 0, 2)
 ZEND_END_ARG_INFO()
 /* }}} */
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_setarchiveflag, 0, 0, 2)
+	ZEND_ARG_INFO(0, flag)
+	ZEND_ARG_INFO(0, value)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ziparchive_getarchiveflag, 0, 0, 1)
+	ZEND_ARG_INFO(0, flag)
+	ZEND_ARG_INFO(0, flags)
+ZEND_END_ARG_INFO()
+
 /* {{{ ze_zip_object_class_functions */
 static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(open,					arginfo_ziparchive_open, ZEND_ACC_PUBLIC)
@@ -3759,6 +3803,8 @@ static const zend_function_entry zip_class_functions[] = {
 	ZIPARCHIVE_ME(isCompressionMethodSupported,	arginfo_ziparchive_method_supported, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
 	ZIPARCHIVE_ME(isEncryptionMethodSupported,	arginfo_ziparchive_method_supported, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
 #endif
+	ZIPARCHIVE_ME(setArchiveFlag,	arginfo_ziparchive_setarchiveflag, ZEND_ACC_PUBLIC)
+	ZIPARCHIVE_ME(getArchiveFlag,	arginfo_ziparchive_getarchiveflag, ZEND_ACC_PUBLIC)
 	{NULL, NULL, NULL}
 };
 /* }}} */
@@ -3889,6 +3935,25 @@ static PHP_MINIT_FUNCTION(zip)
 #endif
 #ifdef ZIP_ER_CANCELLED
 	REGISTER_ZIP_CLASS_CONST_LONG("ER_CANCELLED",	ZIP_ER_CANCELLED);	/* N Operation cancelled */
+#endif
+/* since 1.10.0 */
+#ifdef ZIP_ER_DATA_LENGTH
+	REGISTER_ZIP_CLASS_CONST_LONG("ER_DATA_LENGTH",	ZIP_ER_DATA_LENGTH);	/* N Unexpected length of data */
+#endif
+#ifdef ZIP_ER_NOT_ALLOWED
+	REGISTER_ZIP_CLASS_CONST_LONG("ER_NOT_ALLOWED",	ZIP_ER_NOT_ALLOWED);	/* Not allowed in torrentzip */
+#endif
+#ifdef ZIP_AFL_RDONLY
+	REGISTER_ZIP_CLASS_CONST_LONG("AFL_RDONLY",	ZIP_AFL_RDONLY);			/* read only -- cannot be cleared */
+#endif
+#ifdef ZIP_AFL_IS_TORRENTZIP
+	REGISTER_ZIP_CLASS_CONST_LONG("AFL_IS_TORRENTZIP",	ZIP_AFL_IS_TORRENTZIP);	/* current archive is torrentzipped */
+#endif
+#ifdef ZIP_AFL_WANT_TORRENTZIP
+	REGISTER_ZIP_CLASS_CONST_LONG("AFL_WANT_TORRENTZIP",	ZIP_AFL_WANT_TORRENTZIP);	/* write archive in torrentzip format */
+#endif
+#ifdef ZIP_AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE
+	REGISTER_ZIP_CLASS_CONST_LONG("AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE",	ZIP_AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE);	/* don't remove file if archive is empty */
 #endif
 
 #ifdef ZIP_OPSYS_DEFAULT

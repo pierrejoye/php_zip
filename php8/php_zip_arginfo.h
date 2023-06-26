@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 01265f9c7567c4f73318f591c0b444a8b4fbcfa1 */
+ * Stub hash: 98e22b01bddc7eb0bfa87aae8b48a3f27cef76f5 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zip_open, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, filename, IS_STRING, 0)
@@ -113,6 +113,16 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_class_ZipArchive_setArchiveComment, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_ZipArchive_getArchiveComment, 0, 0, 0)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, flags, IS_LONG, 0, "0")
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ZipArchive_setArchiveFlag, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ZipArchive_getArchiveFlag, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, flags, IS_LONG, 0, "0")
 ZEND_END_ARG_INFO()
 
@@ -314,6 +324,8 @@ ZEND_METHOD(ZipArchive, renameIndex);
 ZEND_METHOD(ZipArchive, renameName);
 ZEND_METHOD(ZipArchive, setArchiveComment);
 ZEND_METHOD(ZipArchive, getArchiveComment);
+ZEND_METHOD(ZipArchive, setArchiveFlag);
+ZEND_METHOD(ZipArchive, getArchiveFlag);
 ZEND_METHOD(ZipArchive, setCommentIndex);
 ZEND_METHOD(ZipArchive, setCommentName);
 #if defined(HAVE_SET_MTIME)
@@ -406,6 +418,8 @@ static const zend_function_entry class_ZipArchive_methods[] = {
 	ZEND_ME(ZipArchive, renameName, arginfo_class_ZipArchive_renameName, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, setArchiveComment, arginfo_class_ZipArchive_setArchiveComment, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, getArchiveComment, arginfo_class_ZipArchive_getArchiveComment, ZEND_ACC_PUBLIC)
+	ZEND_ME(ZipArchive, setArchiveFlag, arginfo_class_ZipArchive_setArchiveFlag, ZEND_ACC_PUBLIC)
+	ZEND_ME(ZipArchive, getArchiveFlag, arginfo_class_ZipArchive_getArchiveFlag, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, setCommentIndex, arginfo_class_ZipArchive_setCommentIndex, ZEND_ACC_PUBLIC)
 	ZEND_ME(ZipArchive, setCommentName, arginfo_class_ZipArchive_setCommentName, ZEND_ACC_PUBLIC)
 #if defined(HAVE_SET_MTIME)

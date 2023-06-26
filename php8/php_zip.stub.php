@@ -113,6 +113,10 @@ class ZipArchive
     /** @return string|false */
     public function getArchiveComment(int $flags = 0) {}
 
+    public function setArchiveFlag(int $flag, int $value): bool {}
+
+    public function getArchiveFlag(int $flag, int $flags = 0): int {}
+
     /** @return bool */
     public function setCommentIndex(int $index, string $comment) {}
 
