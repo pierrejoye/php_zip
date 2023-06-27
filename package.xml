@@ -27,7 +27,7 @@
   </stability>
   <license>PHP 3.01</license>
   <notes>
--
+- add more tests
   </notes>
   <contents>
     <dir name="/">
@@ -97,6 +97,7 @@
         <file name="oo_archive_flag.phpt" role="test"/>
         <file name="oo_cancel.phpt" role="test"/>
         <file name="oo_close.phpt" role="test"/>
+        <file name="oo_close_empty.phpt" role="test"/>
         <file name="oo_count.phpt" role="test"/>
         <file name="oo_delete.phpt" role="test"/>
         <file name="oo_encryption.phpt" role="test"/>
@@ -123,6 +124,7 @@
         <file name="oo_setmtime.phpt" role="test"/>
         <file name="oo_stream.phpt" role="test"/>
         <file name="oo_stream_seek.phpt" role="test"/>
+        <file name="oo_torrentzip.phpt" role="test"/>
         <file name="oo_supported.phpt" role="test"/>
         <file name="oo_unchangeIndex.phpt" role="test"/>
         <file name="oo_unchangeName.phpt" role="test"/>
