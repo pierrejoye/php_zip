@@ -28,7 +28,7 @@
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
 - add more tests
-- ZipArchive::FL_RECOMPRESS is deprecated and will be removed in a future version
+- ZipArchive::FL_RECOMPRESS constant is deprecated and will be removed in a future version of libzip
   </notes>
   <contents>
     <dir name="/">
