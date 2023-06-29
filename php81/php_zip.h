@@ -34,7 +34,7 @@ extern zend_module_entry zip_module_entry;
 /* Additionnal flags not from libzip */
 #define ZIP_FL_OPEN_FILE_NOW (1u<<30)
 
-#define PHP_ZIP_VERSION "1.22.1-dev"
+#define PHP_ZIP_VERSION "1.22.1"
 
 #ifdef HAVE_LIBZIP_VERSION
 #define LIBZIP_VERSION_STR zip_libzip_version()
