@@ -313,7 +313,17 @@ static int php_zip_add_file(ze_zip_object *obj, const char *filename, size_t fil
 		return -1;
 	}
 
-	zs = zip_source_file(obj->za, resolved_path, offset_start, offset_len);
+	if (flags & ZIP_FL_OPEN_FILE_NOW) {
+		FILE *fd;
+		fd = fopen(resolved_path, "rb");
+		if (!fd) {
+			return -1;
+		}
+		flags ^= ZIP_FL_OPEN_FILE_NOW;
+		zs = zip_source_filep(obj->za, fd, offset_start, offset_len);
+	} else {
+		zs = zip_source_file(obj->za, resolved_path, offset_start, offset_len);
+	}
 	if (!zs) {
 		return -1;
 	}
@@ -3765,6 +3775,9 @@ static PHP_MINIT_FUNCTION(zip)
 	REGISTER_ZIP_CLASS_CONST_LONG("FL_ENC_STRICT", ZIP_FL_ENC_STRICT);
 	REGISTER_ZIP_CLASS_CONST_LONG("FL_ENC_UTF_8", ZIP_FL_ENC_UTF_8);
 	REGISTER_ZIP_CLASS_CONST_LONG("FL_ENC_CP437", ZIP_FL_ENC_CP437);
+
+	/* Additionnal flags not from libzip */
+	REGISTER_ZIP_CLASS_CONST_LONG("FL_OPEN_FILE_NOW", ZIP_FL_OPEN_FILE_NOW);
 
 	REGISTER_ZIP_CLASS_CONST_LONG("CM_DEFAULT", ZIP_CM_DEFAULT);
 	REGISTER_ZIP_CLASS_CONST_LONG("CM_STORE", ZIP_CM_STORE);

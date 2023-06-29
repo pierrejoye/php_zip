@@ -29,6 +29,7 @@
   <notes>
 - add more tests
 - ZipArchive::FL_RECOMPRESS constant is deprecated and will be removed in a future version of libzip
+- add ZipArchive::FL_OPEN_FILE_NOW to open the file when added instead of waiting for archive to be closed
   </notes>
   <contents>
     <dir name="/">

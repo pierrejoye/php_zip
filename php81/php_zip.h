@@ -31,6 +31,9 @@ extern zend_module_entry zip_module_entry;
 #define ZIP_OVERWRITE ZIP_TRUNCATE
 #endif
 
+/* Additionnal flags not from libzip */
+#define ZIP_FL_OPEN_FILE_NOW (1u<<30)
+
 #define PHP_ZIP_VERSION "1.22.1-dev"
 
 #ifdef HAVE_LIBZIP_VERSION
