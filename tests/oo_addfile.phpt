@@ -36,7 +36,9 @@ file_put_contents($del, 'foo');
 if (!$zip->addFile($del, 'deleted.txt', 0, 0, ZipArchive::FL_OPEN_FILE_NOW)) {
 	echo "failed\n";
 }
-unlink($del);
+if (substr(PHP_OS, 0, 3) != 'WIN') {
+    unlink($del);
+}
 var_dump($zip->lastId);
 if ($zip->status == ZIPARCHIVE::ER_OK) {
 	dump_entries_name($zip);
@@ -52,6 +54,7 @@ var_dump(strlen($zip->getFromName('mini.txt')) == 34);
 var_dump(strlen($zip->getFromName('other.txt')) == filesize($dirname . 'utils.inc'));
 var_dump($zip->getFromName('deleted.txt') === "foo");
 @unlink($file);
+@unlink($del);
 ?>
 --EXPECTF--
 int(-1)
