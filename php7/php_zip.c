@@ -3913,6 +3913,16 @@ static PHP_MINIT_FUNCTION(zip)
 	zend_declare_class_constant_string(zip_class_entry, "LIBZIP_VERSION", sizeof("LIBZIP_VERSION")-1, LIBZIP_VERSION);
 #endif
 
+/* since 1.10.1 */
+#ifdef ZIP_LENGTH_TO_END
+	REGISTER_ZIP_CLASS_CONST_LONG("LENGTH_TO_END",			ZIP_LENGTH_TO_END);
+#else
+	REGISTER_ZIP_CLASS_CONST_LONG("LENGTH_TO_END",			0);
+#endif
+#ifdef ZIP_LENGTH_UNCHECKED
+	REGISTER_ZIP_CLASS_CONST_LONG("LENGTH_UNCHECKED",		ZIP_LENGTH_UNCHECKED);
+#endif
+
 	php_register_url_stream_wrapper("zip", &php_stream_zip_wrapper);
 
 	le_zip_dir   = zend_register_list_destructors_ex(php_zip_free_dir,   NULL, le_zip_dir_name,   module_number);

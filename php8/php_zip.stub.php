@@ -90,10 +90,10 @@ class ZipArchive
     public function addFromString(string $name, string $content, int $flags = ZipArchive::FL_OVERWRITE) {}
 
     /** @return bool */
-    public function addFile(string $filepath, string $entryname = "", int $start = 0, int $length = 0, int $flags = ZipArchive::FL_OVERWRITE) {}
+    public function addFile(string $filepath, string $entryname = "", int $start = 0, int $length = ZipArchive::LENGTH_TO_END, int $flags = ZipArchive::FL_OVERWRITE) {}
 
     /** @return bool */
-    public function replaceFile(string $filepath, int $index, int $start = 0, int $length = 0, int $flags = 0) {}
+    public function replaceFile(string $filepath, int $index, int $start = 0, int $length = ZipArchive::LENGTH_TO_END, int $flags = 0) {}
 
     /** @return array|false */
     public function addGlob(string $pattern, int $flags = 0, array $options = []) {}
