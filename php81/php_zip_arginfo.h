@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 458b670afa3e640d37a90c5d841dba386c42370c */
+ * Stub hash: 56aac075404d656587d9a770b9851dfbfd879031 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zip_open, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, filename, IS_STRING, 0)
@@ -1230,14 +1230,6 @@ static zend_class_entry *register_class_ZipArchive(zend_class_entry *class_entry
 	zend_string *const_LIBZIP_VERSION_name = zend_string_init_interned("LIBZIP_VERSION", sizeof("LIBZIP_VERSION") - 1, 1);
 	zend_declare_class_constant_ex(class_entry, const_LIBZIP_VERSION_name, &const_LIBZIP_VERSION_value, ZEND_ACC_PUBLIC, NULL);
 	zend_string_release(const_LIBZIP_VERSION_name);
-#if defined(ZIP_LENGTH_UNCHECKED)
-
-	zval const_LENGTH_UNCHECKED_value;
-	ZVAL_LONG(&const_LENGTH_UNCHECKED_value, ZIP_LENGTH_UNCHECKED);
-	zend_string *const_LENGTH_UNCHECKED_name = zend_string_init_interned("LENGTH_UNCHECKED", sizeof("LENGTH_UNCHECKED") - 1, 1);
-	zend_declare_class_constant_ex(class_entry, const_LENGTH_UNCHECKED_name, &const_LENGTH_UNCHECKED_value, ZEND_ACC_PUBLIC, NULL);
-	zend_string_release(const_LENGTH_UNCHECKED_name);
-#endif
 #if defined(ZIP_LENGTH_TO_END)
 
 	zval const_LENGTH_TO_END_value;
@@ -1253,6 +1245,14 @@ static zend_class_entry *register_class_ZipArchive(zend_class_entry *class_entry
 	zend_string *const_LENGTH_TO_END_name = zend_string_init_interned("LENGTH_TO_END", sizeof("LENGTH_TO_END") - 1, 1);
 	zend_declare_class_constant_ex(class_entry, const_LENGTH_TO_END_name, &const_LENGTH_TO_END_value, ZEND_ACC_PUBLIC, NULL);
 	zend_string_release(const_LENGTH_TO_END_name);
+#endif
+#if defined(ZIP_LENGTH_UNCHECKED)
+
+	zval const_LENGTH_UNCHECKED_value;
+	ZVAL_LONG(&const_LENGTH_UNCHECKED_value, ZIP_LENGTH_UNCHECKED);
+	zend_string *const_LENGTH_UNCHECKED_name = zend_string_init_interned("LENGTH_UNCHECKED", sizeof("LENGTH_UNCHECKED") - 1, 1);
+	zend_declare_class_constant_ex(class_entry, const_LENGTH_UNCHECKED_name, &const_LENGTH_UNCHECKED_value, ZEND_ACC_PUBLIC, NULL);
+	zend_string_release(const_LENGTH_UNCHECKED_name);
 #endif
 
 	zval property_lastId_default_value;
