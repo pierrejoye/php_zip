@@ -70,79 +70,65 @@ function zip_entry_compressionmethod($zip_entry): string|false {}
 class ZipArchive implements Countable
 {
     /**
-     * @var int
      * @cvalue ZIP_CREATE
      */
     public const int CREATE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_EXCL
      */
     public const int EXCL = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CHECKCONS
      */
     public const int CHECKCONS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OVERWRITE
      */
     public const int OVERWRITE = UNKNOWN;
 #ifdef ZIP_RDONLY
     /**
-     * @var int
      * @cvalue ZIP_RDONLY
      */
     public const int RDONLY = UNKNOWN;
 #endif
 
     /**
-     * @var int
      * @cvalue ZIP_FL_NOCASE
      */
     public const int FL_NOCASE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_NODIR
      */
     public const int FL_NODIR = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_COMPRESSED
      */
     public const int FL_COMPRESSED = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_UNCHANGED
      */
     public const int FL_UNCHANGED = UNKNOWN;
 /* deprecated in libzip 1.10.0 */
 #ifdef ZIP_FL_RECOMPRESS
     /**
-     * @var int
      * @cvalue ZIP_FL_RECOMPRESS
      * @deprecated
      */
     public const int FL_RECOMPRESS = UNKNOWN;
 #endif
     /**
-     * @var int
      * @cvalue ZIP_FL_ENCRYPTED
      */
     public const int FL_ENCRYPTED = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_OVERWRITE
      */
     public const int FL_OVERWRITE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_LOCAL
      */
     public const int FL_LOCAL = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_CENTRAL
      */
     public const int FL_CENTRAL = UNKNOWN;
@@ -150,106 +136,86 @@ class ZipArchive implements Countable
     /* Default filename encoding policy. */
 
     /**
-     * @var int
      * @cvalue ZIP_FL_ENC_GUESS
      */
     public const int FL_ENC_GUESS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_ENC_RAW
      */
     public const int FL_ENC_RAW = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_ENC_STRICT
      */
     public const int FL_ENC_STRICT = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_ENC_UTF_8
      */
     public const int FL_ENC_UTF_8 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_FL_ENC_CP437
      */
     public const int FL_ENC_CP437 = UNKNOWN;
 
     /**
      * Additionnal flags not from libzip
-     * @var int
      * @cvalue ZIP_FL_OPEN_FILE_NOW
      */
     public const int FL_OPEN_FILE_NOW = UNKNOWN;
 
     /**
-     * @var int
      * @cvalue ZIP_CM_DEFAULT
      */
     public const int CM_DEFAULT = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_STORE
      */
     public const int CM_STORE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_SHRINK
      */
     public const int CM_SHRINK = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_REDUCE_1
      */
     public const int CM_REDUCE_1 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_REDUCE_2
      */
     public const int CM_REDUCE_2 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_REDUCE_3
      */
     public const int CM_REDUCE_3 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_REDUCE_4
      */
     public const int CM_REDUCE_4 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_IMPLODE
      */
     public const int CM_IMPLODE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_DEFLATE
      */
     public const int CM_DEFLATE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_DEFLATE64
      */
     public const int CM_DEFLATE64 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_PKWARE_IMPLODE
      */
     public const int CM_PKWARE_IMPLODE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_BZIP2
      */
     public const int CM_BZIP2 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_LZMA
      */
     public const int CM_LZMA = UNKNOWN;
 #ifdef ZIP_CM_LZMA2
     /**
-     * @var int
      * @cvalue ZIP_CM_LZMA2
      */
     public const int CM_LZMA2 = UNKNOWN;
@@ -257,35 +223,29 @@ class ZipArchive implements Countable
 
 #ifdef ZIP_CM_ZSTD
     /**
-     * @var int
      * @cvalue ZIP_CM_ZSTD
      */
     public const int CM_ZSTD = UNKNOWN;
 #endif
 #ifdef ZIP_CM_XZ
     /**
-     * @var int
      * @cvalue ZIP_CM_XZ
      */
     public const int CM_XZ = UNKNOWN;
 #endif
     /**
-     * @var int
      * @cvalue ZIP_CM_TERSE
      */
     public const int CM_TERSE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_LZ77
      */
     public const int CM_LZ77 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_WAVPACK
      */
     public const int CM_WAVPACK = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_CM_PPMD
      */
     public const int CM_PPMD = UNKNOWN;
@@ -294,169 +254,141 @@ class ZipArchive implements Countable
 
     /**
      * N No error
-     * @var int
      * @cvalue ZIP_ER_OK
      */
     public const int ER_OK = UNKNOWN;
     /**
      * N Multi-disk zip archives not supported
-     * @var int
      * @cvalue ZIP_ER_MULTIDISK
      */
     public const int ER_MULTIDISK = UNKNOWN;
     /**
      * S Renaming temporary file failed
-     * @var int
      * @cvalue ZIP_ER_RENAME
      */
     public const int ER_RENAME = UNKNOWN;
     /**
      * S Closing zip archive failed
-     * @var int
      * @cvalue ZIP_ER_CLOSE
      */
     public const int ER_CLOSE = UNKNOWN;
     /**
      * S Seek error
-     * @var int
      * @cvalue ZIP_ER_SEEK
      */
     public const int ER_SEEK = UNKNOWN;
     /**
      * S Read error
-     * @var int
      * @cvalue ZIP_ER_READ
      */
     public const int ER_READ = UNKNOWN;
     /**
      * S Write error
-     * @var int
      * @cvalue ZIP_ER_WRITE
      */
     public const int ER_WRITE = UNKNOWN;
     /**
      * N CRC error
-     * @var int
      * @cvalue ZIP_ER_CRC
      */
     public const int ER_CRC = UNKNOWN;
     /**
      * N Containing zip archive was closed
-     * @var int
      * @cvalue ZIP_ER_ZIPCLOSED
      */
     public const int ER_ZIPCLOSED = UNKNOWN;
     /**
      * N No such file
-     * @var int
      * @cvalue ZIP_ER_NOENT
      */
     public const int ER_NOENT = UNKNOWN;
     /**
      * N File already exists
-     * @var int
      * @cvalue ZIP_ER_EXISTS
      */
     public const int ER_EXISTS = UNKNOWN;
     /**
      * S Can't open file
-     * @var int
      * @cvalue ZIP_ER_OPEN
      */
     public const int ER_OPEN = UNKNOWN;
     /**
      * S Failure to create temporary file
-     * @var int
      * @cvalue ZIP_ER_TMPOPEN
      */
     public const int ER_TMPOPEN = UNKNOWN;
     /**
      * Z Zlib error
-     * @var int
      * @cvalue ZIP_ER_ZLIB
      */
     public const int ER_ZLIB = UNKNOWN;
     /**
      * N Malloc failure
-     * @var int
      * @cvalue ZIP_ER_MEMORY
      */
     public const int ER_MEMORY = UNKNOWN;
     /**
      * N Entry has been changed
-     * @var int
      * @cvalue ZIP_ER_CHANGED
      */
     public const int ER_CHANGED = UNKNOWN;
     /**
      * N Compression method not supported
-     * @var int
      * @cvalue ZIP_ER_COMPNOTSUPP
      */
     public const int ER_COMPNOTSUPP = UNKNOWN;
     /**
      * N Premature EOF
-     * @var int
      * @cvalue ZIP_ER_EOF
      */
     public const int ER_EOF = UNKNOWN;
     /**
      * N Invalid argument
-     * @var int
      * @cvalue ZIP_ER_INVAL
      */
     public const int ER_INVAL = UNKNOWN;
     /**
      * N Not a zip archive
-     * @var int
      * @cvalue ZIP_ER_NOZIP
      */
     public const int ER_NOZIP = UNKNOWN;
     /**
      * N Internal error
-     * @var int
      * @cvalue ZIP_ER_INTERNAL
      */
     public const int ER_INTERNAL = UNKNOWN;
     /**
      * N Zip archive inconsistent
-     * @var int
      * @cvalue ZIP_ER_INCONS
      */
     public const int ER_INCONS = UNKNOWN;
     /**
      * S Can't remove file
-     * @var int
      * @cvalue ZIP_ER_REMOVE
      */
     public const int ER_REMOVE = UNKNOWN;
     /**
      * N Entry has been deleted
-     * @var int
      * @cvalue ZIP_ER_DELETED
      */
     public const int ER_DELETED = UNKNOWN;
     /**
      * N Encryption method not supported
-     * @var int
      * @cvalue ZIP_ER_ENCRNOTSUPP
      */
     public const int ER_ENCRNOTSUPP = UNKNOWN;
     /**
      * N Read-only archive
-     * @var int
      * @cvalue ZIP_ER_RDONLY
      */
     public const int ER_RDONLY = UNKNOWN;
     /**
      * N Entry has been deleted
-     * @var int
      * @cvalue ZIP_ER_NOPASSWD
      */
     public const int ER_NOPASSWD = UNKNOWN;
     /**
      * N Wrong password provided
-     * @var int
      * @cvalue ZIP_ER_WRONGPASSWD
      */
     public const int ER_WRONGPASSWD = UNKNOWN;
@@ -465,7 +397,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_ER_OPNOTSUPP
     /**
      * N Operation not supported
-     * @var int
      * @cvalue ZIP_ER_OPNOTSUPP
      */
     public const int ER_OPNOTSUPP = UNKNOWN;
@@ -473,7 +404,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_ER_INUSE
     /**
      * N Resource still in use
-     * @var int
      * @cvalue ZIP_ER_INUSE
      */
     public const int ER_INUSE = UNKNOWN;
@@ -481,7 +411,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_ER_TELL
     /**
      * S Tell error
-     * @var int
      * @cvalue ZIP_ER_TELL
      */
     public const int ER_TELL = UNKNOWN;
@@ -491,7 +420,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_ER_COMPRESSED_DATA
     /**
      * N Compressed data invalid
-     * @var int
      * @cvalue ZIP_ER_COMPRESSED_DATA
      */
     public const int ER_COMPRESSED_DATA = UNKNOWN;
@@ -499,7 +427,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_ER_CANCELLED
     /**
      * N Operation cancelled
-     * @var int
      * @cvalue ZIP_ER_CANCELLED
      */
     public const int ER_CANCELLED = UNKNOWN;
@@ -509,7 +436,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_ER_DATA_LENGTH
     /**
      * N Unexpected length of data
-     * @var int
      * @cvalue ZIP_ER_DATA_LENGTH
      */
     public const int ER_DATA_LENGTH = UNKNOWN;
@@ -517,7 +443,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_ER_NOT_ALLOWED
     /**
      * Not allowed in torrentzip
-     * @var int
      * @cvalue ZIP_ER_NOT_ALLOWED
      */
     public const int ER_NOT_ALLOWED = UNKNOWN;
@@ -525,7 +450,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_AFL_RDONLY
     /**
      * read only -- cannot be cleared
-     * @var int
      * @cvalue ZIP_AFL_RDONLY
      */
     public const int AFL_RDONLY = UNKNOWN;
@@ -533,7 +457,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_AFL_IS_TORRENTZIP
     /**
      * current archive is torrentzipped
-     * @var int
      * @cvalue ZIP_AFL_IS_TORRENTZIP
      */
     public const int AFL_IS_TORRENTZIP = UNKNOWN;
@@ -541,7 +464,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_AFL_WANT_TORRENTZIP
     /**
      * write archive in torrentzip format
-     * @var int
      * @cvalue ZIP_AFL_WANT_TORRENTZIP
      */
     public const int AFL_WANT_TORRENTZIP = UNKNOWN;
@@ -549,7 +471,6 @@ class ZipArchive implements Countable
 #ifdef ZIP_AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE
     /**
      * don't remove file if archive is empty
-     * @var int
      * @cvalue ZIP_AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE
      */
     public const int AFL_CREATE_OR_KEEP_FILE_FOR_EMPTY_ARCHIVE = UNKNOWN;
@@ -557,127 +478,106 @@ class ZipArchive implements Countable
 
 #ifdef ZIP_OPSYS_DEFAULT
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_DOS
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_DOS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_AMIGA
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_AMIGA = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_OPENVMS
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_OPENVMS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_UNIX
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_UNIX = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_VM_CMS
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_VM_CMS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_ATARI_ST
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_ATARI_ST = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_OS_2
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_OS_2 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_MACINTOSH
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_MACINTOSH = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_Z_SYSTEM
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_Z_SYSTEM = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_CPM
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_CPM = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_WINDOWS_NTFS
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_WINDOWS_NTFS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_MVS
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_MVS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_VSE
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_VSE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_ACORN_RISC
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_ACORN_RISC = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_VFAT
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_VFAT = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_ALTERNATE_MVS
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_ALTERNATE_MVS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_BEOS
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_BEOS = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_TANDEM
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_TANDEM = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_OS_400
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_OS_400 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_OS_X
      * @link ziparchive.constants.opsys
      */
     public const int OPSYS_OS_X = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_OPSYS_DEFAULT
      * @link ziparchive.constants.opsys
      */
@@ -685,53 +585,44 @@ class ZipArchive implements Countable
 #endif
 
     /**
-     * @var int
      * @cvalue ZIP_EM_NONE
      */
     public const int EM_NONE = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_EM_TRAD_PKWARE
      */
     public const int EM_TRAD_PKWARE = UNKNOWN;
 #ifdef HAVE_ENCRYPTION
     /**
-     * @var int
      * @cvalue ZIP_EM_AES_128
      */
     public const int EM_AES_128 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_EM_AES_192
      */
     public const int EM_AES_192 = UNKNOWN;
     /**
-     * @var int
      * @cvalue ZIP_EM_AES_256
      */
     public const int EM_AES_256 = UNKNOWN;
 #endif
     /**
-     * @var int
      * @cvalue ZIP_EM_UNKNOWN
      */
     public const int EM_UNKNOWN = UNKNOWN;
 
     /**
-     * @var string
      * @cvalue LIBZIP_VERSION_STR
      */
     public const string LIBZIP_VERSION = UNKNOWN;
 
     /**
-     * @var int
      * @cvalue ZIP_LENGTH_TO_END
      */
     public const int LENGTH_TO_END = UNKNOWN;
     /* since 1.10.1 */
 #ifdef ZIP_LENGTH_UNCHECKED
     /**
-     * @var int
      * @cvalue ZIP_LENGTH_UNCHECKED
      */
     public const int LENGTH_UNCHECKED = UNKNOWN;
