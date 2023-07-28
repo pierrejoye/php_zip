@@ -28,6 +28,7 @@
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
 - add ZipArchive::LENGTH_TO_END and ZipArchive::LENGTH_UNCHECKED constants with libzip 1.10.1
+- use typed constants in 8.3
   </notes>
   <contents>
     <dir name="/">
