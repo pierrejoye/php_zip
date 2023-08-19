@@ -151,7 +151,4 @@ if test "$PHP_ZIP" != "no"; then
     PHP_ADD_INCLUDE([$ext_srcdir/$subdir])
   fi
   PHP_SUBST(ZIP_SHARED_LIBADD)
-
-  dnl so we always include the known-good working hack.
-  PHP_ADD_MAKEFILE_FRAGMENT
 fi
