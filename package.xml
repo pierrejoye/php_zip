@@ -18,7 +18,7 @@
   </lead>
   <date>2023-08-23</date>
   <version>
-    <release>1.22.2</release>
+    <release>1.22.3dev</release>
     <api>2.10.0</api>
   </version>
   <stability>
@@ -27,8 +27,7 @@
   </stability>
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
-- add ZipArchive::LENGTH_TO_END and ZipArchive::LENGTH_UNCHECKED constants with libzip 1.10.1
-- use typed constants in 8.3
+-
   </notes>
   <contents>
     <dir name="/">
@@ -226,6 +225,22 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2023-08-23</date>
+      <version>
+        <release>1.22.2</release>
+        <api>2.10.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
+      <notes>
+- add ZipArchive::LENGTH_TO_END and ZipArchive::LENGTH_UNCHECKED constants with libzip 1.10.1
+- use typed constants in 8.3
+      </notes>
+    </release>
     <release>
       <date>2023-06-29</date>
       <version>
