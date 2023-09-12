@@ -4,7 +4,7 @@ ziparchive::addFile() for dynamic files reported empty
 <?php
 if (!extension_loaded('zip')) die('skip');
 if (!file_exists('/proc/cpuinfo')) die('skip no /proc');
-if (!defined('ZipArchive::LENGTH_UNCHECKED')) die('skip libzip to old');
+if (!defined('ZipArchive::LENGTH_UNCHECKED')) die('skip libzip too old');
 ?>
 --FILE--
 <?php
