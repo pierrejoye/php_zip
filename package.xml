@@ -90,6 +90,7 @@
         <file name="oo_addemptydir_error.phpt" role="test"/>
         <file name="oo_add_encoding.phpt" role="test"/>
         <file name="oo_addfile.phpt" role="test"/>
+        <file name="oo_addfile_proc.phpt" role="test"/>
         <file name="oo_add_from_string.phpt" role="test"/>
         <file name="oo_addglob.phpt" role="test"/>
         <file name="oo_addglob2.phpt" role="test"/>
