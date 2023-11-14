@@ -18,7 +18,7 @@
   </lead>
   <date>2023-11-14</date>
   <version>
-    <release>1.22.3</release>
+    <release>1.22.4dev</release>
     <api>2.10.0</api>
   </version>
   <stability>
@@ -27,7 +27,7 @@
   </stability>
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
-- fix GH-12661 (Inconsistency in ZipArchive::addGlob 'remove_path' Option Behavior)
+-
   </notes>
   <contents>
     <dir name="/">
@@ -227,6 +227,21 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2023-11-14</date>
+      <version>
+        <release>1.22.3</release>
+        <api>2.10.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
+      <notes>
+- fix GH-12661 (Inconsistency in ZipArchive::addGlob 'remove_path' Option Behavior)
+      </notes>
+    </release>
     <release>
       <date>2023-08-23</date>
       <version>
