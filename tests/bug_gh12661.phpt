@@ -14,7 +14,7 @@ $zip = new ZipArchive();
 $zip->open($file, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 $zip->addGlob(__FILE__, 0, ['remove_path' => 'bug_']);  // unchanged (bug is not a prefix)
 $zip->addGlob(__FILE__, 0, ['remove_path' => dirname(__DIR__)]);
-verify_entries($zip, [__FILE__, 'tests/' . basename(__FILE__)]);
+verify_entries($zip, [__FILE__, basename(__DIR__) . DIRECTORY_SEPARATOR . basename(__FILE__)]);
 $zip->close();
 
 ?>
