@@ -126,7 +126,7 @@ static char * php_zip_make_relative_path(char *path, size_t path_len) /* {{{ */
 # define CWD_STATE_FREE(s)  efree(s)
 
 /* {{{ php_zip_extract_file */
-static int php_zip_extract_file(struct zip * za, char *dest, char *file, size_t file_len, zip_int64_t idx)
+static int php_zip_extract_file(struct zip * za, char *dest, const char *file, size_t file_len, zip_int64_t idx)
 {
 	php_stream_statbuf ssb;
 	struct zip_file *zf;
@@ -2877,7 +2877,7 @@ PHP_METHOD(ZipArchive, extractTo)
 		}
 
 		for (i = 0; i < filecount; i++) {
-			char *file = (char*)zip_get_name(intern, i, ZIP_FL_UNCHANGED);
+			const char *file = zip_get_name(intern, i, ZIP_FL_UNCHANGED);
 			if (!file || !php_zip_extract_file(intern, pathto, file, strlen(file), i)) {
 					RETURN_FALSE;
 			}
