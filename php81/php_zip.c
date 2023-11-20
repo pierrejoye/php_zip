@@ -209,6 +209,18 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, s
 
 	/* it is a standalone directory, job done */
 	if (is_dir_only) {
+		php_stream_wrapper *wrapper;
+		zip_uint8_t opsys;
+		zip_uint32_t attr;
+		zend_long mode;
+
+		if (zip_file_get_external_attributes(za, idx, 0, &opsys, &attr) >= 0 && opsys == ZIP_OPSYS_UNIX) {
+			wrapper = php_stream_locate_url_wrapper(file_dirname_fullpath, NULL, 0);
+			if(wrapper && wrapper->wops->stream_metadata) {
+				mode = (attr >> 16) & 0777;
+				wrapper->wops->stream_metadata(wrapper, file_dirname_fullpath, PHP_STREAM_META_ACCESS, &mode, NULL);
+			}
+		}
 		efree(file_dirname_fullpath);
 		CWD_STATE_FREE(new_state.cwd);
 		return 1;
