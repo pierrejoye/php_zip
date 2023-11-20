@@ -246,10 +246,10 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, i
 		long mode;
 
 		if (zip_file_get_external_attributes(za, idx, 0, &opsys, &attr) >= 0 && opsys == ZIP_OPSYS_UNIX) {
-			wrapper = php_stream_locate_url_wrapper(file_dirname_fullpath, NULL, 0);
+			wrapper = php_stream_locate_url_wrapper(file_dirname_fullpath, NULL, 0 TSRMLS_CC);
 			if(wrapper && wrapper->wops->stream_metadata) {
 				mode = (attr >> 16) & 0777;
-				wrapper->wops->stream_metadata(wrapper, file_dirname_fullpath, PHP_STREAM_META_ACCESS, &mode, NULL);
+				wrapper->wops->stream_metadata(wrapper, file_dirname_fullpath, PHP_STREAM_META_ACCESS, &mode, NULL TSRMLS_CC);
 			}
 		}
 #endif
@@ -313,7 +313,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, i
 		if (zip_file_get_external_attributes(za, idx, 0, &opsys, &attr) >= 0
 			&& opsys == ZIP_OPSYS_UNIX) {
 			mode = (attr >> 16) & 0777;
-			stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_ACCESS, &mode, NULL);
+			stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_ACCESS, &mode, NULL TSRMLS_CC);
 		}
 #endif
 		ut.modtime = ut.actime = sb.mtime;
