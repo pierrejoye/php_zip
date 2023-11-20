@@ -137,7 +137,7 @@ static char * php_zip_make_relative_path(char *path, size_t path_len) /* {{{ */
 # define CWD_STATE_FREE(s)  efree(s)
 
 /* {{{ php_zip_extract_file */
-static int php_zip_extract_file(struct zip * za, char *dest, char *file, int file_len)
+static int php_zip_extract_file(struct zip * za, char *dest, const char *file, size_t file_len, zip_int64_t idx)
 {
 	php_stream_statbuf ssb;
 	struct zip_file *zf;
@@ -159,6 +159,12 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 	new_state.cwd[0] = '\0';
 	new_state.cwd_length = 0;
 
+	if (idx <0) {
+		idx = zip_name_locate(za, file, 0);
+	}
+	if (idx < 0) {
+		return 0;
+	}
 	/* Clean/normlize the path and then transform any path (absolute or relative)
 		 to a path relative to cwd (../../mydir/foo.txt > mydir/foo.txt)
 	 */
@@ -170,7 +176,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 	}
 	path_cleaned_len = strlen(path_cleaned);
 
-	if (path_cleaned_len >= MAXPATHLEN || zip_stat(za, file, 0, &sb) != 0) {
+	if (path_cleaned_len >= MAXPATHLEN || zip_stat_index(za, idx, 0, &sb) != 0) {
 		CWD_STATE_FREE(new_state.cwd);
 		return 0;
 	}
@@ -214,6 +220,20 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 
 	/* it is a standalone directory, job done */
 	if (is_dir_only) {
+#ifdef ZIP_OPSYS_DEFAULT
+		php_stream_wrapper *wrapper;
+		zip_uint8_t opsys;
+		zip_uint32_t attr;
+		zend_long mode;
+
+		if (zip_file_get_external_attributes(za, idx, 0, &opsys, &attr) >= 0 && opsys == ZIP_OPSYS_UNIX) {
+			wrapper = php_stream_locate_url_wrapper(file_dirname_fullpath, NULL, 0);
+			if(wrapper && wrapper->wops->stream_metadata) {
+				mode = (attr >> 16) & 0777;
+				wrapper->wops->stream_metadata(wrapper, file_dirname_fullpath, PHP_STREAM_META_ACCESS, &mode, NULL);
+			}
+		}
+#endif
 		efree(file_dirname_fullpath);
 		CWD_STATE_FREE(new_state.cwd);
 		return 1;
@@ -245,7 +265,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 		return 0;
 	}
 
-	zf = zip_fopen(za, file, 0);
+	zf = zip_fopen_index(za, idx, 0);
 	if (zf == NULL) {
 		n = -1;
 		goto done;
@@ -267,7 +287,17 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, int fil
 
 	if (stream->wrapper->wops->stream_metadata) {
 		struct utimbuf ut;
+#ifdef ZIP_OPSYS_DEFAULT
+		zip_uint8_t opsys;
+		zip_uint32_t attr;
+		zend_long mode;
 
+		if (zip_file_get_external_attributes(za, idx, 0, &opsys, &attr) >= 0
+			&& opsys == ZIP_OPSYS_UNIX) {
+			mode = (attr >> 16) & 0777;
+			stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_ACCESS, &mode, NULL);
+		}
+#endif
 		ut.modtime = ut.actime = sb.mtime;
 		stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_TOUCH, &ut, NULL);
 	}
@@ -3062,7 +3092,7 @@ static ZIPARCHIVE_METHOD(extractTo)
 
 		switch (Z_TYPE_P(zval_files)) {
 			case IS_STRING:
-				if (!php_zip_extract_file(intern, pathto, Z_STRVAL_P(zval_files), Z_STRLEN_P(zval_files))) {
+				if (!php_zip_extract_file(intern, pathto, Z_STRVAL_P(zval_files), Z_STRLEN_P(zval_files), -1)) {
 					RETURN_FALSE;
 				}
 				break;
@@ -3079,7 +3109,7 @@ static ZIPARCHIVE_METHOD(extractTo)
 							case IS_LONG:
 								break;
 							case IS_STRING:
-								if (!php_zip_extract_file(intern, pathto, Z_STRVAL_P(zval_file), Z_STRLEN_P(zval_file))) {
+								if (!php_zip_extract_file(intern, pathto, Z_STRVAL_P(zval_file), Z_STRLEN_P(zval_file), -1)) {
 									RETURN_FALSE;
 								}
 								break;
@@ -3102,8 +3132,8 @@ static ZIPARCHIVE_METHOD(extractTo)
 		}
 
 		for (i = 0; i < filecount; i++) {
-			char *file = (char*)zip_get_name(intern, i, ZIP_FL_UNCHANGED);
-			if (!file || !php_zip_extract_file(intern, pathto, file, strlen(file))) {
+			const char *file = zip_get_name(intern, i, ZIP_FL_UNCHANGED);
+			if (!file || !php_zip_extract_file(intern, pathto, file, strlen(file), i)) {
 					RETURN_FALSE;
 			}
 		}
