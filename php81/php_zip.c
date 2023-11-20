@@ -256,9 +256,21 @@ static int php_zip_extract_file(struct zip * za, char *dest, char *file, size_t 
 
 	if (stream->wrapper->wops->stream_metadata) {
 		struct utimbuf ut;
+		zip_uint8_t opsys;
+		zip_uint32_t attr;
+		zip_int64_t idx;
+		zend_long mode;
 
 		ut.modtime = ut.actime = sb.mtime;
 		stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_TOUCH, &ut, NULL);
+
+		idx = zip_name_locate(za, file, 0);
+		if (idx >= 0 &&
+			zip_file_get_external_attributes(za, idx, 0, &opsys, &attr) >= 0
+			&& opsys == ZIP_OPSYS_UNIX) {
+			mode = (attr >> 16) & 0777;
+			stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_ACCESS, &mode, NULL);
+		}
 	}
 
 	php_stream_close(stream);
