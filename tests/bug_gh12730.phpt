@@ -3,6 +3,7 @@ Bug GH-12730 - extract lost permission on linux
 --SKIPIF--
 <?php
 if (!extension_loaded('zip')) die('skip zip extension not available');
+if (version_compare(ZipArchive::LIBZIP_VERSION, '0.11.2', '<')) die('skip libzip < 0.11.2');
 ?>
 --FILE--
 <?php

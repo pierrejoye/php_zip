@@ -209,6 +209,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, s
 
 	/* it is a standalone directory, job done */
 	if (is_dir_only) {
+#ifdef ZIP_OPSYS_DEFAULT
 		php_stream_wrapper *wrapper;
 		zip_uint8_t opsys;
 		zip_uint32_t attr;
@@ -221,6 +222,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, s
 				wrapper->wops->stream_metadata(wrapper, file_dirname_fullpath, PHP_STREAM_META_ACCESS, &mode, NULL);
 			}
 		}
+#endif
 		efree(file_dirname_fullpath);
 		CWD_STATE_FREE(new_state.cwd);
 		return 1;
@@ -274,18 +276,19 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, s
 
 	if (stream->wrapper->wops->stream_metadata) {
 		struct utimbuf ut;
+#ifdef ZIP_OPSYS_DEFAULT
 		zip_uint8_t opsys;
 		zip_uint32_t attr;
 		zend_long mode;
-
-		ut.modtime = ut.actime = sb.mtime;
-		stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_TOUCH, &ut, NULL);
 
 		if (zip_file_get_external_attributes(za, idx, 0, &opsys, &attr) >= 0
 			&& opsys == ZIP_OPSYS_UNIX) {
 			mode = (attr >> 16) & 0777;
 			stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_ACCESS, &mode, NULL);
 		}
+#endif
+		ut.modtime = ut.actime = sb.mtime;
+		stream->wrapper->wops->stream_metadata(stream->wrapper, fullpath, PHP_STREAM_META_TOUCH, &ut, NULL);
 	}
 
 	php_stream_close(stream);
