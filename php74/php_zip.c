@@ -157,9 +157,9 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, s
 
 	if (idx <0) {
 		idx = zip_name_locate(za, file, 0);
-	}
-	if (idx < 0) {
-		return 0;
+		if (idx < 0) {
+			return 0;
+		}
 	}
 	/* Clean/normlize the path and then transform any path (absolute or relative)
 		 to a path relative to cwd (../../mydir/foo.txt > mydir/foo.txt)
