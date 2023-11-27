@@ -173,7 +173,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, i
 	size_t path_cleaned_len;
 	cwd_state new_state;
 
-	if (idx <0) {
+	if (idx < 0) {
 		idx = zip_name_locate(za, file, 0);
 		if (idx < 0) {
 			return 0;
