@@ -41,6 +41,7 @@ if (PHP_ZIP != "no") {
 			}
 		
 		EXTENSION('zip', 'php_zip.c zip_stream.c');
+		ADD_EXTENSION_DEP('zip', 'pcre');
 		configure_module_dirname = old_conf_dir;
 
 		AC_DEFINE('HAVE_ZIP', 1);
