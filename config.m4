@@ -142,6 +142,7 @@ if test "$PHP_ZIP" != "no"; then
 
     AC_DEFINE(HAVE_ZIP,1,[ ])
     PHP_NEW_EXTENSION(zip, $PHP_ZIP_SOURCES, $ext_shared,, $LIBZIP_CFLAGS)
+    PHP_ADD_EXTENSION_DEP(zip, pcre)
   else
     AC_MSG_ERROR([libzip is no more bundled: install libzip version >= 0.11 (1.3.0 recommended for encryption and bzip2 support)])
   fi
