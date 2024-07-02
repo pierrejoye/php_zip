@@ -151,5 +151,5 @@ if test "$PHP_ZIP" != "no"; then
     PHP_ADD_BUILD_DIR($abs_builddir/$subdir, 1)
     PHP_ADD_INCLUDE([$ext_srcdir/$subdir])
   fi
-  PHP_SUBST(ZIP_SHARED_LIBADD)
+  PHP_SUBST([ZIP_SHARED_LIBADD])
 fi
