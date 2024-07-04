@@ -2,11 +2,17 @@ dnl
 dnl $Id$
 dnl
 
-PHP_ARG_ENABLE(zip, for zip archive read/writesupport,
-[  --enable-zip            Include Zip read/write support])
+PHP_ARG_ENABLE([zip],
+  [for zip archive read/write support],
+  [AS_HELP_STRING([--enable-zip],
+    [Include Zip read/write support])])
 
-PHP_ARG_WITH(libzip, libzip,
-[  --with-libzip[=DIR]       ZIP: use libzip], yes, no)
+PHP_ARG_WITH([libzip],
+  [for libzip],
+  [AS_HELP_STRING([[--with-libzip[=DIR]]],
+    [ZIP: use libzip])],
+  [yes],
+  [no])
 
 if test "$PHP_ZIP" != "no"; then
 
