@@ -1149,8 +1149,8 @@ static const zend_module_dep zip_deps[] = {
 /* {{{ zip_module_entry */
 zend_module_entry zip_module_entry = {
 	STANDARD_MODULE_HEADER_EX, NULL,
-	"zip",
 	zip_deps,
+	"zip",
 	ext_functions,
 	PHP_MINIT(zip),
 	PHP_MSHUTDOWN(zip),
