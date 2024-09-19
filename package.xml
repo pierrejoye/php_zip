@@ -28,6 +28,7 @@
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
 - compatibility with 8.4
+- add ZipArchive::ER_TRUNCATED_ZIP added in libzip 1.11
   </notes>
   <contents>
     <dir name="/">

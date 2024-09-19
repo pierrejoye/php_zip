@@ -3716,6 +3716,9 @@ static PHP_MINIT_FUNCTION(zip)
 #ifdef ZIP_ER_NOT_ALLOWED
 	REGISTER_ZIP_CLASS_CONST_LONG("ER_NOT_ALLOWED",	ZIP_ER_NOT_ALLOWED);	/* Not allowed in torrentzip */
 #endif
+#ifdef ZIP_ER_TRUNCATED_ZIP
+	REGISTER_ZIP_CLASS_CONST_LONG("ER_TRUNCATED_ZIP",	ZIP_ER_TRUNCATED_ZIP);	/* Possibly truncated or corrupted zip archive */
+#endif
 #ifdef ZIP_AFL_RDONLY
 	REGISTER_ZIP_CLASS_CONST_LONG("AFL_RDONLY",	ZIP_AFL_RDONLY);			/* read only -- cannot be cleared */
 #endif
