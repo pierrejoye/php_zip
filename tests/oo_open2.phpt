@@ -42,8 +42,8 @@ if ($zip->status == ZIPARCHIVE::ER_OK) {
     echo "failed\n";
 }
 ?>
---EXPECT--
+--EXPECTF--
 ER_OPEN: ok
 create: ok
-ZipArchive::open(): Argument #1 ($filename) cannot be empty
+ZipArchive::open(): Argument #1 ($filename) %s be empty
 OK

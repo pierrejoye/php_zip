@@ -23,9 +23,9 @@ echo is_resource($zip) ? "OK" : "Failure";
 ?>
 --EXPECTF--
 Test case 1:
-Deprecated: Function zip_open() is deprecated in %s on line %d
-zip_open(): Argument #1 ($filename) cannot be empty
+Deprecated: Function zip_open() is deprecated %s on line %d
+zip_open(): Argument #1 ($filename) %s be empty
 Test case 2:
 
-Deprecated: Function zip_open() is deprecated in %s on line %d
+Deprecated: Function zip_open() is deprecated %s on line %d
 Failure

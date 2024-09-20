@@ -29,8 +29,8 @@ try {
 $zip->close();
 
 ?>
---EXPECT--
+--EXPECTF--
 Zip archive comment
 string(11) "foo comment"
 string(11) "foo comment"
-ZipArchive::getCommentName(): Argument #1 ($name) cannot be empty
+ZipArchive::getCommentName(): Argument #1 ($name) %s be empty
