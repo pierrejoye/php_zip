@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2023-11-14</date>
+  <date>2024-09-26</date>
   <version>
-    <release>1.22.4dev</release>
+    <release>1.22.4</release>
     <api>2.10.0</api>
   </version>
   <stability>
