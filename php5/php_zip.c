@@ -1452,6 +1452,7 @@ static PHP_NAMED_FUNCTION(zif_zip_read)
 			RETURN_FALSE;
 		}
 
+		zr_rsrc->zip_rsrc_handle = zip_dp->value.lval;
 		zr_rsrc->zf = zip_fopen_index(rsrc_int->za, rsrc_int->index_current, 0);
 		if (zr_rsrc->zf) {
 			rsrc_int->index_current++;
@@ -1558,7 +1559,7 @@ static void php_zip_entry_get_info(INTERNAL_FUNCTION_PARAMETERS, int opt) /* {{{
 
 	ZEND_FETCH_RESOURCE(zr_rsrc, zip_read_rsrc *, &zip_entry, -1, le_zip_entry_name, le_zip_entry);
 
-	if (!zr_rsrc->zf) {
+	if (!zr_rsrc->zf || !zend_hash_index_exists(&EG(regular_list), zr_rsrc->zip_rsrc_handle)) {
 		RETURN_FALSE;
 	}
 

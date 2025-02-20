@@ -41,7 +41,7 @@ extern zend_module_entry zip_module_entry;
 /* Additionnal flags not from libzip */
 #define ZIP_FL_OPEN_FILE_NOW (1u<<30)
 
-#define PHP_ZIP_VERSION "1.22.5-dev"
+#define PHP_ZIP_VERSION "1.22.5"
 
 /* {{{ ZIP_OPENBASEDIR_CHECKPATH(filename) */
 #define ZIP_OPENBASEDIR_CHECKPATH(filename) \
@@ -59,6 +59,9 @@ typedef zip_rsrc * zip_rsrc_ptr;
 typedef struct _ze_zip_read_rsrc {
 	struct zip_file *zf;
 	struct zip_stat sb;
+	/* Used to check if the zip resource still exists,
+	 * without holding a reference. This works because the IDs are unique. */
+	int zip_rsrc_handle;
 } zip_read_rsrc;
 
 #define ZIPARCHIVE_ME(name, arg_info, flags) ZEND_ME(ZipArchive, name, arg_info, flags)
