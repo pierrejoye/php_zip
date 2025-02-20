@@ -18,7 +18,7 @@
   </lead>
   <date>2025-02-20</date>
   <version>
-    <release>1.22.5</release>
+    <release>1.22.6dev</release>
     <api>2.10.0</api>
   </version>
   <stability>
@@ -228,6 +228,21 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+      <date>2025-02-20</date>
+      <version>
+        <release>1.22.5</release>
+        <api>2.10.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
+      <notes>
+- Fix zip_entry_name() crash on invalid entry
+      </notes>
+    </release>
     <release>
       <date>2024-09-26</date>
       <version>
