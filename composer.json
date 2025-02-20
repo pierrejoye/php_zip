@@ -1,0 +1,13 @@
+{
+    "name": "pecl/zip",
+    "type": "php-ext",
+    "license": "PHP-3.01",
+    "description": "A zip management extension",
+    "require": {
+        "php": ">= 5.4.0"
+    },
+    "php-ext": {
+        "extension-name": "zip",
+        "configure-options": []
+    }
+}
