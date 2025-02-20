@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2024-09-26</date>
+  <date>2025-02-20</date>
   <version>
-    <release>1.22.5dev</release>
+    <release>1.22.5</release>
     <api>2.10.0</api>
   </version>
   <stability>
@@ -27,7 +27,7 @@
   </stability>
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
--
+- Fix zip_entry_name() crash on invalid entry
   </notes>
   <contents>
     <dir name="/">
@@ -82,6 +82,7 @@
         <file name="bug81420.zip" role="test"/>
         <file name="bug81490.phpt" role="test"/>
         <file name="bug_gh8781.phpt" role="test"/>
+        <file name="gh17319.phpt" role="test"/>
         <file name="bug_gh12661.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>

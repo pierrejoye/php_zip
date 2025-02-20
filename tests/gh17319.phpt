@@ -1,7 +1,11 @@
 --TEST--
 GH-17139 - zip_entry_name() crash
---EXTENSIONS--
-zip
+--SKIPIF--
+<?php
+if(!extension_loaded('zip')) die('skip');
+?>
+--INI--
+error_reporting=24575
 --FILE--
 <?php
 $zip = zip_open(__DIR__."/test_procedural.zip");
@@ -11,9 +15,4 @@ $zip = zip_read($zip);
 var_dump(zip_entry_name($zip));
 ?>
 --EXPECTF--
-Deprecated: Function zip_open() is deprecated in %s on line %d
-
-Deprecated: Function zip_read() is deprecated in %s on line %d
-
-Deprecated: Function zip_entry_name() is deprecated in %s on line %d
 bool(false)
