@@ -368,13 +368,13 @@ typedef struct {
 #endif
 } zip_options;
 
+/* Expects opts to be zero-initialized. */
 static int php_zip_parse_options(zval *options, zip_options *opts)
 /* {{{ */
 {
 	zval *option;
 
 	/* default values */
-	memset(opts, 0, sizeof(zip_options));
 	opts->flags = ZIP_FL_OVERWRITE;
 #ifdef HAVE_ENCRYPTION
 	opts->enc_method = -1;  /* -1 to not change default */
@@ -1843,7 +1843,7 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 	size_t  path_len = 1;
 	zend_long glob_flags = 0;
 	zval *options = NULL;
-	zip_options opts;
+	zip_options opts = {0};
 	int found;
 	zend_string *pattern;
 
