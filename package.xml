@@ -27,7 +27,7 @@
   </stability>
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
-- Fix zip_entry_name() crash on invalid entry
+- Fixed bug GH-17736 Assertion failure zend_reference_destroy (nielsdos)
   </notes>
   <contents>
     <dir name="/">
