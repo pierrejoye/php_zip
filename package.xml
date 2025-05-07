@@ -28,6 +28,7 @@
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
 - Fixed bug GH-17736 Assertion failure zend_reference_destroy (nielsdos)
+- Fixed bug GH-18304 Changing the properties through dynamic properties triggers a SegFault (nielsdos)
   </notes>
   <contents>
     <dir name="/">
