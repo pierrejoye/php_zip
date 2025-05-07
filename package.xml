@@ -30,12 +30,14 @@
 - Fixed bug GH-17736 Assertion failure zend_reference_destroy (nielsdos)
 - Fixed bug GH-18304 Changing the properties through dynamic properties triggers a SegFault (nielsdos)
 - Fix uouv when handling empty options in ZipArchive::addGlob() (nielsdos)
+- Fix memory leak when handling a too long path in ZipArchive::addGlob() (nielsdos)
   </notes>
   <contents>
     <dir name="/">
       <dir name ="tests">
         <file name="001.phpt" role="test"/>
         <file name="addGlob_empty_options.phpt" role="test"/>
+        <file name="addGlob_too_long_add_path_option.phpt" role="test"/>
         <file name="binarynull.zip" role="test"/>
         <file name="bug11216.phpt" role="test"/>
         <file name="bug14962.phpt" role="test"/>
