@@ -18,7 +18,7 @@
   </lead>
   <date>2025-05-07</date>
   <version>
-    <release>1.22.6</release>
+    <release>1.22.7dev</release>
     <api>2.10.0</api>
   </version>
   <stability>
@@ -27,13 +27,7 @@
   </stability>
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
-- Fixed bug GH-17736 Assertion failure zend_reference_destroy (nielsdos)
-- Fixed bug GH-18304 Changing the properties through dynamic properties triggers a SegFault (nielsdos)
-- Fix uouv when handling empty options in ZipArchive::addGlob() (nielsdos)
-- Fix memory leak when handling a too long path in ZipArchive::addGlob() (nielsdos)
-- Fix GH-18431: Registering ZIP progress callback twice doesn't work (nielsdos)
-- Fix GH-18438: Handling of empty data and errors in ZipArchive::addPattern (nielsdos)
-- drop support for PHP 5.4 and 5.5
+-
   </notes>
   <contents>
     <dir name="/">
@@ -238,6 +232,27 @@
   <providesextension>zip</providesextension>
   <extsrcrelease/>
   <changelog>
+    <release>
+  <date>2025-05-07</date>
+      <version>
+        <release>1.22.6</release>
+        <api>2.10.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
+      <notes>
+- Fixed bug GH-17736 Assertion failure zend_reference_destroy (nielsdos)
+- Fixed bug GH-18304 Changing the properties through dynamic properties triggers a SegFault (nielsdos)
+- Fix uouv when handling empty options in ZipArchive::addGlob() (nielsdos)
+- Fix memory leak when handling a too long path in ZipArchive::addGlob() (nielsdos)
+- Fix GH-18431: Registering ZIP progress callback twice doesn't work (nielsdos)
+- Fix GH-18438: Handling of empty data and errors in ZipArchive::addPattern (nielsdos)
+- drop support for PHP 5.4 and 5.5
+      </notes>
+    </release>
     <release>
       <date>2025-02-20</date>
       <version>
