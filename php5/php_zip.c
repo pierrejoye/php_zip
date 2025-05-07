@@ -815,6 +815,10 @@ int php_zip_pcre(char *regexp, int regexp_len, char *path, int path_len, zval *r
 
 		re = pcre_get_compiled_regex(regexp, &pcre_extra, &preg_options TSRMLS_CC);
 		if (!re) {
+			for (i = 0; i < files_cnt; i++) {
+				efree(namelist[i]);
+			}
+			efree(namelist);
 			php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid expression");
 			return -1;
 		}
@@ -2043,6 +2047,11 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 #endif
 			}
 		}
+	} else if (found == 0) {
+		array_init(return_value);
+		return;
+	} else {
+		RETURN_FALSE;
 	}
 }
 /* }}} */

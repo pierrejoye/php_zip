@@ -32,6 +32,7 @@
 - Fix uouv when handling empty options in ZipArchive::addGlob() (nielsdos)
 - Fix memory leak when handling a too long path in ZipArchive::addGlob() (nielsdos)
 - Fix GH-18431: Registering ZIP progress callback twice doesn't work (nielsdos)
+- Fix GH-18438: Handling of empty data and errors in ZipArchive::addPattern (nielsdos)
   </notes>
   <contents>
     <dir name="/">
@@ -90,6 +91,7 @@
         <file name="bug_gh8781.phpt" role="test"/>
         <file name="gh17319.phpt" role="test"/>
         <file name="gh18431.phpt" role="test"/>
+        <file name="gh18438.phpt" role="test"/>
         <file name="bug_gh12661.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
