@@ -87,11 +87,7 @@ typedef struct _ze_zip_object {
 #endif
 } ze_zip_object;
 
-#if PHP_VERSION_ID < 50600
-php_stream *php_stream_zip_opener(php_stream_wrapper *wrapper,       char *path,       char *mode, int options, char **opened_path, php_stream_context *context STREAMS_DC TSRMLS_DC);
-#else
 php_stream *php_stream_zip_opener(php_stream_wrapper *wrapper, const char *path, const char *mode, int options, char **opened_path, php_stream_context *context STREAMS_DC TSRMLS_DC);
-#endif
 php_stream *php_stream_zip_open(struct zip *arch, struct zip_stat *sb, const char *mode, zip_flags_t flags STREAMS_DC TSRMLS_DC);
 
 extern php_stream_wrapper php_stream_zip_wrapper;
