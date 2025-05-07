@@ -1,7 +1,10 @@
 --TEST--
 GH-18431 (Registering ZIP progress callback twice doesn't work)
---EXTENSIONS--
-zip
+--SKIPIF--
+<?php
+if (!extension_loaded('zip')) die('skip extension not loaded');
+if (!method_exists('ZipArchive', 'registerProgressCallback')) die('skip libzip too old');
+?>
 --FILE--
 <?php
 $file = __DIR__ . '/gh18431.zip';

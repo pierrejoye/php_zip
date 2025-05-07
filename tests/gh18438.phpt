@@ -1,9 +1,8 @@
 --TEST--
 GH-18438 (Handling of empty data and errors in ZipArchive::addPattern)
---EXTENSIONS--
-zip
 --SKIPIF--
 <?php
+if (!extension_loaded('zip')) die('skip extension not loaded');
 if (PHP_ZTS) die("skip not for ZTS because of path prefixing breaking custom wrapper test");
 ?>
 --FILE--
@@ -13,7 +12,7 @@ class CustomStreamWrapper {
     function dir_closedir() {
         return true;
     }
-    function dir_opendir(string $path, int $options) {
+    function dir_opendir($path, $options) {
         return true;
     }
     function dir_readdir() {

@@ -1,7 +1,9 @@
 --TEST--
 addGlob with empty options
---EXTENSIONS--
-zip
+--SKIPIF--
+<?php
+if (!extension_loaded('zip')) die('skip extension not loaded');
+?>
 --FILE--
 <?php
 
