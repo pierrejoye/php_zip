@@ -3427,16 +3427,13 @@ static ZIPARCHIVE_METHOD(registerProgressCallback)
 
 	obj = (ze_zip_object*) zend_object_store_get_object(self TSRMLS_CC);
 
-	/* free if called twice */
-	_php_zip_progress_callback_free(obj);
-
 	/* register */
-	ALLOC_ZVAL(obj->progress_callback);
-	*obj->progress_callback = *callback;
-	zval_copy_ctor(obj->progress_callback);
 	if (zip_register_progress_callback_with_state(intern, rate, _php_zip_progress_callback, _php_zip_progress_callback_free, obj)) {
 		RETURN_FALSE;
 	}
+	ALLOC_ZVAL(obj->progress_callback);
+	*obj->progress_callback = *callback;
+	zval_copy_ctor(obj->progress_callback);
 
 	RETURN_TRUE;
 }
@@ -3494,16 +3491,13 @@ static ZIPARCHIVE_METHOD(registerCancelCallback)
 
 	obj = (ze_zip_object*) zend_object_store_get_object(self TSRMLS_CC);
 
-	/* free if called twice */
-	_php_zip_cancel_callback_free(obj);
-
 	/* register */
-	ALLOC_ZVAL(obj->cancel_callback);
-	*obj->cancel_callback = *callback;
-	zval_copy_ctor(obj->cancel_callback);
 	if (zip_register_cancel_callback_with_state(intern, _php_zip_cancel_callback, _php_zip_cancel_callback_free, obj)) {
 		RETURN_FALSE;
 	}
+	ALLOC_ZVAL(obj->cancel_callback);
+	*obj->cancel_callback = *callback;
+	zval_copy_ctor(obj->cancel_callback);
 
 	RETURN_TRUE;
 }
