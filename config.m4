@@ -36,6 +36,9 @@ if test "$PHP_ZIP" != "no"; then
   elif test $PHP_VERSION -lt 80500; then
     AC_MSG_RESULT(8.1/8.2/8.3/8.4)
     subdir=php81
+  elif test $PHP_VERSION -lt 80600; then
+    AC_MSG_RESULT(8.5)
+    subdir=php85
   else
     AC_MSG_ERROR(PHP version $PHP_VERSION is not supported yet)
   fi
