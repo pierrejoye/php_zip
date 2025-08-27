@@ -31,6 +31,6 @@ var_dump($a);
 
 --EXPECTF--
 
-Warning: ZipArchive::extractTo(teststream://test/foo): %sailed to open stream: "TestStream::stream_open" call failed in %s on line %d
+Warning: ZipArchive::extractTo(teststream://test/foo): %sailed to open stream: "TestStream::stream_open" %s on line %d
 bool(false)
 
