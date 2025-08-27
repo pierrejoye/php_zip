@@ -234,6 +234,7 @@ static int php_zip_extract_file(struct zip * za, char *dest, const char *file, i
 		return 0;
 	} else if (len > MAXPATHLEN) {
 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Full extraction path exceed MAXPATHLEN (%i)", MAXPATHLEN);
+		efree(fullpath);
 		efree(file_dirname_fullpath);
 		efree(file_basename);
 		efree(new_state.cwd);
