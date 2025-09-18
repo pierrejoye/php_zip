@@ -16,7 +16,7 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2025-07-01</date>
+  <date>2025-09-18</date>
   <version>
     <release>1.22.7dev</release>
     <api>2.10.0</api>
@@ -90,6 +90,7 @@
         <file name="gh17319.phpt" role="test"/>
         <file name="gh18431.phpt" role="test"/>
         <file name="gh18438.phpt" role="test"/>
+        <file name="gh19688.phpt" role="test"/>
         <file name="bug_gh12661.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
