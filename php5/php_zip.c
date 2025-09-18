@@ -1968,7 +1968,7 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 					php_basename(Z_STRVAL_PP(zval_file), Z_STRLEN_PP(zval_file), NULL, 0,
 									&basename, (size_t *)&file_stripped_len TSRMLS_CC);
 					file_stripped = basename;
-				} else if (opts.remove_path && !memcmp(Z_STRVAL_PP(zval_file), opts.remove_path, opts.remove_path_len)) {
+				} else if (opts.remove_path && Z_STRLEN_PP(zval_file) > opts.remove_path_len &&  !memcmp(Z_STRVAL_PP(zval_file), opts.remove_path, opts.remove_path_len)) {
 					if (IS_SLASH(Z_STRVAL_PP(zval_file)[opts.remove_path_len])) {
 						file_stripped = Z_STRVAL_PP(zval_file) + opts.remove_path_len + 1;
 						file_stripped_len = Z_STRLEN_PP(zval_file) - opts.remove_path_len - 1;

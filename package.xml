@@ -29,6 +29,8 @@
   <notes>
 - compatibility with 8.5
 - Fix leak when path is too long in ZipArchive::extractTo(). (nielsdos)
+- Fix memory leak in zip when encountering empty glob result. (nielsdos)
+- Fixed bug GH-19688 (Remove pattern overflow in zip addGlob()). (nielsdos)
   </notes>
   <contents>
     <dir name="/">
