@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2025-09-18</date>
+  <date>2025-09-25</date>
   <version>
-    <release>1.22.7dev</release>
+    <release>1.22.7</release>
     <api>2.10.0</api>
   </version>
   <stability>
@@ -233,7 +233,7 @@
     <required>
       <php>
         <min>5.6.0</min>
-        <max>8.4.99</max>
+        <max>8.5.99</max>
       </php>
       <pearinstaller>
         <min>1.7.0</min>
