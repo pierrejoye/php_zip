@@ -18,7 +18,7 @@
   </lead>
   <date>2025-09-25</date>
   <version>
-    <release>1.22.7</release>
+    <release>1.22.8dev</release>
     <api>2.10.0</api>
   </version>
   <stability>
@@ -27,10 +27,7 @@
   </stability>
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
-- compatibility with 8.5
-- Fix leak when path is too long in ZipArchive::extractTo(). (nielsdos)
-- Fix memory leak in zip when encountering empty glob result. (nielsdos)
-- Fixed bug GH-19688 (Remove pattern overflow in zip addGlob()). (nielsdos)
+- 
   </notes>
   <contents>
     <dir name="/">
@@ -244,7 +241,25 @@
   <extsrcrelease/>
   <changelog>
     <release>
-  <date>2025-05-07</date>
+      <date>2025-09-25</date>
+      <version>
+        <release>1.22.7</release>
+        <api>2.10.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
+      <notes>
+- compatibility with 8.5
+- Fix leak when path is too long in ZipArchive::extractTo(). (nielsdos)
+- Fix memory leak in zip when encountering empty glob result. (nielsdos)
+- Fixed bug GH-19688 (Remove pattern overflow in zip addGlob()). (nielsdos)
+      </notes>
+    </release>
+    <release>
+      <date>2025-05-07</date>
       <version>
         <release>1.22.6</release>
         <api>2.10.0</api>
