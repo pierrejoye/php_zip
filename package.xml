@@ -27,7 +27,7 @@
   </stability>
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
-- 
+- Fixed bug GH-19932 Memory leak in zip setEncryptionName()/setEncryptionIndex() (David Carlier)
   </notes>
   <contents>
     <dir name="/">
@@ -88,6 +88,7 @@
         <file name="gh18431.phpt" role="test"/>
         <file name="gh18438.phpt" role="test"/>
         <file name="gh19688.phpt" role="test"/>
+        <file name="gh19932.phpt" role="test"/>
         <file name="bug_gh12661.phpt" role="test"/>
         <file name="compression_methods.phpt" role="test"/>
         <file name="compression_methods.zip" role="test"/>
@@ -253,9 +254,9 @@
       <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
       <notes>
 - compatibility with 8.5
-- Fix leak when path is too long in ZipArchive::extractTo(). (nielsdos)
-- Fix memory leak in zip when encountering empty glob result. (nielsdos)
-- Fixed bug GH-19688 (Remove pattern overflow in zip addGlob()). (nielsdos)
+- Fix leak when path is too long in ZipArchive::extractTo() (nielsdos)
+- Fix memory leak in zip when encountering empty glob result (nielsdos)
+- Fixed bug GH-19688 Remove pattern overflow in zip addGlob() (nielsdos)
       </notes>
     </release>
     <release>
