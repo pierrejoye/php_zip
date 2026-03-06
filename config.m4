@@ -18,14 +18,8 @@ if test "$PHP_ZIP" != "no"; then
 
   PHP_VERSION=$($PHP_CONFIG --vernum)
   AC_MSG_CHECKING(PHP version)
-  if test $PHP_VERSION -lt 70000; then
-    AC_MSG_RESULT(5.x)
-    subdir=php5
-  elif test $PHP_VERSION -lt 70300; then
-    AC_MSG_RESULT(7.0/7.1/7.2)
-    subdir=php7
-  elif test $PHP_VERSION -lt 70400; then
-    AC_MSG_RESULT(7.3)
+  if test $PHP_VERSION -lt 70400; then
+    AC_MSG_ERROR(PHP version $PHP_VERSION is no more supported)
     subdir=php73
   elif test $PHP_VERSION -lt 80000; then
     AC_MSG_RESULT(7.4)

@@ -18,13 +18,7 @@ if (PHP_ZIP != "no") {
 		
 		/* XXX tricky job here, override configure_module_dirname, define the basic extension,
 			then set it back*/
-			if (PHP_VERSION == 5) {
-				configure_module_dirname = configure_module_dirname + "\\php5";
-			} else if (PHP_VERSION == 7 && PHP_MINOR_VERSION < 3) {
-				configure_module_dirname = configure_module_dirname + "\\php7";
-			} else if (PHP_VERSION == 7 && PHP_MINOR_VERSION == 3) {
-				configure_module_dirname = configure_module_dirname + "\\php73";
-			} else if (PHP_VERSION == 7 && PHP_MINOR_VERSION == 4) {
+			if (PHP_VERSION == 7 && PHP_MINOR_VERSION == 4) {
 				configure_module_dirname = configure_module_dirname + "\\php74";
 			} else if (PHP_VERSION == 8 && PHP_MINOR_VERSION == 0) {
 				configure_module_dirname = configure_module_dirname + "\\php8";
