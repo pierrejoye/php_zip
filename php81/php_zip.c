@@ -1354,7 +1354,7 @@ PHP_FUNCTION(zip_entry_read)
 	zend_long len = 0;
 	zip_read_rsrc * zr_rsrc;
 	zend_string *buffer;
-	int n = 0;
+	zip_int64_t n = 0;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "r|l", &zip_entry, &len) == FAILURE) {
 		RETURN_THROWS();
@@ -2927,7 +2927,7 @@ static void php_zip_get_from(INTERNAL_FUNCTION_PARAMETERS, int type) /* {{{ */
 	zend_string *filename;
 	zend_string *buffer;
 
-	int n = 0;
+	zip_int64_t n = 0;
 
 	if (type == 1) {
 		if (zend_parse_parameters(ZEND_NUM_ARGS(), "P|ll", &filename, &len, &flags) == FAILURE) {

@@ -29,6 +29,7 @@
   <notes>
 - Fixed bug GH-19932 Memory leak in zip setEncryptionName()/setEncryptionIndex() (David Carlier)
 - Fix crash in property existence test. (ndossche)
+- Don't truncate return value of zip_fread() with user sizes. (ndossche)
   </notes>
   <contents>
     <dir name="/">

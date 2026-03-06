@@ -1501,7 +1501,7 @@ static PHP_NAMED_FUNCTION(zif_zip_entry_read)
 	long len = 0;
 	zip_read_rsrc * zr_rsrc;
 	char *buffer;
-	int n = 0;
+	zip_int64_t n = 0;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "r|l", &zip_entry, &len) == FAILURE) {
 		return;
@@ -3239,7 +3239,7 @@ static void php_zip_get_from(INTERNAL_FUNCTION_PARAMETERS, int type) /* {{{ */
 	long len = 0;
 
 	char *buffer;
-	int n = 0;
+	zip_int64_t n = 0;
 
 	if (!this) {
 		RETURN_FALSE;
