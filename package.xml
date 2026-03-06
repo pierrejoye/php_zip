@@ -30,6 +30,8 @@
 - Fixed bug GH-19932 Memory leak in zip setEncryptionName()/setEncryptionIndex() (David Carlier)
 - Fix crash in property existence test. (ndossche)
 - Don't truncate return value of zip_fread() with user sizes. (ndossche)
+- Fix memory leak when passing enc_method/enc_password is passed as option for ZipArchive::addGlob()/addPattern()
+  and with consecutive calls. (David Carlier)
   </notes>
   <contents>
     <dir name="/">
@@ -104,6 +106,7 @@
         <file name="oo_add_from_string.phpt" role="test"/>
         <file name="oo_addglob.phpt" role="test"/>
         <file name="oo_addglob2.phpt" role="test"/>
+        <file name="oo_addglob_leak.phpt" role="test"/>
         <file name="oo_addpattern.phpt" role="test"/>
         <file name="oo_archive_flag.phpt" role="test"/>
         <file name="oo_cancel.phpt" role="test"/>

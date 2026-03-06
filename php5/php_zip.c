@@ -2016,6 +2016,11 @@ static void php_zip_add_from_pattern(INTERNAL_FUNCTION_PARAMETERS, int type) /* 
 				}
 #ifdef HAVE_ENCRYPTION
 				if (opts.enc_method >= 0) {
+					if (zip_file_set_encryption(ze_obj->za, ze_obj->last_id, ZIP_EM_NONE, NULL) < 0) {
+						zval_dtor(return_value);
+						php_error_docref(NULL TSRMLS_CC, E_WARNING, "password reset failed");
+						RETURN_FALSE;
+					}
 					if (zip_file_set_encryption(ze_obj->za, ze_obj->last_id, opts.enc_method, opts.enc_password)) {
 						zval_dtor(return_value);
 						RETURN_FALSE;
