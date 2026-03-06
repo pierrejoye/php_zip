@@ -1,11 +1,10 @@
 --TEST--
 ZipArchive::addGlob() method leaking after several calls when encryption is set.
---EXTENSIONS--
-zip
 --SKIPIF--
 <?php
+if (!extension_loaded('zip')) die('skip');
 if (!method_exists('ZipArchive', 'setEncryptionName')) die('skip encrytion not supported');
-if(!defined("GLOB_BRACE")) die ('skip requires GLOB_BRACE');
+if (!defined("GLOB_BRACE")) die ('skip requires GLOB_BRACE');
 ?>
 --FILE--
 <?php

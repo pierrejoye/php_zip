@@ -3,6 +3,7 @@ Property existence test can cause a crash
 --SKIPIF--
 <?php
 if (!extension_loaded('zip')) die('skip');
+if (PHP_VERSION_ID < 70000) die('skip PHP 7+ only');
 ?>
 --FILE--
 <?php

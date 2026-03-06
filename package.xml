@@ -16,9 +16,9 @@
     <email>remi@php.net</email>
     <active>yes</active>
   </lead>
-  <date>2025-09-25</date>
+  <date>2026-03-06</date>
   <version>
-    <release>1.22.8dev</release>
+    <release>1.22.8</release>
     <api>2.10.0</api>
   </version>
   <stability>
@@ -28,10 +28,10 @@
   <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
   <notes>
 - Fixed bug GH-19932 Memory leak in zip setEncryptionName()/setEncryptionIndex() (David Carlier)
-- Fix crash in property existence test. (ndossche)
-- Don't truncate return value of zip_fread() with user sizes. (ndossche)
 - Fix memory leak when passing enc_method/enc_password is passed as option for ZipArchive::addGlob()/addPattern()
   and with consecutive calls. (David Carlier)
+- Fix crash in property existence test. (ndossche)
+- Don't truncate return value of zip_fread() with user sizes. (ndossche)
   </notes>
   <contents>
     <dir name="/">
