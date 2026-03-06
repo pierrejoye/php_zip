@@ -1054,9 +1054,8 @@ static int php_zip_has_property(zval *object, zval *member, int type, void **cac
 			} else if (type == 0) {
 				retval = (Z_TYPE(tmp) != IS_NULL);
 			}
+			zval_ptr_dtor(&tmp);
 		}
-
-		zval_ptr_dtor(&tmp);
 	} else {
 		retval = zend_std_has_property(object, member, type, cache_slot);
 	}

@@ -1050,9 +1050,8 @@ static int php_zip_has_property(zval *object, zval *member, int type, void **cac
 			} else if (type == 0) {
 				retval = (Z_TYPE(tmp) != IS_NULL);
 			}
+			zval_ptr_dtor(&tmp);
 		}
-
-		zval_ptr_dtor(&tmp);
 	} else {
 		std_hnd = zend_get_std_object_handlers();
 		retval = std_hnd->has_property(object, member, type, cache_slot);
