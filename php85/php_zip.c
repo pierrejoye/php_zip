@@ -1290,7 +1290,6 @@ PHP_FUNCTION(zip_entry_read)
 	zend_long len = 0;
 	zip_read_rsrc * zr_rsrc;
 	zend_string *buffer;
-	zip_int64_t n = 0;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "r|l", &zip_entry, &len) == FAILURE) {
 		RETURN_THROWS();
@@ -1306,7 +1305,7 @@ PHP_FUNCTION(zip_entry_read)
 
 	if (zr_rsrc->zf) {
 		buffer = zend_string_safe_alloc(1, len, 0, 0);
-		n = zip_fread(zr_rsrc->zf, ZSTR_VAL(buffer), ZSTR_LEN(buffer));
+		zip_int64_t n = zip_fread(zr_rsrc->zf, ZSTR_VAL(buffer), ZSTR_LEN(buffer));
 		if (n > 0) {
 			ZSTR_VAL(buffer)[n] = '\0';
 			ZSTR_LEN(buffer) = n;
@@ -2868,8 +2867,6 @@ static void php_zip_get_from(INTERNAL_FUNCTION_PARAMETERS, int type) /* {{{ */
 	zend_string *filename;
 	zend_string *buffer;
 
-	zip_int64_t n = 0;
-
 	if (type == 1) {
 		if (zend_parse_parameters(ZEND_NUM_ARGS(), "P|ll", &filename, &len, &flags) == FAILURE) {
 			RETURN_THROWS();
@@ -2906,7 +2903,7 @@ static void php_zip_get_from(INTERNAL_FUNCTION_PARAMETERS, int type) /* {{{ */
 	}
 
 	buffer = zend_string_safe_alloc(1, len, 0, 0);
-	n = zip_fread(zf, ZSTR_VAL(buffer), ZSTR_LEN(buffer));
+	zip_int64_t n = zip_fread(zf, ZSTR_VAL(buffer), ZSTR_LEN(buffer));
 	if (n < 1) {
 		zend_string_efree(buffer);
 		RETURN_EMPTY_STRING();
@@ -3030,6 +3027,7 @@ PHP_METHOD(ZipArchive, registerProgressCallback)
 
 	/* register */
 	if (zip_register_progress_callback_with_state(intern, rate, php_zip_progress_callback, php_zip_progress_callback_free, obj)) {
+		zend_release_fcall_info_cache(&fcc);
 		RETURN_FALSE;
 	}
 	zend_fcc_dup(&obj->progress_callback, &fcc);
@@ -3085,6 +3083,7 @@ PHP_METHOD(ZipArchive, registerCancelCallback)
 
 	/* register */
 	if (zip_register_cancel_callback_with_state(intern, php_zip_cancel_callback, php_zip_cancel_callback_free, obj)) {
+		zend_release_fcall_info_cache(&fcc);
 		RETURN_FALSE;
 	}
 	zend_fcc_dup(&obj->cancel_callback, &fcc);
