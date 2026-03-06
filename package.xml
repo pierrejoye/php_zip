@@ -140,6 +140,7 @@
         <file name="oo_unchangeName.phpt" role="test"/>
         <file name="pecl12414.phpt" role="test"/>
         <file name="pecl12414.zip" role="test"/>
+        <file name="property_existence_test.phpt" role="test"/>
         <file name="stream_meta_data.phpt" role="test"/>
         <file name="test_procedural.zip" role="test"/>
         <file name="test_with_comment.zip" role="test"/>
